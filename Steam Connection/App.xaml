@@ -1,0 +1,29 @@
+﻿<Application x:Class="Steam_Connection.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Steam_Connection"
+             xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
+             xmlns:view="clr-namespace:Steam_Connection.MVVM.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/ModernTextboxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/EditCheckboxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/ModernButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/ModernPasswordboxTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <DataTemplate DataType="{x:Type viewModel:AccountsViewModel}">
+                <view:AccountsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+                <view:SettingsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AddAccountViewModel}">
+                <view:AddAccountView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

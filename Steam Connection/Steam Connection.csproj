@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02A17623-84C2-413F-88CE-05A5B879C48A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Steam_Connection</RootNamespace>
+    <AssemblyName>Steam Connection</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>./Images/exe_ico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FuzzySharp, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FuzzySharp.2.0.2\lib\net461\FuzzySharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Environment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Environment.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Core\Config.cs" />
+    <Compile Include="DotEnv.cs" />
+    <Compile Include="MVVM\Model\Account.cs" />
+    <Compile Include="MVVM\Model\CSRank.cs" />
+    <Compile Include="MVVM\Model\D2Rank.cs" />
+    <Compile Include="MVVM\ViewModel\AccountsBannerViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\AddAccountViewModel.cs" />
+    <Compile Include="MVVM\View\AccountBannerView.xaml.cs">
+      <DependentUpon>AccountBannerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\AddAccountView.xaml.cs">
+      <DependentUpon>AddAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Parsers\CSGORankParser.cs" />
+    <Compile Include="Parsers\Dota2RankParser.cs" />
+    <Compile Include="Parsers\SteamParser.cs" />
+    <Compile Include="Themes\BindablePasswordBox.xaml.cs">
+      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Extentions.cs" />
+    <Compile Include="Validations\SteamLinkValidation.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\ObservableObject.cs" />
+    <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MVVM\View\AccountBannerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\AccountsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\AddAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\EditCheckboxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MenuButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernPasswordboxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernTextboxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MVVM\ViewModel\AccountsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\SettingsViewModel.cs" />
+    <Compile Include="MVVM\View\AccountsView.xaml.cs">
+      <DependentUpon>AccountsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Fonts\dinot.otf" />
+    <Resource Include="Fonts\dinot-bold.otf" />
+    <Resource Include="Fonts\Dinot Font.otf" />
+    <Resource Include="Fonts\Inter-Black.ttf" />
+    <Resource Include="Fonts\Inter-Bold.ttf" />
+    <Resource Include="Fonts\Inter-ExtraBold.ttf" />
+    <Resource Include="Fonts\Inter-ExtraLight.ttf" />
+    <Resource Include="Fonts\Inter-Light.ttf" />
+    <Resource Include="Fonts\Inter-Medium.ttf" />
+    <Resource Include="Fonts\Inter-Regular.ttf" />
+    <Resource Include="Fonts\Inter-SemiBold.ttf" />
+    <Resource Include="Fonts\Inter-Thin.ttf" />
+    <None Include=".env" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\logo_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ruble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\exe_ico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\check_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\test_avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\test_avatar_2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no_vac_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VAC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Ranks\CSGO\skillgroup1.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup10.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup11.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup12.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup13.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup14.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup15.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup16.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup17.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup18.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup2.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup3.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup4.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup5.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup6.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup7.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup8.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup9.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup_expired.png" />
+    <Resource Include="Images\Ranks\CSGO\skillgroup_none.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank0-0.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank1-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank1-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank1-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank1-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank1-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank2-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank2-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank2-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank2-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank2-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank3-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank3-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank3-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank3-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank3-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank4-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank4-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank4-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank4-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank4-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank5-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank5-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank5-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank5-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank5-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank6-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank6-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank6-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank6-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank6-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank7-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank7-2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank7-3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank7-4.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank7-5.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop0.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop2.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop3.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop4.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

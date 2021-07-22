@@ -1,0 +1,139 @@
+﻿<Window x:Class="Steam_Connection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Steam_Connection"
+        xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Height="600" Width="950" 
+        WindowStyle="None"
+        ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Background="White" Grid.RowSpan="2"/>
+        <Border Background="#F5F5F5" Grid.Column="1" Grid.RowSpan="2"/>
+        <Grid x:Name="LogoGrid" MouseLeftButtonDown="DragWindow" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <Canvas Height="29"
+                        Width="29"
+                        Margin="20,20,0,0" 
+                        HorizontalAlignment="Left">
+                    <Path Data="M0 5C0 2.23858 2.23858 0 5 0H24C26.7614 0 29 2.23858 29 5V24C29 26.7614 26.7614 29 24 29H16.7335C19.6352 28.5993 21.87 26.106 21.87 23.09C21.87 19.7949 19.2025 17.1237 15.912 17.1237C14.2681 17.1237 12.7797 17.7905 11.7017 18.8686L14.0422 21.2123C14.5212 20.734 15.1821 20.4383 15.912 20.4383C17.3744 20.4383 18.56 21.6255 18.56 23.09C18.56 24.5545 17.3744 25.7417 15.912 25.7417C15.1794 25.7417 14.5163 25.4438 14.0369 24.9624L14.034 24.9653L7.9595 18.8824L7.96802 18.8739C6.88963 17.7926 5.39905 17.1237 3.75246 17.1237C2.33022 17.1237 1.02437 17.6228 0 18.4555V5ZM7.95392 27.3202L9.6666 29H4.98234L5 29H15.0905C13.7953 28.8211 12.633 28.2254 11.743 27.3523L11.7398 27.3555L5.56118 21.1683L5.56889 21.1605C5.09476 20.7128 4.45562 20.4383 3.75246 20.4383C2.29002 20.4383 1.10447 21.6255 1.10447 23.09C1.10447 24.5545 2.29002 25.7417 3.75246 25.7417C4.48234 25.7417 5.14326 25.446 5.62224 24.9676L7.96275 27.3114C7.95981 27.3144 7.95687 27.3173 7.95392 27.3202Z" Fill="#242731" />
+                </Canvas>
+                <TextBlock Text="STEAM CONNECTION" 
+                       Foreground="#FF242731" 
+                       FontFamily="/Steam Connection;component/Fonts/#DIN OT" 
+                       FontSize="18"
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Left" 
+                       Margin="8,23 ,0,0"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="MenuGrid" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="240"/>
+            </Grid.RowDefinitions>
+            <StackPanel> 
+                <RadioButton Content="Аккаунты"
+                             Height="40"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Margin="0 120 0 0"
+                             IsChecked="True" 
+                             Cursor="Hand"
+                             Command="{Binding AccountsViewCommand}"/>
+                <RadioButton Content="Настройки"
+                             Height="40"
+                             Style="{StaticResource MenuButtonTheme}" 
+                             Cursor="Hand"
+                             Command="{Binding SettingsViewCommand}"/>
+            </StackPanel>
+            <Border Width="210"
+                    Height="200"
+                    VerticalAlignment="Center"
+                    Grid.Row="01" HorizontalAlignment="Center" Cursor="Hand">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#4481EB" Offset="0"/>
+                        <GradientStop Color="#4A77C6" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Clip>
+                    <RectangleGeometry RadiusX="15"
+                                       RadiusY="15"
+                                       Rect="0,0,210,200"/>
+                </Border.Clip>
+                <Grid>
+                    <Image Width="224" 
+                           Source="/Images/Ruble.png" 
+                           HorizontalAlignment="Left" Margin="22,0,-36,0"/>
+                    <TextBlock Text="Поддержать автора" 
+                               Foreground="#FFFFFF" 
+                               FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
+                               FontSize="24"
+                               FontWeight="Bold" 
+                               Width="177"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"
+                               Margin="20,20,0,0" VerticalAlignment="Top"/>
+                    <TextBlock Text="На кофе в Макдоналдс или новый скин в кс.." 
+                               Foreground="#CCFFFFFF" 
+                               FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
+                               FontSize="14"
+                               FontWeight="Bold" 
+                               Width="162"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"
+                               Margin="18,0,0,20" 
+                               VerticalAlignment="Bottom"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid x:Name="TopPanelGrid" Grid.Column="1">
+            <Border MouseLeftButtonDown="DragWindow" Background="Transparent"></Border>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Grid Margin="0,0,15,0">
+                    <Rectangle x:Name="minimizeButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0" MouseLeftButtonUp="minimizeButton_MouseLeftButtonUp"/>
+                    <Rectangle Fill="#D4D4D4" Width="24" Height="3"/>
+                </Grid>
+                <Grid Margin="0,0,15,0">
+                    <Rectangle x:Name="exitButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0" MouseLeftButtonUp="exitButton_MouseLeftButtonUp"/>
+                    <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-45"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="45"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <ContentControl Grid.Row="1" 
+                        Grid.Column="1"
+                        Content="{Binding CurrentView}"/>
+    </Grid>
+</Window>

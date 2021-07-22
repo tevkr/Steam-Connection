@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Steam_Connection.MVVM.View.AccountsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Steam_Connection.MVVM.View"
+             xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
+             xmlns:themes="clr-namespace:Steam_Connection.Themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" 
+             d:DesignWidth="700">
+    <UserControl.DataContext>
+        <viewModel:AccountsViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="40 0 40 0">
+                <TextBox Height="37" 
+                         Width="394"
+                         VerticalContentAlignment="Center"
+                         themes:Extentions.Placeholder="Найти аккаунт"
+                         Style="{StaticResource ModernTextboxTheme}"></TextBox>
+                <CheckBox x:Name="EditCheckBox"
+                          Height="37" 
+                          Width="37" 
+                          Margin="15 0 0 0"
+                          Style="{StaticResource EditCheckBox}" 
+                          Cursor="Hand"/>
+                <Button x:Name="AddOrUpdateButton"
+                        themes:Extentions.IsEditMode="{Binding ElementName=EditCheckBox, Path=IsChecked}"
+                        themes:Extentions.EditModeContent="Обновить данные"
+                        Height="37" 
+                        Width="159" 
+                        Margin="15 0 0 0"
+                        Background="#4481EB"
+                        Content="Добавить аккаунт"
+                        Foreground="#FFFFFF"
+                        Style="{StaticResource ModernButtonTheme}"
+                        Command="{Binding AddAccountViewOrUpdateCommand}"
+                        CommandParameter="{Binding ElementName=EditCheckBox, Path=IsChecked}"
+                        Cursor="Hand"/>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Height="475" Margin="40 18 0 0">
+                <ListBox ItemsSource="{Binding AccountBannerViews}" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             Background="Transparent"
+                             BorderThickness="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter Margin="0 0 20 20"
+                                                              Height="120"
+                                                              Width="300"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <Border>
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                </ListBox>
+            </ScrollViewer>
+        </StackPanel>  
+    </Grid>
+</UserControl>

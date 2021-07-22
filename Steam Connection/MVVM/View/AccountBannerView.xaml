@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Steam_Connection.MVVM.View.AccountBannerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Steam_Connection.MVVM.View"
+             xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="120" 
+             d:DesignWidth="300"
+             Background="Transparent">
+    <Grid>
+        <Border Background="White"
+                CornerRadius="5"  
+                BorderThickness="1"
+                BorderBrush="#0C000000">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid VerticalAlignment="Center"
+                      HorizontalAlignment="Left"
+                      Margin="15 0 0 0"
+                      Height="90"
+                      Width="90">    
+                    <Border Name="Mask"
+                            Background="White"
+                            BorderBrush="#0C000000"
+                            BorderThickness="1"
+                            CornerRadius="5">
+                    </Border>
+                    <StackPanel>
+                        <Image Name="Receiver" 
+                               Source="{Binding SteamPicture, UpdateSourceTrigger=PropertyChanged}" />
+                        <StackPanel.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=Mask}" />
+                        </StackPanel.OpacityMask>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding SteamNickName, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Left"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               FontFamily="/Steam Connection;component/Fonts/#Inter"
+                               Margin="5 15 0 0"/>
+                    <Border Background="#FF5985"
+                            CornerRadius="5"
+                            Width="40"
+                            Height="20"
+                            HorizontalAlignment="Left"
+                            Margin="6 4 0 0">
+                        <TextBlock Text="VAC"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   FontSize="10"
+                                   LineHeight="10"
+                                   Margin="0 2 0 0"
+                                   FontFamily="/Steam Connection;component/Fonts/#Inter"/>
+                    </Border>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="6 20 0 0">
+                        <Image Source="{Binding cSRank}"
+                               Height="26"
+                               Width="64"
+                               Margin="0 0 10 0"/>
+                        <Image Source="{Binding d2Rank, UpdateSourceTrigger=PropertyChanged}"
+                               Height="30"
+                               Width="30"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Id, StringFormat=#{0}}"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"
+                           Margin="0 0 8 5"
+                           Foreground="#19000000"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
