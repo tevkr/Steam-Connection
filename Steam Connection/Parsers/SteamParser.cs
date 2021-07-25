@@ -11,67 +11,87 @@ namespace Steam_Connection.Parsers
     class SteamParser
     {
         private static string APIKey = System.Environment.GetEnvironmentVariable("STEAM_API_KEY");
-        private string steamLink { get; }
-        public string steamId64 { get; private set; }
-        public string nickname { get; private set; }
-        public string steamPicture { get; private set; }
-        public int vacCount { get; }
-        public int rank { get; }
-        public SteamParser(string steamLink)
+        private string steamId64;
+        private string nickname;
+        private string steamPicture;
+        public int vacCount;
+        public SteamParser(string steamId64)
         {
-            this.steamLink = steamLink;
-            getSteamId64();
-            parseAccInfo();
-        }
-        private void getSteamId64()
-        {
-            string[] steamLinkArr = steamLink.Split('/');
-            string steamId = steamLinkArr.Last(l => { return l != ""; });
-            if (steamLink.Contains("/profiles/"))
-            {
-                this.steamId64 = steamId;
-            }
-            else
-            {
-                string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + steamId;
-                var json = new WebClient().DownloadString(apiString);
-                var list = JsonConvert.DeserializeObject<RootObjectSteamId64>(json);
-                steamId64 = list.response.steamid;
-            }
             this.steamId64 = steamId64;
+            parseAccInfo();
+            parseVacs();
         }
-        public void parseAccInfo()
+        private string getPlayerSummariesString(string steamId)
         {
-            string apiString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + APIKey + "&steamids=" + steamId64;
+            return "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" 
+                + APIKey + "&steamids=" + steamId;
+        }
+        private string getPlayerBansString(string steamId)
+        {
+            return "http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=" 
+                + APIKey + "&steamids=" + steamId;
+        }
+        private void parseAccInfo()
+        {
+            string apiString = getPlayerSummariesString(steamId64);
             var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
             var list = JsonConvert.DeserializeObject<RootobjectAccInfo>(json);
             nickname = list.response.players[0].personaname;
             steamPicture = list.response.players[0].avatarfull;
         }
-        public void parseVacs()
+        private void parseVacs()
         {
-            // TODO
+
+            string apiString = getPlayerBansString(steamId64);
+            var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
+            var list = JsonConvert.DeserializeObject<RootObjectVacInfo>(json);
+            vacCount = Int32.Parse(list.players[0].NumberOfVACBans);
         }
-        public class ResponseSteamId64
+        public string getNickname()
+        {
+            return this.nickname;
+        }
+        public string getSteamPicture()
+        {
+            return this.steamPicture;
+        }
+        public int getVacCount()
+        {
+            return this.vacCount;
+        }
+        // SteamId64 from custom URL
+        private class ResponseSteamId64
         {
             public string steamid { get; set; }
         }
-        public class RootObjectSteamId64
+        private class RootObjectSteamId64
         {
             public ResponseSteamId64 response { get; set; }
         }
-        public class RootobjectAccInfo
+        // Account info from SteamId64
+        private class RootobjectAccInfo
         {
             public ResponseAccInfo response { get; set; }
         }
-        public class ResponseAccInfo
+        private class ResponseAccInfo
         {
             public Player[] players { get; set; }
         }
-        public class Player
+        private class Player
         {
             public string personaname { get; set; }
             public string avatarfull { get; set; }
         }
+
+        // VAC from SteamId64
+        private class RootObjectVacInfo
+        {
+            public PlayerVacInfo[] players { get; set; }
+        }
+        private class PlayerVacInfo
+        {
+            public string NumberOfVACBans { get; set; }
+        }
+        
     }
 }

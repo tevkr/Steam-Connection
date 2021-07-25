@@ -22,7 +22,7 @@ namespace Steam_Connection.Validations
         }
         private const int maxSteamId64Length = 17;
         private string steamLink;
-        private string steamId64Link;
+        private string steamId64;
         private steamLinkTypes steamLinkType = steamLinkTypes.unknown;
         public steamLinkTypes getSteamLinkType()
         {
@@ -32,6 +32,28 @@ namespace Steam_Connection.Validations
         {
             this.steamLink = steamLink;
             checkSteamLinkType();
+            convertSteamLinkToSteamId64();
+        }
+        private bool isSteamId64Correct(string steamId64)
+        {
+            string apiString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + APIKey + "&steamids=" + steamId64;
+            var json = new WebClient().DownloadString(apiString);
+            return (steamId64.Length == maxSteamId64Length && steamId64.All(char.IsDigit) && json != "{\"response\":{\"players\":[]}}");
+        }
+        private bool isCustomIdCorrect(string customId)
+        {
+            string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + customId;
+            var json = new WebClient().DownloadString(apiString);
+            var list = JsonConvert.DeserializeObject<Root>(json);
+            if (list.response.success == 1) return true;
+            else return false;
+        }
+        private string getSteamId64FromCustomId(string customId)
+        {
+            string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + customId;
+            var json = new WebClient().DownloadString(apiString);
+            var list = JsonConvert.DeserializeObject<Root>(json);
+            return list.response.steamid;
         }
         private void checkSteamLinkType()
         {
@@ -43,101 +65,72 @@ namespace Steam_Connection.Validations
                 string steamId = steamLinkArr.Last(l => { return l != ""; });
                 if (steamLink.Contains("/profiles/"))
                 {
-                    string apiString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + APIKey + "&steamids=" + steamId;
-                    var json = new WebClient().DownloadString(apiString);
-                    if (steamId.Length == maxSteamId64Length && steamId.All(char.IsDigit) && json != "{\"response\":{\"players\":[]}}")
+                    if (isSteamId64Correct(steamId))
                         steamLinkType = steamLinkTypes.steamId64Link;
-                    else
-                        steamLinkType = steamLinkTypes.errorType;
                 }
                 else
                 {
-                    string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + steamId;
-                    var json = new WebClient().DownloadString(apiString);
-                    var list = JsonConvert.DeserializeObject<Root>(json);
-                    if (list.response.success == 1)
+                    if (isCustomIdCorrect(steamId))
                         steamLinkType = steamLinkTypes.customIdLink;
-                    else
-                        steamLinkType = steamLinkTypes.errorType;
                 }
             }
             else
             {
                 string steamId = steamLink;
-                if (isDigitsOnly(steamId))
+                if (steamId.All(char.IsDigit))
                 {
-                    string apiString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + APIKey + "&steamids=" + steamId;
-                    var json = new WebClient().DownloadString(apiString);
-                    if (steamId.Length == maxSteamId64Length && steamId.All(char.IsDigit) && json != "{\"response\":{\"players\":[]}}")
+                    if (isSteamId64Correct(steamId))
                         steamLinkType = steamLinkTypes.steamId64;
-                    else
-                        steamLinkType = steamLinkTypes.errorType;
                 }
                 else
                 {
-                    string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + steamId;
-                    var json = new WebClient().DownloadString(apiString);
-                    var list = JsonConvert.DeserializeObject<Root>(json);
-                    if (list.response.success == 1)
+                    if (isCustomIdCorrect(steamId))
                         steamLinkType = steamLinkTypes.customId;
-                    else
-                        steamLinkType = steamLinkTypes.errorType;
                 }
             }
+            if (steamLinkType == steamLinkTypes.unknown)
+                steamLinkType = steamLinkTypes.errorType;
         }
-        public void convertSteamLinkToSteamId64Link()
+        private void convertSteamLinkToSteamId64()
         {
             if (steamLinkType != steamLinkTypes.unknown && steamLinkType != steamLinkTypes.errorType)
             {
                 if (steamLinkType == steamLinkTypes.steamId64Link)
                 {
-                    steamId64Link = steamLink;
+                    string[] steamLinkArr = steamLink.Split('/');
+                    string steamId = steamLinkArr.Last(l => { return l != ""; });
+                    steamId64 = steamId;
                 }
                 else if (steamLinkType == steamLinkTypes.steamId64)
                 {
-                    steamId64Link = "https://steamcommunity.com/profiles/" + steamLink;
+                    steamId64 = steamLink;
                 }
                 else if (steamLinkType == steamLinkTypes.customIdLink)
                 {
                     string[] steamLinkArr = steamLink.Split('/');
                     string steamId = steamLinkArr.Last(l => { return l != ""; });
-                    string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + steamId;
-                    var json = new WebClient().DownloadString(apiString);
-                    var list = JsonConvert.DeserializeObject<Root>(json);
-                    steamId64Link = "https://steamcommunity.com/profiles/" + list.response.steamid;
+                    steamId64 = getSteamId64FromCustomId(steamId);
                 }
                 else if (steamLinkType == steamLinkTypes.customId)
                 {
-                    string apiString = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + APIKey + "&vanityurl=" + steamLink;
-                    var json = new WebClient().DownloadString(apiString);
-                    var list = JsonConvert.DeserializeObject<Root>(json);
-                    steamId64Link = "https://steamcommunity.com/profiles/" + list.response.steamid;
+                    steamId64 = getSteamId64FromCustomId(steamLink);
                 }
             }
             else
             {
-                steamId64Link = "";
+                steamId64 = "";
             }
         }
-        public string getSteamId64Link()
+        public string getSteamId64()
         {
-            return steamId64Link;
+            return steamId64;
         }
-        private bool isDigitsOnly(string str)
-        {
-            foreach (char c in str)
-            {
-                if (c < '0' || c > '9')
-                    return false;
-            }
-            return true;
-        }
-        public class Response
+        private class Response
         {
             public string steamid { get; set; }
             public int success { get; set; }
         }
-        public class Root
+        private class Root
         {
             public Response response { get; set; }
         }

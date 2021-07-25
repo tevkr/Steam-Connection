@@ -20,25 +20,24 @@
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid VerticalAlignment="Center"
-                      HorizontalAlignment="Left"
-                      Margin="15 0 0 0"
-                      Height="90"
-                      Width="90">    
-                    <Border Name="Mask"
-                            Background="White"
-                            BorderBrush="#0C000000"
-                            BorderThickness="1"
-                            CornerRadius="5">
-                    </Border>
-                    <StackPanel>
-                        <Image Name="Receiver" 
-                               Source="{Binding SteamPicture, UpdateSourceTrigger=PropertyChanged}" />
-                        <StackPanel.OpacityMask>
-                            <VisualBrush Visual="{Binding ElementName=Mask}" />
-                        </StackPanel.OpacityMask>
-                    </StackPanel>
-                </Grid>
+                <Border BorderThickness="2" 
+                        BorderBrush="#EEEEEE" 
+                        CornerRadius="5" 
+                        Padding="0"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Height="90"
+                        Width="90">
+                    <Grid>
+                        <Border Name="mask" Background="White" CornerRadius="5"/>
+                        <StackPanel>
+                            <StackPanel.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=mask}"/>
+                            </StackPanel.OpacityMask>
+                            <Image Source="{Binding SteamPicture, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="{Binding SteamNickName, UpdateSourceTrigger=PropertyChanged}"
                                HorizontalAlignment="Left"
@@ -46,7 +45,7 @@
                                FontWeight="Bold"
                                FontFamily="/Steam Connection;component/Fonts/#Inter"
                                Margin="5 15 0 0"/>
-                    <Border Background="#FF5985"
+                    <Border 
                             CornerRadius="5"
                             Width="40"
                             Height="20"
@@ -58,12 +57,21 @@
                                    Foreground="White"
                                    FontSize="10"
                                    LineHeight="10"
-                                   Margin="0 2 0 0"
                                    FontFamily="/Steam Connection;component/Fonts/#Inter"/>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Background" Value="#FF5985"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding VacCount, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Background" Value="#25AB75"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                     </Border>
                     <StackPanel Orientation="Horizontal"
                                 Margin="6 20 0 0">
-                        <Image Source="{Binding cSRank}"
+                        <Image Source="{Binding cSRank, UpdateSourceTrigger=PropertyChanged}"
                                Height="26"
                                Width="64"
                                Margin="0 0 10 0"/>
@@ -71,6 +79,204 @@
                                Height="30"
                                Width="30"/>
                     </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="2" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0 0 12 0">
+                    <!--<StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="10"/>
+                        </Style>
+                    </StackPanel.Resources>-->
+                    <Button Height="26" Width="26" Margin="0 0 0 4" Cursor="Hand" Command="{Binding DeleteAccoundCommand}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource {x:Type Button}}"
+                                   TargetType="{x:Type Button}">
+                                <Style.Setters>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Height="26"
+                                                        Width="26"
+                                                        Background="#FF5985"
+                                                        CornerRadius="2"
+                                                        Cursor="Hand">
+                                                    <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                                                        <Canvas Height="24" Width="24"
+                                                                Margin="4">
+                                                            <Path Data="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" 
+                                                                  Fill="#FFFFFF"
+                                                                  HorizontalAlignment="Center"/>
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Height="26" Width="26" Margin="0 4 0 4" Cursor="Hand">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource {x:Type Button}}"
+                                   TargetType="{x:Type Button}">
+                                <Style.Setters>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Height="26"
+                                                        Width="26"
+                                                        Background="#595959"
+                                                        CornerRadius="2"
+                                                        Cursor="Hand">
+                                                    <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                                                        <Canvas Height="24" Width="24"
+                                                                Margin="4">
+                                                            <Path Data="M0 0h24v24H0V0z" Fill="#00000000" />
+                                                            <Path Data="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" Fill="#FFFFFF" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Height="26" Width="26" Margin="0 4 0 0" Cursor="Hand" Command="{Binding EditAccountCommand}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource {x:Type Button}}"
+                                   TargetType="{x:Type Button}">
+                                <Style.Setters>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Height="26"
+                                                        Width="26"
+                                                        Background="#4481EB"
+                                                        CornerRadius="2"
+                                                        Cursor="Hand">
+                                                    <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                                                        <Canvas Height="24" Width="24"
+                                                                Margin="8">
+                                                            <Path Data="M0 0h24v24H0z" Fill="#00000000" />
+                                                            <Path Data="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" Fill="#FFFFFF" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <!--<Border Height="26"
+                            Width="26"
+                            Background="#FF5985"
+                            CornerRadius="2"
+                            Margin="0 0 0 4"
+                            Cursor="Hand">
+                        <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                            <Canvas Height="24" Width="24"
+                                    Margin="4">
+                                <Path Data="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" 
+                                      Fill="#FFFFFF"
+                                      HorizontalAlignment="Center"/>
+                            </Canvas>
+                        </Viewbox>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>-->
+                    <!--<Border Height="26"
+                            Width="26"
+                            Background="#595959"
+                            CornerRadius="2"
+                            Margin="0 4 0 4"
+                            Cursor="Hand">
+                        <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                            <Canvas Height="24" Width="24"
+                                    Margin="4">
+                                <Path Data="M0 0h24v24H0V0z" Fill="#00000000" />
+                                <Path Data="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" Fill="#FFFFFF" />
+                            </Canvas>
+                        </Viewbox>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>-->
+                    <!--<Border Height="26"
+                            Width="26"
+                            Background="#4481EB"
+                            CornerRadius="2"
+                            Margin="0 4 0 0"
+                            Cursor="Hand">
+                        <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                            <Canvas Height="24" Width="24"
+                                    Margin="8">
+                                <Path Data="M0 0h24v24H0z" Fill="#00000000" />
+                                <Path Data="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" Fill="#FFFFFF" />
+                            </Canvas>
+                        </Viewbox>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>-->
                 </StackPanel>
                 <TextBlock Grid.Column="2"
                            Text="{Binding Id, StringFormat=#{0}}"
@@ -80,8 +286,29 @@
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
                            Margin="0 0 8 5"
-                           Foreground="#19000000"/>
+                           Foreground="#19000000">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="Cursor" Value="Arrow"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
         </Border>
     </Grid>
 </UserControl>

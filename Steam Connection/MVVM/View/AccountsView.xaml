@@ -25,7 +25,9 @@
                           Width="37" 
                           Margin="15 0 0 0"
                           Style="{StaticResource EditCheckBox}" 
-                          Cursor="Hand"/>
+                          Cursor="Hand"
+                          Command="{Binding EditModeCommand}"
+                          CommandParameter="{Binding ElementName=EditCheckBox, Path=IsChecked}"/>
                 <Button x:Name="AddOrUpdateButton"
                         themes:Extentions.IsEditMode="{Binding ElementName=EditCheckBox, Path=IsChecked}"
                         themes:Extentions.EditModeContent="Обновить данные"
@@ -41,10 +43,11 @@
                         Cursor="Hand"/>
             </StackPanel>
             <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Height="475" Margin="40 18 0 0">
-                <ListBox ItemsSource="{Binding AccountBannerViews}" 
+                <ListBox ItemsSource="{Binding AccountBannerViews, UpdateSourceTrigger=PropertyChanged}" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              Background="Transparent"
-                             BorderThickness="0">
+                             BorderThickness="0"
+                         AllowDrop="True">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>

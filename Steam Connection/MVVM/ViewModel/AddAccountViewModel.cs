@@ -93,8 +93,7 @@ namespace Steam_Connection.MVVM.ViewModel
                 }
                 else
                 {
-                    slv.convertSteamLinkToSteamId64Link();
-                    config.accounts.Add(new Model.Account(slv.getSteamId64Link(), SteamLogin, SteamPassword));
+                    config.accounts.Add(new Model.Account(slv.getSteamId64(), SteamLogin, SteamPassword));
                     config.saveChanges();
                     MainViewModel.AccountsViewCommand.Execute(null);
                 }

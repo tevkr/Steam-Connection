@@ -211,9 +211,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\logo_light.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank8-0.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank8-1.png" />
+    <Resource Include="Images\Ranks\Dota2\SeasonalRank8-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ruble.png" />
@@ -226,18 +227,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\check_light.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\test_avatar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\test_avatar_2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\no_vac_light.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\VAC.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ranks\CSGO\skillgroup1.png" />
@@ -296,11 +285,6 @@
     <Resource Include="Images\Ranks\Dota2\SeasonalRank7-3.png" />
     <Resource Include="Images\Ranks\Dota2\SeasonalRank7-4.png" />
     <Resource Include="Images\Ranks\Dota2\SeasonalRank7-5.png" />
-    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop0.png" />
-    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop1.png" />
-    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop2.png" />
-    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop3.png" />
-    <Resource Include="Images\Ranks\Dota2\SeasonalRankTop4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

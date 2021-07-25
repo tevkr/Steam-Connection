@@ -47,7 +47,7 @@ namespace Steam_Connection.Core.Config
         public void updateAccInfo()
         {
             for (int i = 0; i < accounts.Count; i++)
-                accounts[i] = new Account(accounts[i].steamLink, accounts[i].login, accounts[i].password);
+                accounts[i] = new Account(accounts[i].steamId64, accounts[i].login, accounts[i].password);
         }
         public void saveChanges()
         {

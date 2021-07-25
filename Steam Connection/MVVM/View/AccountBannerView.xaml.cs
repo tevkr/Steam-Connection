@@ -21,10 +21,16 @@ namespace Steam_Connection.MVVM.View
     /// </summary>
     public partial class AccountBannerView : UserControl
     {
-        public AccountBannerView(int id)
+        private AccountsBannerViewModel currentViewModel;
+        public AccountBannerView(int id, bool editMode)
         {
             InitializeComponent();
-            this.DataContext = new AccountsBannerViewModel(id);
+            currentViewModel = new AccountsBannerViewModel(id, editMode);
+            this.DataContext = currentViewModel;
+        }
+        public void setEditMode(bool editMode)
+        {
+            currentViewModel.EditMode = editMode;
         }
     }
 }
