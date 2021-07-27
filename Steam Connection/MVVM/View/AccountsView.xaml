@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Steam_Connection.MVVM.View"
              xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
              xmlns:themes="clr-namespace:Steam_Connection.Themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
              d:DesignWidth="700">
@@ -44,10 +45,11 @@
             </StackPanel>
             <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Height="475" Margin="40 18 0 0">
                 <ListBox ItemsSource="{Binding AccountBannerViews, UpdateSourceTrigger=PropertyChanged}" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             Background="Transparent"
-                             BorderThickness="0"
-                         AllowDrop="True">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         AllowDrop="True"
+                         x:Name="listBoxOfAccounts">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>
@@ -64,6 +66,9 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="AllowDrop" Value="True"/>
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_PreviewMouseLeftButtonDown"/>
+                            <EventSetter Event="Drop" Handler="ListBox_Drop"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.Template>

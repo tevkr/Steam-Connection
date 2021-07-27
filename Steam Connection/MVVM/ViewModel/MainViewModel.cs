@@ -1,5 +1,6 @@
 ﻿using System;
 using Steam_Connection.Core;
+using Steam_Connection.MVVM.View;
 
 namespace Steam_Connection.MVVM.ViewModel
 {
@@ -8,10 +9,11 @@ namespace Steam_Connection.MVVM.ViewModel
         public static RelayCommand AccountsViewCommand { get; set; }
         public static RelayCommand SettingsViewCommand { get; set; }
         public static RelayCommand AddAccountViewCommand { get; set; }
-
+        public static RelayCommand EditAccountViewCommand { get; set; }
         public AccountsViewModel AccountsVM { get; set; }
         public SettingsViewModel SettingsVM { get; set; }
         public AddAccountViewModel AddAccountVM { get; set; }
+        public EditAccountView EditAccountV { get; set; }
 
         private object _currentView;
 
@@ -47,6 +49,12 @@ namespace Steam_Connection.MVVM.ViewModel
             AddAccountViewCommand = new RelayCommand(o =>
             {
                 CurrentView = AddAccountVM;
+            });
+
+            EditAccountViewCommand = new RelayCommand(o =>
+            {
+                EditAccountV = new EditAccountView((int)o);
+                CurrentView = EditAccountV;
             });
         }
     }

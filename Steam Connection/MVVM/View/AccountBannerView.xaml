@@ -128,7 +128,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button Height="26" Width="26" Margin="0 4 0 4" Cursor="Hand">
+                    <Button Height="26" Width="26" Margin="0 4 0 4" Cursor="Hand" x:Name="DADButton">
                         <Button.Style>
                             <Style BasedOn="{StaticResource {x:Type Button}}"
                                    TargetType="{x:Type Button}">

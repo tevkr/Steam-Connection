@@ -56,5 +56,6 @@ namespace Steam_Connection.MVVM.ViewModel
                 AccountBannerViews.Add(new AccountBannerView(i, _editMode));
             }
         }
+
     }
 }

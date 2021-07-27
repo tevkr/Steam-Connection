@@ -110,7 +110,7 @@ namespace Steam_Connection.MVVM.ViewModel
             });
             EditAccountCommand = new RelayCommand(o =>
             {
-                // TODO
+                MainViewModel.EditAccountViewCommand.Execute(id);
             });
         }
     }
