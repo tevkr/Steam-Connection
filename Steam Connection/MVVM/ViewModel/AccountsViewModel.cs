@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,11 @@ namespace Steam_Connection.MVVM.ViewModel
         public RelayCommand AddAccountViewOrUpdateCommand { get; set; }
         public RelayCommand EditModeCommand { get; set; }
         private static bool _editMode;
+        public static bool EditMode
+        {
+            get { return _editMode; }
+            set { _editMode = value; }
+        }
 
         private static ObservableCollection<AccountBannerView> _accountBannerViews;
         public static ObservableCollection<AccountBannerView> AccountBannerViews 

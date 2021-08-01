@@ -4,11 +4,171 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Steam_Connection.MVVM.View"
+             xmlns:themes="clr-namespace:Steam_Connection.Themes"
              mc:Ignorable="d" 
              d:DesignHeight="550"
              d:DesignWidth="700">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="/Steam Connection;component/Fonts/Inter-Bold.ttf"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="157" Margin="234,203,0,0" Stroke="Black" VerticalAlignment="Top" Width="226"/>
-        <TextBlock HorizontalAlignment="Left" Margin="325,279,0,0" TextWrapping="Wrap" Text="Настройки" VerticalAlignment="Top"/>
+        <StackPanel Margin="40 0 0 0">
+            <TextBlock Text="Настройки"
+                       FontSize="24"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Директория стим"
+                           VerticalAlignment="Center"/>
+                <TextBox x:Name="DirectoryBox"
+                         Height="37"
+                         Width="402"
+                         themes:Extentions.Placeholder="F:\Steam\steam.exe"
+                         Style="{StaticResource ModernTextboxTheme}"
+                         Margin="15 0 0 0"
+                         IsReadOnly="True" PreviewMouseDown="DirectoryBox_PreviewMouseDown"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 7 0 0">
+                <TextBlock Text="Язык"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <RadioButton Style="{StaticResource SettingsLanguageRadioButtonTheme}" 
+                             Content="/Images/RU.png" 
+                             IsChecked="True" 
+                             Margin="0 0 5 0"/>
+                <RadioButton Style="{StaticResource SettingsLanguageRadioButtonTheme}" 
+                             Content="/Images/US.png"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Тема"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <RadioButton Style="{StaticResource SettingsThemeRadioButtonTheme}" 
+                             Content="Светлая"
+                             Margin="0 0 5 0"
+                             IsChecked="True"/>
+                <RadioButton Style="{StaticResource SettingsThemeRadioButtonTheme}" 
+                             Content="Темная"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Отображение VAC статуса"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <CheckBox Width="103"
+                          Height="30"
+                          Style="{StaticResource SettingsCheckboxTheme}"
+                          Content="Выключено"
+                          themes:Extentions.SettingsCheckboxOtherContent="Включено"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Отображение Dota 2 рангов"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <CheckBox Width="103"
+                          Height="30"
+                          Style="{StaticResource SettingsCheckboxTheme}"
+                          Content="Выключено"
+                          themes:Extentions.SettingsCheckboxOtherContent="Включено"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Отображение CS:GO рангов"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <CheckBox Width="103"
+                          Height="30"
+                          Style="{StaticResource SettingsCheckboxTheme}"
+                          Content="Выключено"
+                          themes:Extentions.SettingsCheckboxOtherContent="Включено"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Закрывать программу после входа в аккаунт"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <CheckBox Width="103"
+                          Height="30"
+                          Style="{StaticResource SettingsCheckboxTheme}"
+                          Content="Выключено"
+                          themes:Extentions.SettingsCheckboxOtherContent="Включено"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Отключить подтверждение при входе в аккаунт"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <CheckBox Width="103"
+                          Height="30"
+                          Style="{StaticResource SettingsCheckboxTheme}"
+                          Content="Выключено"
+                          themes:Extentions.SettingsCheckboxOtherContent="Включено"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock Text="Пин-код на программу"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <CheckBox Width="103"
+                          Height="30"
+                          Style="{StaticResource SettingsCheckboxTheme}"
+                          Content="Выключено"
+                          themes:Extentions.SettingsCheckboxOtherContent="Включено"
+                          x:Name="PinCodeCheckBox"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 10 0 0">
+                <TextBlock Text="Изменить пин-код"
+                           VerticalAlignment="Center"
+                           Margin="0 0 15 0"/>
+                <TextBox Width="48"
+                         Height="48"
+                         Margin="0 0 15 0"
+                         x:Name="p1TextBox" KeyDown="pinTextBox_KeyDown"
+                         PreviewKeyDown="pinTextBox_PreviewKeyDown"
+                         Style="{StaticResource PinCodeTextBoxTheme}"/>
+                <TextBox Width="48"
+                         Height="48"
+                         Margin="0 0 15 0"
+                         x:Name="p2TextBox" KeyDown="pinTextBox_KeyDown"
+                         PreviewKeyDown="pinTextBox_PreviewKeyDown"
+                         Style="{StaticResource PinCodeTextBoxTheme}"/>
+                <TextBox Width="48"
+                         Height="48"
+                         Margin="0 0 15 0"
+                         x:Name="p3TextBox" KeyDown="pinTextBox_KeyDown"
+                         PreviewKeyDown="pinTextBox_PreviewKeyDown"
+                         Style="{StaticResource PinCodeTextBoxTheme}"/>
+                <TextBox Width="48"
+                         Height="48"
+                         x:Name="p4TextBox" KeyDown="pinTextBox_KeyDown"
+                         PreviewKeyDown="pinTextBox_PreviewKeyDown"
+                         Style="{StaticResource PinCodeTextBoxTheme}"/>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=PinCodeCheckBox, Path=IsChecked}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Visibility" Value="Hidden"/>
+                    </Style>
+                </StackPanel.Style>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="SaveButton"
+                Height="37" 
+                Width="107" 
+                Background="#4481EB"
+                Content="Сохранить"
+                Foreground="#FFFFFF"
+                Style="{StaticResource ModernButtonTheme}"
+                Cursor="Hand"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="40 0 0 55"/>
+        <TextBlock Text="Powered by @tevkr, design by @rhtfl"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Margin="40 0 0 20"
+                   Opacity="0.2"/>
     </Grid>
 </UserControl>

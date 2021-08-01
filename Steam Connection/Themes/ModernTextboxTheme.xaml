@@ -18,7 +18,7 @@
                             <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
                                      BorderThickness="0"
                                      Background="Transparent"
-                                     VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
                                      Padding="15 0 15 0"
                                      Foreground="Black"
                                      FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"

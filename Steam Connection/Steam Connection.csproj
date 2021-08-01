@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connector\Connector.cs" />
     <Compile Include="Core\Config.cs" />
     <Compile Include="DotEnv.cs" />
     <Compile Include="MVVM\Model\Account.cs" />
@@ -83,6 +84,7 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Extentions.cs" />
+    <Compile Include="Validations\SteamDirValidation.cs" />
     <Compile Include="Validations\SteamLinkValidation.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -139,6 +141,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ModernTextboxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\PinCodeTextBoxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SettingsCheckboxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SettingsLanguageRadioButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SettingsThemeRadioButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +284,12 @@
     <Resource Include="Images\Ranks\Dota2\SeasonalRank7-3.png" />
     <Resource Include="Images\Ranks\Dota2\SeasonalRank7-4.png" />
     <Resource Include="Images\Ranks\Dota2\SeasonalRank7-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RU.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\US.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

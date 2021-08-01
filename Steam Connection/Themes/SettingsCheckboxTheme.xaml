@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Steam_Connection.Themes">
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type CheckBox}"
+           x:Key="SettingsCheckboxTheme">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border CornerRadius="4"
+                                Background="#242731"
+                                Width="{TemplateBinding Width}" 
+                                Height="{TemplateBinding Height}"
+                                x:Name="Border">
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                                       FontSize="14"
+                                       Foreground="White" 
+                                       FontWeight="Bold"
+                                       x:Name="TextBlock">
+                            </TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#4481EB" TargetName="Border"/>
+                                <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(local:Extentions.SettingsCheckboxOtherContent)}" TargetName="TextBlock"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style.Setters>
+    </Style>
+</ResourceDictionary>

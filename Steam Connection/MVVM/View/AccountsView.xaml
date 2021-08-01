@@ -61,14 +61,15 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                         <ContentPresenter Margin="0 0 20 20"
-                                                              Height="120"
-                                                              Width="300"/>
+                                                          Height="120"
+                                                          Width="300"/>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="AllowDrop" Value="True"/>
                             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_PreviewMouseLeftButtonDown"/>
                             <EventSetter Event="Drop" Handler="ListBox_Drop"/>
+                            <EventSetter Event="MouseDoubleClick" Handler="ListBox_MouseDoubleClick"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.Template>

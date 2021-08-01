@@ -69,5 +69,16 @@ namespace Steam_Connection.MVVM.View
             config.saveChanges();
             AccountsViewModel.fillAccountBannerViews();
         }
+
+        void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!AccountsViewModel.EditMode)
+            {
+                ListBoxItem lbi = (ListBoxItem) e.Source;
+                AccountBannerView abv = (AccountBannerView) lbi.Content;
+                AccountsBannerViewModel abvm = (AccountsBannerViewModel) abv.DataContext;
+                MessageBox.Show(abvm.SteamNickName);
+            }
+        }
     }
 }

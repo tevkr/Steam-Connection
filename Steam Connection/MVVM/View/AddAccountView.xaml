@@ -57,7 +57,8 @@
                                         Width="402"
                                         HorizontalAlignment="Left"
                                         themes:Extentions.Placeholder="steampass"
-                                        Style="{StaticResource ModernPasswordboxTheme}"/>
+                                        Style="{StaticResource ModernPasswordboxTheme}"
+                                        VerticalContentAlignment="Center"/>
             <TextBlock Width="385"
                        HorizontalAlignment="Left"
                        Margin="15 13 0 -7"

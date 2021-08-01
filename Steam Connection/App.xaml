@@ -13,6 +13,10 @@
                 <ResourceDictionary Source="Themes/EditCheckboxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/ModernButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/ModernPasswordboxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/SettingsLanguageRadioButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/SettingsThemeRadioButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/SettingsCheckboxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/PinCodeTextBoxTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:AccountsViewModel}">
