@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Steam_Connection.MVVM.View"
              xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
              xmlns:themes="clr-namespace:Steam_Connection.Themes"
+             xmlns:converters="clr-namespace:Steam_Connection.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
@@ -13,6 +14,9 @@
     <UserControl.DataContext>
         <viewModel:AccountsViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="40 0 40 0">
@@ -81,6 +85,47 @@
                     </ListBox.Template>
                 </ListBox>
             </ScrollViewer>
-        </StackPanel>  
+        </StackPanel>
+        <Border Width="660"
+                Height="50"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0 0 0 30"
+                CornerRadius="10"
+                Background="#4481EB"
+                x:Name="ConfirmBanner"
+                Visibility="{Binding NonConfirmationModeBanner, Converter={StaticResource BoolToVis}}">
+            <Grid Margin="10 0 10 0">
+                <TextBlock Text="{Binding AccountName, StringFormat='Вы уверены, что хотите авторизоваться в аккаунт {0}?', UpdateSourceTrigger=PropertyChanged}"
+                           FontFamily="/Steam Connection;component/Fonts/dinot.otf"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <Button x:Name="YesButton"
+                            Height="30" 
+                            Width="50" 
+                            Background="#25AB75"
+                            Content="Да"
+                            Foreground="#FFFFFF"
+                            Style="{StaticResource ModernButtonTheme}"
+                            Cursor="Hand"
+                            Command="{Binding YesButtonCommand}"/>
+                    <Button x:Name="NoButton"
+                            Height="30" 
+                            Width="50" 
+                            Background="#FF5985"
+                            Margin="8 0 0 0"
+                            Content="Нет"
+                            Foreground="#FFFFFF"
+                            Style="{StaticResource ModernButtonTheme}"
+                            Cursor="Hand"
+                            Command="{Binding NoButtonCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

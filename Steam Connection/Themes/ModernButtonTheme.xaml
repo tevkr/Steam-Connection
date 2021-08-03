@@ -13,8 +13,8 @@
                                 Width="{TemplateBinding Width}"
                                 Background="{TemplateBinding Background}"
                                 CornerRadius="5"
-                                BorderThickness="1"
-                                BorderBrush="#E6E6E6">
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
                             <TextBlock x:Name="TextBlock"
                                        Text="{TemplateBinding Property=Content}"
                                        FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
@@ -27,6 +27,8 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="local:Extentions.IsEditMode" Value="True">
                                 <Setter Property="Background" Value="White" TargetName="Border"/>
+                                <Setter Property="BorderThickness" Value="1" TargetName="Border"/>
+                                <Setter Property="BorderBrush" Value="#19000000" TargetName="Border"/>
                                 <Setter Property="Foreground" Value="#B0B0B0" TargetName="TextBlock"/>
                                 <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(local:Extentions.EditModeContent)}" TargetName="TextBlock"/>
                             </Trigger>

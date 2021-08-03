@@ -12,17 +12,74 @@
                             Background="White"
                             Width="{TemplateBinding Width}" 
                             Height="{TemplateBinding Height}"
-                            x:Name="Border">
-                        <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
-                                 BorderThickness="0"
-                                 Background="Transparent"
-                                 Foreground="Black"
-                                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
-                                 FontSize="24"
-                                 x:Name="PinCodeTextBox"
-                                 VerticalContentAlignment="Center"
-                                 HorizontalContentAlignment="Center"/>
+                            x:Name="Border"
+                            Focusable="True">
+                        <Grid Focusable="True" x:Name="Grid">
+                            <!--<local:BindablePasswordBox Password="{Binding ElementName=PinCodeTextBox, Path=Text}"
+                                                       BorderThickness="0"
+                                                       Background="Red"
+                                                       VerticalContentAlignment="Center"
+                                                       HorizontalContentAlignment="Center"
+                                                       Foreground="Black"
+                                                       FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                                                       FontSize="24"
+                                                       x:Name="Passwordbox"
+                                                       PasswordChar="⬤"
+                                                       Visibility="Visible"
+                                                       Width="48"
+                                                       Height="48">
+                            </local:BindablePasswordBox>-->
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="⬤" x:Name="TextBlock" Visibility="Visible" Focusable="True"/>
+                            <TextBox Text="{Binding ElementName=PinCodeTextBox2, Path=Text}"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                                     FontSize="24"
+                                     x:Name="PinCodeTextBox1"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="Transparent"
+                                     HorizontalContentAlignment="Center"
+                                     CaretBrush="Transparent"
+                                     MaxLength="1"/>
+                            <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="Black"
+                                     FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                                     FontSize="24"
+                                     x:Name="PinCodeTextBox2"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Visibility="Hidden"
+                                     CaretBrush="Transparent"
+                                     MaxLength="1"/>
+                        </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PinCodeTextBox1, Path=IsFocused}" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#4481EB"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=PinCodeTextBox2, Path=IsFocused}" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#4481EB"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=TextBlock, Path=IsFocused}" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#4481EB"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=Border, Path=IsFocused}" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#4481EB"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=Grid, Path=IsFocused}" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#4481EB"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=PinCodeTextBox1, Path=Text}" Value="">
+                            <Setter TargetName="TextBlock" Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                        <Trigger Property="local:Extentions.ShowPinCode" Value="True">
+                            <!--<Setter TargetName="Passwordbox" Property="Visibility" Value="Hidden"/>-->
+                            <Setter TargetName="PinCodeTextBox2" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="TextBlock" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

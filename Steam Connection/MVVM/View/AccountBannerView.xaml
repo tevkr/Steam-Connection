@@ -5,15 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Steam_Connection.MVVM.View"
              xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
+             xmlns:converters="clr-namespace:Steam_Connection.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="120" 
              d:DesignWidth="300"
              Background="Transparent">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverterNotCollapsed x:Key="BoolToVis"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis2" />
+    </UserControl.Resources>
     <Grid>
-        <Border Background="White"
-                CornerRadius="5"  
-                BorderThickness="1"
-                BorderBrush="#0C000000">
+        <Border CornerRadius="5"  
+                BorderThickness="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
@@ -45,7 +48,7 @@
                                FontWeight="Bold"
                                FontFamily="/Steam Connection;component/Fonts/#Inter"
                                Margin="5 15 0 0"/>
-                    <Border 
+                    <Border Visibility="{Binding VacMode, Converter={StaticResource BoolToVis}}"
                             CornerRadius="5"
                             Width="40"
                             Height="20"
@@ -74,10 +77,12 @@
                         <Image Source="{Binding cSRank, UpdateSourceTrigger=PropertyChanged}"
                                Height="26"
                                Width="64"
-                               Margin="0 0 10 0"/>
+                               Margin="0 0 10 0"
+                               Visibility="{Binding CSGORanksMode, Converter={StaticResource BoolToVis2}}"/>
                         <Image Source="{Binding d2Rank, UpdateSourceTrigger=PropertyChanged}"
                                Height="30"
-                               Width="30"/>
+                               Width="30"
+                               Visibility="{Binding Dota2RanksMode, Converter={StaticResource BoolToVis}}"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="2" 
@@ -302,9 +307,15 @@
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="BorderBrush" Value="#0C000000"/>
+                    <Setter Property="Background" Value="White"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
                             <Setter Property="Cursor" Value="Arrow"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="BorderBrush" Value="#4481EB"/>
+                            <Setter Property="Background" Value="#334481EB"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

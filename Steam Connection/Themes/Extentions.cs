@@ -10,14 +10,24 @@ namespace Steam_Connection.Themes
 {
     class Extentions
     {
+        public static readonly DependencyProperty ShowPinCodeProperty =
+            DependencyProperty.RegisterAttached("ShowPinCode", typeof(bool), typeof(Extentions), new PropertyMetadata(default(bool)));
         public static readonly DependencyProperty IsEditModeProperty =
         DependencyProperty.RegisterAttached("IsEditMode", typeof(bool), typeof(Extentions), new PropertyMetadata(default(bool)));
         public static readonly DependencyProperty EditModeContentProperty =
         DependencyProperty.RegisterAttached("EditModeContent", typeof(String), typeof(Extentions), new PropertyMetadata(""));
         public static readonly DependencyProperty PlaceholderProperty =
         DependencyProperty.RegisterAttached("Placeholder", typeof(String), typeof(Extentions), new PropertyMetadata(""));
-        public static readonly DependencyProperty SettingsCheckboxOtherContentProperty =
+        public static readonly DependencyProperty SettingsCheckboxOtherContentProperty = 
             DependencyProperty.RegisterAttached("SettingsCheckboxOtherContent", typeof(String), typeof(Extentions), new PropertyMetadata(""));
+        public static void SetShowPinCode(UIElement element, bool value)
+        {
+            element.SetValue(ShowPinCodeProperty, value);
+        }
+        public static bool GetShowPinCode(UIElement element)
+        {
+            return (bool)element.GetValue(ShowPinCodeProperty);
+        }
         public static void SetIsEditMode(UIElement element, bool value)
         {
             element.SetValue(IsEditModeProperty, value);

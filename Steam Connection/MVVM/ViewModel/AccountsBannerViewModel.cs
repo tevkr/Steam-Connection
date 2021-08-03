@@ -22,6 +22,7 @@ namespace Steam_Connection.MVVM.ViewModel
         private string _d2Rank;
         private int _id;
         private bool _editMode;
+        private bool _selected;
         public string SteamPicture
         {
             get { return _steamPicture; }
@@ -85,6 +86,40 @@ namespace Steam_Connection.MVVM.ViewModel
                 OnPropertyChanged(nameof(EditMode));
             }
         }
+
+        public bool VacMode
+        {
+            get
+            {
+                Config config = Config.getInstance();
+                return config.vacMode;
+            }
+        }
+        public bool Dota2RanksMode
+        {
+            get
+            {
+                Config config = Config.getInstance();
+                return config.d2RanksMode;
+            }
+        }
+        public bool CSGORanksMode
+        {
+            get
+            {
+                Config config = Config.getInstance();
+                return config.cSRanksMode;
+            }
+        }
+        public bool Selected
+        {
+            get { return _selected; }
+            set
+            {
+                _selected = value;
+                OnPropertyChanged(nameof(Selected));
+            }
+        }
         public AccountsBannerViewModel(int id, bool editMode)
         {
             Config config = Config.getInstance();
@@ -97,6 +132,7 @@ namespace Steam_Connection.MVVM.ViewModel
             cSRank = "/Images/Ranks/CSGO/skillgroup_none.png";
             d2Rank = account.d2Rank.getRank();
             EditMode = editMode;
+            Selected = false;
             DeleteAccoundCommand = new RelayCommand(o =>
             {
                 //MessageBox.Show("123");

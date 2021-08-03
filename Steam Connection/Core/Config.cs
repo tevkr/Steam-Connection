@@ -18,7 +18,7 @@ namespace Steam_Connection.Core.Config
         private Config()
         {
             this.accounts = new List<Account>();
-            d2RanksMode = langMode = themeMode = vacMode = closeMode = pinMode = false;
+            d2RanksMode = cSRanksMode = nonConfirmationMode = langMode = themeMode = vacMode = closeMode = pinMode = false;
             pinCode = "";
             steamDir = "";
         }
@@ -39,6 +39,8 @@ namespace Steam_Connection.Core.Config
         //public Language language { get; set; }
         public string pinCode { get; set; }
         public bool d2RanksMode { get; set; }
+        public bool cSRanksMode { get; set; }
+        public bool nonConfirmationMode { get; set; }
         public bool langMode { get; set; }
         public bool themeMode { get; set; }
         public bool vacMode { get; set; }

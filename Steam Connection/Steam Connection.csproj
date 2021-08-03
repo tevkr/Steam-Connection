@@ -60,6 +60,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Connector\Connector.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverterNotCollapsed.cs" />
+    <Compile Include="Converters\BoolInverterConverter.cs" />
     <Compile Include="Core\Config.cs" />
     <Compile Include="DotEnv.cs" />
     <Compile Include="MVVM\Model\Account.cs" />
@@ -121,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\FocusVisualStyleKey.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,5 +297,6 @@
   <ItemGroup>
     <Resource Include="Images\US.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

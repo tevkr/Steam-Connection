@@ -90,6 +90,8 @@
                         Foreground="#B0B0B0"
                         Style="{StaticResource ModernButtonTheme}"
                         Margin="15 0 0 0" Cursor="Hand"
+                        BorderThickness="1"
+                        BorderBrush="#19000000"
                         Command="{Binding AccountsViewCommand}"
                         CommandParameter="{Binding ElementName=Passwordbox, Path=Password}"/>
             </StackPanel>

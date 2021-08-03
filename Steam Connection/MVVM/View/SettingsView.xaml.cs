@@ -84,6 +84,7 @@ namespace Steam_Connection.MVVM.View
 
         private void pinTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            
             List<TextBox> tbs = new List<TextBox>();
             tbs.Add(p1TextBox);
             tbs.Add(p2TextBox);
@@ -100,12 +101,14 @@ namespace Steam_Connection.MVVM.View
             }
             if (e.Key == Key.Back)
             {
+                e.Handled = true;
                 if (pIndex == 0) tbs[pIndex].Text = "";
                 else
                 {
                     tbs[pIndex].Text = "";
                     tbs[pIndex - 1].Focus();
-                    tbs[pIndex - 1].SelectionLength = 0;
+                    tbs[pIndex - 1].Select(0, 1);
+                    //tbs[pIndex - 1].SelectionLength = 0;
                 }
             }
             else
@@ -122,7 +125,8 @@ namespace Steam_Connection.MVVM.View
                     {
                         tbs[pIndex].Text = ch.ToString();
                         tbs[pIndex + 1].Focus();
-                        tbs[pIndex + 1].SelectionLength = 0;
+                        tbs[pIndex + 1].Select(0,0);
+                        //tbs[pIndex + 1].SelectionLength = 0;
                     }
                 }
             }

@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Themes/SettingsThemeRadioButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/SettingsCheckboxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/PinCodeTextBoxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/FocusVisualStyleKey.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:AccountsViewModel}">
