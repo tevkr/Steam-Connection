@@ -18,6 +18,7 @@ namespace Steam_Connection.MVVM.Model
         public int vacCount { get; set; }
         public D2Rank d2Rank { get; set; }
         public CSRank cSRank { get; set; }
+        public Account(){}
         public Account(string nickname,
             string login,
             string password,
@@ -42,10 +43,13 @@ namespace Steam_Connection.MVVM.Model
             this.password = password;
             this.steamId64 = steamId64;
             SteamParser steamParser = new SteamParser(steamId64);
+            steamParser.parseAccInfo();
+            steamParser.parseVacs();
             this.nickname = steamParser.getNickname();
             this.steamPicture = steamParser.getSteamPicture();
             this.vacCount = steamParser.getVacCount();
             Dota2RankParser d2RankParser = new Dota2RankParser(steamId64);
+            d2RankParser.parseDota2Rank();
             this.d2Rank = d2RankParser.getD2Rank();
             //TODO vacCount d2Rank
             //this.vacCount = parser.vacCount;

@@ -17,14 +17,18 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="topLevelGrid">
+        <Grid.CacheMode>
+            <BitmapCache/>
+        </Grid.CacheMode>
         <StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="40 0 40 0">
                 <TextBox Height="37" 
                          Width="394"
                          VerticalContentAlignment="Center"
                          themes:Extentions.Placeholder="Найти аккаунт"
-                         Style="{StaticResource ModernTextboxTheme}"></TextBox>
+                         Style="{StaticResource ModernTextboxTheme}"
+                         Text="{Binding SearchBoxText, UpdateSourceTrigger=PropertyChanged}"/>
                 <CheckBox x:Name="EditCheckBox"
                           Height="37" 
                           Width="37" 
@@ -47,13 +51,18 @@
                         CommandParameter="{Binding ElementName=EditCheckBox, Path=IsChecked}"
                         Cursor="Hand"/>
             </StackPanel>
-            <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Height="475" Margin="40 18 0 0">
-                <ListBox ItemsSource="{Binding AccountBannerViews, UpdateSourceTrigger=PropertyChanged}" 
+            <ScrollViewer VerticalScrollBarVisibility="Visible" 
+                          CanContentScroll="True" 
+                          Height="475" 
+                          Margin="40 18 0 0"
+                          x:Name="ScrollViewer">
+                <ListBox ItemsSource="{Binding Path=AccountBannerViews}" 
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          Background="Transparent"
                          BorderThickness="0"
-                         AllowDrop="True"
-                         x:Name="listBoxOfAccounts">
+                         x:Name="listBoxOfAccounts" 
+                         PreviewMouseMove="ListBoxOfAccounts_OnPreviewMouseMove"
+                         PreviewMouseLeftButtonUp="ListBoxOfAccounts_OnPreviewMouseLeftButtonUp">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>
@@ -72,8 +81,9 @@
                             </Setter>
                             <Setter Property="AllowDrop" Value="True"/>
                             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_PreviewMouseLeftButtonDown"/>
-                            <EventSetter Event="Drop" Handler="ListBox_Drop"/>
                             <EventSetter Event="MouseDoubleClick" Handler="ListBox_MouseDoubleClick"/>
+                            <!--<EventSetter Event="DragOver" Handler="ListBoxItem_DragOver"/>
+                            <EventSetter Event="PreviewGiveFeedback" Handler="ListBoxItem_PreviewGiveFeedback"/>-->
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.Template>
@@ -96,12 +106,24 @@
                 x:Name="ConfirmBanner"
                 Visibility="{Binding NonConfirmationModeBanner, Converter={StaticResource BoolToVis}}">
             <Grid Margin="10 0 10 0">
-                <TextBlock Text="{Binding AccountName, StringFormat='Вы уверены, что хотите авторизоваться в аккаунт {0}?', UpdateSourceTrigger=PropertyChanged}"
-                           FontFamily="/Steam Connection;component/Fonts/dinot.otf"
-                           FontWeight="Bold"
-                           FontSize="14"
-                           Foreground="White"
-                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding AccountName, StringFormat='Вы уверены, что хотите авторизоваться в аккаунт {0}', UpdateSourceTrigger=PropertyChanged}"
+                               FontFamily="/Steam Connection;component/Fonts/dinot.otf"
+                               FontWeight="Bold"
+                               FontSize="14"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"
+                               MaxWidth="510"/>
+                    <TextBlock Text="?"
+                               FontFamily="/Steam Connection;component/Fonts/dinot.otf"
+                               FontWeight="Bold"
+                               FontSize="14"
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
                 <StackPanel VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">

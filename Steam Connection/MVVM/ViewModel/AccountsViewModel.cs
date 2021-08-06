@@ -9,12 +9,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Steam_Connection.MVVM.Model;
 
 namespace Steam_Connection.MVVM.ViewModel
 {
     class AccountsViewModel : ObservableObject
     {
-        public RelayCommand AddAccountViewOrUpdateCommand { get; set; }
+        private static Config config;
+        public AsyncRelayCommand AddAccountViewOrUpdateCommand { get; set; }
         public RelayCommand EditModeCommand { get; set; }
         public RelayCommand NoButtonCommand { get; set; }
         public RelayCommand YesButtonCommand { get; set; }
@@ -74,6 +76,7 @@ namespace Steam_Connection.MVVM.ViewModel
                 OnPropertyChanged(nameof(NonConfirmationModeBanner));
             }
         }
+        static public event EventHandler AccountBannerViewsChanged;
 
         private static ObservableCollection<AccountBannerView> _accountBannerViews;
         public static ObservableCollection<AccountBannerView> AccountBannerViews 
@@ -82,24 +85,61 @@ namespace Steam_Connection.MVVM.ViewModel
             set 
             {
                 _accountBannerViews = value;
-                OnStaticPropertyChanged(nameof(AccountBannerViews));
+                AccountBannerViewsChanged?.Invoke(null, EventArgs.Empty);
+                //OnStaticPropertyChanged(nameof(AccountBannerViews));
             }
         }
+
+        private string _searchBoxText;
+
+        public string SearchBoxText
+        {
+            get { return _searchBoxText; }
+            set
+            {
+                _searchBoxText = value;
+                fillAccountBannerViews(config.searchByNickname(value), _searchBoxText);
+                OnPropertyChanged(nameof(SearchBoxText));
+            }
+        }
+
+
+        private async Task addOrUpdate(object o)
+        {
+            
+            if ((bool) o)
+            {
+                MainViewModel.UpdateAccountsGridVisible = true;
+                var task = Task.Factory.StartNew(() =>
+                {
+                    for (int i = 0; i < config.accounts.Count; i++)
+                    {
+                        MainViewModel.UpdateAccountsProgress = (i + 1) + " / " + config.accounts.Count;
+                        config.accounts[i] = new Account(config.accounts[i].steamId64, config.accounts[i].login, config.accounts[i].password);
+                    }
+                    config.saveChanges();
+                });
+                await task;
+                if (SearchBoxText != null)
+                    fillAccountBannerViews(config.searchByNickname(SearchBoxText), SearchBoxText);
+                else
+                    fillAccountBannerViews();
+                MainViewModel.UpdateAccountsGridVisible = false;
+                MainViewModel.UpdateAccountsProgress = "";
+            }
+            else
+                MainViewModel.AddAccountViewCommand.Execute(null);
+        }
+
         public AccountsViewModel()
         {
-            Config config = Config.getInstance();
+            config = Config.getInstance();
             AccountBannerViews = new ObservableCollection<AccountBannerView>();
             NonConfirmationModeBanner = false;
             AccountName = "";
             AccountId = -1;
             EditMode = false;
-            AddAccountViewOrUpdateCommand = new RelayCommand(o =>
-            {
-                if ((bool)o)
-                    MessageBox.Show("TODO");
-                else
-                    MainViewModel.AddAccountViewCommand.Execute(null);
-            });
+            AddAccountViewOrUpdateCommand = new AsyncRelayCommand(async (o) => await addOrUpdate(o));
             EditModeCommand = new RelayCommand(o =>
             {
                 AccountId = -1;
@@ -129,13 +169,22 @@ namespace Steam_Connection.MVVM.ViewModel
             });
             fillAccountBannerViews();
         }
-        public static void fillAccountBannerViews()
+        public static void fillAccountBannerViews(List<int> accountsIndexes = null, string SearchBoxText = null)
         {
-            Config config = Config.getInstance();
             AccountBannerViews.Clear();
-            for (int i = 0; i < config.accounts.Count; i++)
+            if (accountsIndexes == null)
+                accountsIndexes = config.searchByNickname();
+            foreach (var index in accountsIndexes)
             {
-                AccountBannerViews.Add(new AccountBannerView(i, _editMode));
+                AccountBannerViews.Add(new AccountBannerView(index, _editMode));
+            }
+
+            if (SearchBoxText != null && SearchBoxText != "")
+            {
+                foreach (var accountBannerView in AccountBannerViews)
+                {
+                    accountBannerView.DADButton.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

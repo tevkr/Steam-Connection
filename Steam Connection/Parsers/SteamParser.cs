@@ -18,8 +18,6 @@ namespace Steam_Connection.Parsers
         public SteamParser(string steamId64)
         {
             this.steamId64 = steamId64;
-            parseAccInfo();
-            parseVacs();
         }
         private string getPlayerSummariesString(string steamId)
         {
@@ -31,7 +29,7 @@ namespace Steam_Connection.Parsers
             return "http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=" 
                 + APIKey + "&steamids=" + steamId;
         }
-        private void parseAccInfo()
+        public void parseAccInfo()
         {
             string apiString = getPlayerSummariesString(steamId64);
             var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
@@ -39,11 +37,29 @@ namespace Steam_Connection.Parsers
             nickname = list.response.players[0].personaname;
             steamPicture = list.response.players[0].avatarfull;
         }
-        private void parseVacs()
+        public async void parseAccInfoAsync()
+        {
+            string apiString = getPlayerSummariesString(steamId64);
+            var webClient = new WebClient {Encoding = System.Text.Encoding.UTF8};
+            var json = await webClient.DownloadStringTaskAsync(apiString);
+            var list = JsonConvert.DeserializeObject<RootobjectAccInfo>(json);
+            nickname = list.response.players[0].personaname;
+            steamPicture = list.response.players[0].avatarfull;
+        }
+        public void parseVacs()
         {
 
             string apiString = getPlayerBansString(steamId64);
             var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
+            var list = JsonConvert.DeserializeObject<RootObjectVacInfo>(json);
+            vacCount = Int32.Parse(list.players[0].NumberOfVACBans);
+        }
+        public async void parseVacsAsync()
+        {
+
+            string apiString = getPlayerBansString(steamId64);
+            var webClient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
+            var json = await webClient.DownloadStringTaskAsync(apiString);
             var list = JsonConvert.DeserializeObject<RootObjectVacInfo>(json);
             vacCount = Int32.Parse(list.players[0].NumberOfVACBans);
         }

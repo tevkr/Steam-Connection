@@ -16,7 +16,8 @@
     </UserControl.Resources>
     <Grid>
         <Border CornerRadius="5"  
-                BorderThickness="1">
+                BorderThickness="1"
+                x:Name="TopLevelBorder">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
@@ -47,7 +48,9 @@
                                FontSize="14"
                                FontWeight="Bold"
                                FontFamily="/Steam Connection;component/Fonts/#Inter"
-                               Margin="5 15 0 0"/>
+                               Margin="5 15 0 0"
+                               MaxWidth="113"
+                               TextTrimming="CharacterEllipsis"/>
                     <Border Visibility="{Binding VacMode, Converter={StaticResource BoolToVis}}"
                             CornerRadius="5"
                             Width="40"

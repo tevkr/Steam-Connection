@@ -8,7 +8,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="5"
                             BorderThickness="1"
-                            BorderBrush="#19000000"
+                            BorderBrush="{TemplateBinding BorderBrush}"
                             Background="White"
                             Width="{TemplateBinding Width}" 
                             Height="{TemplateBinding Height}"

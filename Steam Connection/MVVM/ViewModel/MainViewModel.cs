@@ -26,7 +26,28 @@ namespace Steam_Connection.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        public static event EventHandler UpdateAccountsGridVisibleChanged;
+        private static bool _updateAccountsGridVisible;
+        public static bool UpdateAccountsGridVisible
+        {
+            get { return _updateAccountsGridVisible; }
+            set
+            {
+                _updateAccountsGridVisible = value;
+                UpdateAccountsGridVisibleChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+        public static event EventHandler UpdateAccountsProgressChanged;
+        private static string _updateAccountsProgress;
+        public static string UpdateAccountsProgress
+        {
+            get { return _updateAccountsProgress; }
+            set
+            {
+                _updateAccountsProgress = value;
+                UpdateAccountsProgressChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
 
         public MainViewModel()
         {

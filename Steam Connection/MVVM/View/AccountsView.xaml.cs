@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,48 +29,132 @@ namespace Steam_Connection.MVVM.View
         {
             InitializeComponent();
         }
+        private List<(Point, Point)> generatePoints(int count)
+        {
+            List<(Point, Point)> points = new List<(Point, Point)>();
+            for (int i = 0; i < count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    if (i == 0)
+                    {
+                        points.Add((new Point(0, 310), new Point(0, 130)));
+                    }
+                    else
+                    {
+                        points.Add((new Point(0, 310), new Point(points[i - 2].Item2.Y, points[i - 2].Item2.Y + 140)));
+                    }
+                }
+                else
+                {
+                    points.Add((new Point(310, 600), new Point(points[i - 1].Item2.X, points[i - 1].Item2.Y)));
+                }
+            }
+            return points;
+        }
+        private AccountBannerView _draggedItemView;
+        private AdornerLayer _adornerLayer;
+        private DragAdorner _dragAdorner;
+        private List<(Point, Point)> _accountBannersCords;
+        private Point _delta;
         void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is ListBoxItem)
+            if (sender is ListBoxItem && _draggedItemView == null)
             {
-                AccountBannerView abv = ((ListBoxItem)(sender)).DataContext as AccountBannerView;
-                var obj = new DataObject("AccountBannerView", abv);
-                if (abv.DADButton.IsMouseOver)
+                _draggedItemView = ((ListBoxItem)(sender)).DataContext as AccountBannerView;
+                if (_draggedItemView.DADButton.IsMouseOver && _draggedItemView.DADButton.IsEnabled)
                 {
                     ListBoxItem draggedItem = sender as ListBoxItem;
-                    DragDrop.DoDragDrop(draggedItem, draggedItem.DataContext, DragDropEffects.Move);
-                    draggedItem.IsSelected = true;
+                    _delta = new Point(Mouse.GetPosition(draggedItem).X - 150, Mouse.GetPosition(draggedItem).Y - 60);
+                    _adornerLayer = AdornerLayer.GetAdornerLayer(listBoxOfAccounts);
+                    _dragAdorner = new DragAdorner(listBoxOfAccounts, _draggedItemView, 0.5, e.GetPosition(draggedItem));
+                    _adornerLayer.Add(_dragAdorner);
+                    _accountBannersCords = generatePoints(Config.getInstance().accounts.Count);
+                    //DragDrop.DoDragDrop(_draggedItem, _draggedItem.DataContext, DragDropEffects.Move);
+                    //adLayer.Remove(_dragAdorner);
+                    //_draggedItem.IsSelected = true;
                 }
-            }
-        }
-        void ListBox_Drop(object sender, DragEventArgs e)
-        {
-            Config config = Config.getInstance();
-            AccountBannerView droppedData = e.Data.GetData(typeof(AccountBannerView)) as AccountBannerView;
-            AccountBannerView target = ((ListBoxItem)(sender)).DataContext as AccountBannerView;
-
-            int removedIdx = listBoxOfAccounts.Items.IndexOf(droppedData);
-            int targetIdx = listBoxOfAccounts.Items.IndexOf(target);
-
-            Account account1 = config.accounts[removedIdx];
-            if (removedIdx < targetIdx)
-            {
-                config.accounts.Insert(targetIdx + 1, account1);
-                config.accounts.RemoveAt(removedIdx);
-            }
-            else
-            {
-                int remIdx = removedIdx + 1;
-                if (config.accounts.Count + 1 > remIdx)
+                else
                 {
-                    config.accounts.Insert(targetIdx, account1);
-                    config.accounts.RemoveAt(remIdx);
+                    _draggedItemView = null;
                 }
             }
-            config.saveChanges();
-            AccountsViewModel.fillAccountBannerViews();
+        }
+        private void ListBoxOfAccounts_OnPreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_dragAdorner != null)
+            {
+                _dragAdorner.PointOffset = e.GetPosition(listBoxOfAccounts);
+                foreach (var accountBannerView in AccountsViewModel.AccountBannerViews)
+                {
+                    accountBannerView.TopLevelBorder.BorderBrush = null;
+                }
+                Point draggedBennerCenterPoint = new Point(e.GetPosition(listBoxOfAccounts).X - _delta.X,
+                    e.GetPosition(listBoxOfAccounts).Y - _delta.Y);
+                for (int i = 0; i < _accountBannersCords.Count; i++)
+                {
+                    if (draggedBennerCenterPoint.X > _accountBannersCords[i].Item1.X &&
+                        draggedBennerCenterPoint.X <= _accountBannersCords[i].Item1.Y &&
+                        draggedBennerCenterPoint.Y > _accountBannersCords[i].Item2.X &&
+                        draggedBennerCenterPoint.Y <= _accountBannersCords[i].Item2.Y)
+                    {
+                        AccountsViewModel.AccountBannerViews[i].TopLevelBorder.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#4481EB"));;
+                    }
+                }
+            }
         }
 
+
+        private void ListBoxOfAccounts_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (_draggedItemView != null && _dragAdorner != null)
+            {
+                Config config = Config.getInstance();
+                AccountBannerView droppedData = _draggedItemView;
+                AccountBannerView target = null;
+
+                for (int i = 0; i < AccountsViewModel.AccountBannerViews.Count; i++)
+                {
+                    if (AccountsViewModel.AccountBannerViews[i].TopLevelBorder.BorderBrush != null)
+                    {
+                        target = AccountsViewModel.AccountBannerViews[i];
+                        break;
+                    }
+                }
+
+                _adornerLayer.Remove(_dragAdorner);
+                _draggedItemView = null;
+                _dragAdorner = null;
+                foreach (var accountBannerView in AccountsViewModel.AccountBannerViews)
+                {
+                    accountBannerView.TopLevelBorder.BorderBrush = null;
+                }
+
+                if (target != null)
+                {
+                    int removedIdx = listBoxOfAccounts.Items.IndexOf(droppedData);
+                    int targetIdx = listBoxOfAccounts.Items.IndexOf(target);
+
+                    Account account1 = config.accounts[removedIdx];
+                    if (removedIdx < targetIdx)
+                    {
+                        config.accounts.Insert(targetIdx + 1, account1);
+                        config.accounts.RemoveAt(removedIdx);
+                    }
+                    else
+                    {
+                        int remIdx = removedIdx + 1;
+                        if (config.accounts.Count + 1 > remIdx)
+                        {
+                            config.accounts.Insert(targetIdx, account1);
+                            config.accounts.RemoveAt(remIdx);
+                        }
+                    }
+                    config.saveChanges();
+                    AccountsViewModel.fillAccountBannerViews();
+                }
+            }
+        }
         void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Config config = Config.getInstance();
@@ -92,5 +177,6 @@ namespace Steam_Connection.MVVM.View
                 }
             }
         }
+
     }
 }

@@ -16,9 +16,8 @@ namespace Steam_Connection.Parsers
         public Dota2RankParser(string steamId64)
         {
             this.steamId64 = steamId64;
-            getDota2Rank();
         }
-        private void getDota2Rank()
+        public void parseDota2Rank()
         {
             int rankTier = 0;
             int leaderboardRank = 0;
@@ -27,6 +26,44 @@ namespace Steam_Connection.Parsers
             string steamId32 = Convert.ToString(lSteamid32);
             string APIString = "https://api.opendota.com/api/players/" + steamId32;
             var json = new WebClient().DownloadString(APIString);
+            var list = JsonConvert.DeserializeObject<RootObject>(json);
+            if (list.rank_tier != "null")
+            {
+                if (Convert.ToInt32(list.rank_tier) < 80)
+                {
+                    rankTier = Convert.ToInt32(list.rank_tier);
+                }
+                else
+                {
+                    leaderboardRank = Convert.ToInt32(list.leaderboard_rank);
+                    if (leaderboardRank > 100)
+                    {
+                        rankTier = 80;
+                    }
+                    else if (leaderboardRank <= 100 && leaderboardRank > 10)
+                    {
+                        rankTier = 81;
+                    }
+                    else if (leaderboardRank <= 10)
+                    {
+                        rankTier = 82;
+                    }
+                }
+                d2Rank = new D2Rank(rankTier / 10, rankTier % 10, leaderboardRank);
+            }
+            else
+                d2Rank = new D2Rank();
+        }
+        public async void parseDota2RankAsync()
+        {
+            int rankTier = 0;
+            int leaderboardRank = 0;
+            long lSteamid64 = Convert.ToInt64(steamId64);
+            long lSteamid32 = lSteamid64 - 76561197960265728;
+            string steamId32 = Convert.ToString(lSteamid32);
+            string APIString = "https://api.opendota.com/api/players/" + steamId32;
+            var webClient = new WebClient();
+            var json = await webClient.DownloadStringTaskAsync(APIString);
             var list = JsonConvert.DeserializeObject<RootObject>(json);
             if (list.rank_tier != "null")
             {

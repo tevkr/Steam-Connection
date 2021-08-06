@@ -61,15 +61,19 @@
     </ApplicationDefinition>
     <Compile Include="Connector\Connector.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverterNotCollapsed.cs" />
+    <Compile Include="Converters\BooleanToVisibilityInvertedConverter.cs" />
     <Compile Include="Converters\BoolInverterConverter.cs" />
+    <Compile Include="Core\AsyncRelayCommand.cs" />
     <Compile Include="Core\Config.cs" />
     <Compile Include="DotEnv.cs" />
+    <Compile Include="DragAdorner.cs" />
     <Compile Include="MVVM\Model\Account.cs" />
     <Compile Include="MVVM\Model\CSRank.cs" />
     <Compile Include="MVVM\Model\D2Rank.cs" />
     <Compile Include="MVVM\ViewModel\AccountsBannerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\AddAccountViewModel.cs" />
     <Compile Include="MVVM\ViewModel\EditAccountViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\PinCodeViewModel.cs" />
     <Compile Include="MVVM\View\AccountBannerView.xaml.cs">
       <DependentUpon>AccountBannerView.xaml</DependentUpon>
     </Compile>
@@ -82,6 +86,9 @@
     <Compile Include="Parsers\CSGORankParser.cs" />
     <Compile Include="Parsers\Dota2RankParser.cs" />
     <Compile Include="Parsers\SteamParser.cs" />
+    <Compile Include="PinCodeWindow.xaml.cs">
+      <DependentUpon>PinCodeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
@@ -119,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PinCodeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

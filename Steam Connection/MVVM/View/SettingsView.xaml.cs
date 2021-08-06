@@ -36,52 +36,6 @@ namespace Steam_Connection.MVVM.View
                 DirectoryBox.Text = fileDialog.FileName;
             }
         }
-
-        private void pinTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            /*st<TextBox> tbs = new List<TextBox>();
-            tbs.Add(p1TextBox);
-            tbs.Add(p2TextBox);
-            tbs.Add(p3TextBox);
-            tbs.Add(p4TextBox);
-            int pIndex = 0;
-            for (int i = 0; i < tbs.Count; i++)
-            {
-                if (tbs[i] == sender)
-                {
-                    pIndex = i;
-                    break;
-                }
-            }
-            if (e.Key == Key.Back)
-            {
-                if (pIndex == 0) tbs[pIndex].Text = "";
-                else
-                {
-                    tbs[pIndex].Text = "";
-                    tbs[pIndex - 1].Focus();
-                    tbs[pIndex - 1].SelectionLength = 0;
-                }
-            }
-            else
-            {
-                /*e.Handled = true;
-                if (Char.IsDigit(e.KeyChar))
-                {
-                    if (pIndex == tbs.Count - 1)
-                    {
-                        tbs[pIndex].Text = e.KeyChar.ToString();
-                    }
-                    else
-                    {
-                        tbs[pIndex].Text = e.KeyChar.ToString();
-                        tbs[pIndex + 1].Focus();
-                        tbs[pIndex + 1].SelectionLength = 0;
-                    }
-                }
-            }*/
-        }
-
         private void pinTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             

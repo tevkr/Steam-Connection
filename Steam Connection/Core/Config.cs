@@ -46,18 +46,45 @@ namespace Steam_Connection.Core.Config
         public bool vacMode { get; set; }
         public bool closeMode { get; set; }
         public bool pinMode { get; set; }
-        public void updateAccInfo()
+        /*public async void updateAccInfo()
         {
             for (int i = 0; i < accounts.Count; i++)
+            {
                 accounts[i] = new Account(accounts[i].steamId64, accounts[i].login, accounts[i].password);
-        }
+            }
+        }*/
         public void saveChanges()
         {
-            serialize(this);
+            serialize(config);
         }
-        public List<Account> serchByNickname(string nickname)
+
+        public void clear()
         {
+            config = new Config();
+            saveChanges();
+        }
+
+        public List<int> searchByNickname(string nickname = "")
+        {
+            var foundAccountsIndexes = new List<int>();
             if (nickname != "")
+            {
+                for (int i = 0; i < accounts.Count; i++)
+                {
+                    if (accounts[i].nickname.ToLower().StartsWith(nickname) ||
+                        Fuzz.Ratio(nickname.ToLower(), accounts[i].nickname.ToLower()) > 40)
+                    {
+                        foundAccountsIndexes.Add(i);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < accounts.Count; i++) 
+                    foundAccountsIndexes.Add(i);
+            }
+            return foundAccountsIndexes;
+            /*if (nickname != "")
             {
                 var foundAccounts = new List<Account>(); ;
                 foreach (var account in accounts)
@@ -73,7 +100,7 @@ namespace Steam_Connection.Core.Config
             else
             {
                 return accounts;
-            }
+            }*/
         }
         private const string cryptoKey =
             "Q3JpcHRvZ3JhZmlhcyBjb20gUmluamRhZWwgLyBBRVM=";

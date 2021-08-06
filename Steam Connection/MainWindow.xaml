@@ -12,13 +12,16 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition  Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border Background="White" Grid.RowSpan="2"/>
@@ -135,5 +138,27 @@
         <ContentControl Grid.Row="1" 
                         Grid.Column="1"
                         Content="{Binding CurrentView}"/>
+        <Grid 
+            Grid.RowSpan="2" 
+            Grid.ColumnSpan="2" 
+            Background="White"
+            Opacity="0.4"
+            MouseLeftButtonDown="DragWindow"
+            Visibility="{Binding Path=UpdateAccountsGridVisible, Converter={StaticResource BoolToVis}}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Аккаунты обновляются"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                           FontWeight="Bold"
+                           FontSize="70"/>
+                <TextBlock Text="{Binding Path=UpdateAccountsProgress}"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
+                           FontWeight="Bold"
+                           FontSize="70"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
