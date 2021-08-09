@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--Update button dark-->
+    <!--Scroll viewer-->
+    <Brush x:Key="scroll_brush">#2F2F45</Brush>
+    <Brush x:Key="scroll_border_brush">#1CFFFFFF</Brush>
+    <!--Update button-->
     <Brush x:Key="upd_background">#2F2F45</Brush>
     <Brush x:Key="upd_foreground">#92929D</Brush>
     <Brush x:Key="upd_border">#19FFFFFF</Brush>
