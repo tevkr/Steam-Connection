@@ -82,7 +82,7 @@
                             <Setter Property="AllowDrop" Value="True"/>
                             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_PreviewMouseLeftButtonDown"/>
                             <EventSetter Event="MouseDoubleClick" Handler="ListBox_MouseDoubleClick"/>
-                            <!--<EventSetter Event="DragOver" Handler="ListBoxItem_DragOver"/>
+                            <!--  #4481EB <EventSetter Event="DragOver" Handler="ListBoxItem_DragOver"/>
                             <EventSetter Event="PreviewGiveFeedback" Handler="ListBoxItem_PreviewGiveFeedback"/>-->
                         </Style>
                     </ListBox.ItemContainerStyle>

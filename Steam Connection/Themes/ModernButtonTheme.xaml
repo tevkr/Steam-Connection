@@ -26,10 +26,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="local:Extentions.IsEditMode" Value="True">
-                                <Setter Property="Background" Value="White" TargetName="Border"/>
+                                <Setter Property="Background" Value="{DynamicResource upd_background}" TargetName="Border"/>
                                 <Setter Property="BorderThickness" Value="1" TargetName="Border"/>
-                                <Setter Property="BorderBrush" Value="#19000000" TargetName="Border"/>
-                                <Setter Property="Foreground" Value="#B0B0B0" TargetName="TextBlock"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource upd_border}" TargetName="Border"/>
+                                <Setter Property="Foreground" Value="{DynamicResource upd_foreground}" TargetName="TextBlock"/>
                                 <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(local:Extentions.EditModeContent)}" TargetName="TextBlock"/>
                             </Trigger>
                         </ControlTemplate.Triggers>

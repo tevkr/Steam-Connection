@@ -9,7 +9,7 @@
                     <Border CornerRadius="5"
                             BorderThickness="1"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            Background="White"
+                            Background="{DynamicResource pin_background}"
                             Width="{TemplateBinding Width}" 
                             Height="{TemplateBinding Height}"
                             x:Name="Border"
@@ -29,7 +29,7 @@
                                                        Width="48"
                                                        Height="48">
                             </local:BindablePasswordBox>-->
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="⬤" x:Name="TextBlock" Visibility="Visible" Focusable="True"/>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="⬤" x:Name="TextBlock" Visibility="Visible" Focusable="True" Foreground="{DynamicResource pin_foreground}"/>
                             <TextBox Text="{Binding ElementName=PinCodeTextBox2, Path=Text}"
                                      BorderThickness="0"
                                      Background="Transparent"
@@ -44,7 +44,7 @@
                             <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
                                      BorderThickness="0"
                                      Background="Transparent"
-                                     Foreground="Black"
+                                     Foreground="{DynamicResource pin_foreground}"
                                      FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                                      FontSize="24"
                                      x:Name="PinCodeTextBox2"

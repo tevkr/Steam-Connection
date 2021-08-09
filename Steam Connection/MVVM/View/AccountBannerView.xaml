@@ -24,8 +24,8 @@
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border BorderThickness="2" 
-                        BorderBrush="#EEEEEE" 
+                <Border BorderThickness="1" 
+                        BorderBrush="{DynamicResource abv_steam_picture_border}" 
                         CornerRadius="5" 
                         Padding="0"
                         HorizontalAlignment="Center" 
@@ -33,7 +33,7 @@
                         Height="90"
                         Width="90">
                     <Grid>
-                        <Border Name="mask" Background="White" CornerRadius="5"/>
+                        <Border Name="mask" CornerRadius="5" Background="{DynamicResource abv_background}"/>
                         <StackPanel>
                             <StackPanel.OpacityMask>
                                 <VisualBrush Visual="{Binding ElementName=mask}"/>
@@ -50,7 +50,8 @@
                                FontFamily="/Steam Connection;component/Fonts/#Inter"
                                Margin="5 15 0 0"
                                MaxWidth="113"
-                               TextTrimming="CharacterEllipsis"/>
+                               TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource abv_steam_nickname}"/>
                     <Border Visibility="{Binding VacMode, Converter={StaticResource BoolToVis}}"
                             CornerRadius="5"
                             Width="40"
@@ -60,7 +61,7 @@
                         <TextBlock Text="VAC"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Foreground="White"
+                                   Foreground="{DynamicResource abv_vac_textblock}"
                                    FontSize="10"
                                    LineHeight="10"
                                    FontFamily="/Steam Connection;component/Fonts/#Inter"/>
@@ -146,14 +147,14 @@
                                             <ControlTemplate TargetType="Button">
                                                 <Border Height="26"
                                                         Width="26"
-                                                        Background="#595959"
+                                                        Background="{DynamicResource abv_dad_button_background}"
                                                         CornerRadius="2"
                                                         Cursor="Hand">
                                                     <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                                                         <Canvas Height="24" Width="24"
                                                                 Margin="4">
-                                                            <Path Data="M0 0h24v24H0V0z" Fill="#00000000" />
-                                                            <Path Data="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" Fill="#FFFFFF" />
+                                                            <Path Data="M0 0h24v24H0V0z" Fill="{DynamicResource abv_dad_button_background}" />
+                                                            <Path Data="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" Fill="{DynamicResource abv_dad_button_lines}" />
                                                         </Canvas>
                                                     </Viewbox>
                                                     <Border.Style>
@@ -294,7 +295,7 @@
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
                            Margin="0 0 8 5"
-                           Foreground="#19000000">
+                           Foreground="{DynamicResource abv_account_id}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Visibility" Value="Visible"/>
@@ -310,8 +311,8 @@
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="BorderBrush" Value="#0C000000"/>
-                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource abv_main_border}"/>
+                    <Setter Property="Background" Value="{DynamicResource abv_background}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding EditMode, UpdateSourceTrigger=PropertyChanged}" Value="True">
                             <Setter Property="Cursor" Value="Arrow"/>

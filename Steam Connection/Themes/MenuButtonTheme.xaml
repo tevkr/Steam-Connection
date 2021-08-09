@@ -16,7 +16,7 @@
                                        Margin="20,0,0,0"
                                        FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                                        FontSize="24"
-                                       Foreground="Black" 
+                                       Foreground="{DynamicResource mw_menu_radiobutton}" 
                                        FontWeight="Bold" >
 
                             </TextBlock>

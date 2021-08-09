@@ -24,18 +24,19 @@
             <RowDefinition  Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Background="White" Grid.RowSpan="2"/>
-        <Border Background="#F5F5F5" Grid.Column="1" Grid.RowSpan="2"/>
+        <Border Background="{DynamicResource mw_left_side_border}" Grid.RowSpan="2"/>
+        <Border Background="{DynamicResource mw_right_side_border}" Grid.Column="1" Grid.RowSpan="2"/>
         <Grid x:Name="LogoGrid" MouseLeftButtonDown="DragWindow" Background="Transparent">
             <StackPanel Orientation="Horizontal">
                 <Canvas Height="29"
                         Width="29"
                         Margin="20,20,0,0" 
                         HorizontalAlignment="Left">
-                    <Path Data="M0 5C0 2.23858 2.23858 0 5 0H24C26.7614 0 29 2.23858 29 5V24C29 26.7614 26.7614 29 24 29H16.7335C19.6352 28.5993 21.87 26.106 21.87 23.09C21.87 19.7949 19.2025 17.1237 15.912 17.1237C14.2681 17.1237 12.7797 17.7905 11.7017 18.8686L14.0422 21.2123C14.5212 20.734 15.1821 20.4383 15.912 20.4383C17.3744 20.4383 18.56 21.6255 18.56 23.09C18.56 24.5545 17.3744 25.7417 15.912 25.7417C15.1794 25.7417 14.5163 25.4438 14.0369 24.9624L14.034 24.9653L7.9595 18.8824L7.96802 18.8739C6.88963 17.7926 5.39905 17.1237 3.75246 17.1237C2.33022 17.1237 1.02437 17.6228 0 18.4555V5ZM7.95392 27.3202L9.6666 29H4.98234L5 29H15.0905C13.7953 28.8211 12.633 28.2254 11.743 27.3523L11.7398 27.3555L5.56118 21.1683L5.56889 21.1605C5.09476 20.7128 4.45562 20.4383 3.75246 20.4383C2.29002 20.4383 1.10447 21.6255 1.10447 23.09C1.10447 24.5545 2.29002 25.7417 3.75246 25.7417C4.48234 25.7417 5.14326 25.446 5.62224 24.9676L7.96275 27.3114C7.95981 27.3144 7.95687 27.3173 7.95392 27.3202Z" Fill="#242731" />
+                    <Path Data="M0 5C0 2.23858 2.23858 0 5 0H24C26.7614 0 29 2.23858 29 5V24C29 26.7614 26.7614 29 24 29H16.7335C19.6352 28.5993 21.87 26.106 21.87 23.09C21.87 19.7949 19.2025 17.1237 15.912 17.1237C14.2681 17.1237 12.7797 17.7905 11.7017 18.8686L14.0422 21.2123C14.5212 20.734 15.1821 20.4383 15.912 20.4383C17.3744 20.4383 18.56 21.6255 18.56 23.09C18.56 24.5545 17.3744 25.7417 15.912 25.7417C15.1794 25.7417 14.5163 25.4438 14.0369 24.9624L14.034 24.9653L7.9595 18.8824L7.96802 18.8739C6.88963 17.7926 5.39905 17.1237 3.75246 17.1237C2.33022 17.1237 1.02437 17.6228 0 18.4555V5ZM7.95392 27.3202L9.6666 29H4.98234L5 29H15.0905C13.7953 28.8211 12.633 28.2254 11.743 27.3523L11.7398 27.3555L5.56118 21.1683L5.56889 21.1605C5.09476 20.7128 4.45562 20.4383 3.75246 20.4383C2.29002 20.4383 1.10447 21.6255 1.10447 23.09C1.10447 24.5545 2.29002 25.7417 3.75246 25.7417C4.48234 25.7417 5.14326 25.446 5.62224 24.9676L7.96275 27.3114C7.95981 27.3144 7.95687 27.3173 7.95392 27.3202Z" 
+                          Fill="{DynamicResource mw_logo_brush}" />
                 </Canvas>
                 <TextBlock Text="STEAM CONNECTION" 
-                       Foreground="#FF242731" 
+                       Foreground="{DynamicResource mw_logo_brush}" 
                        FontFamily="/Steam Connection;component/Fonts/#DIN OT" 
                        FontSize="18"
                        FontWeight="Bold" 
@@ -108,11 +109,11 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Grid Margin="0,0,15,0">
                     <Rectangle x:Name="minimizeButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0" MouseLeftButtonUp="minimizeButton_MouseLeftButtonUp"/>
-                    <Rectangle Fill="#D4D4D4" Width="24" Height="3"/>
+                    <Rectangle Fill="{DynamicResource mw_exit_n_minimize }" Width="24" Height="3"/>
                 </Grid>
                 <Grid Margin="0,0,15,0">
                     <Rectangle x:Name="exitButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0" MouseLeftButtonUp="exitButton_MouseLeftButtonUp"/>
-                    <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle Fill="{DynamicResource mw_exit_n_minimize}" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
                         <Rectangle.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -122,7 +123,7 @@
                             </TransformGroup>
                         </Rectangle.RenderTransform>
                     </Rectangle>
-                    <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle Fill="{DynamicResource mw_exit_n_minimize}" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
                         <Rectangle.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -141,19 +142,19 @@
         <Grid 
             Grid.RowSpan="2" 
             Grid.ColumnSpan="2" 
-            Background="White"
+            Background="{DynamicResource mw_accounts_update_background}"
             Opacity="0.4"
             MouseLeftButtonDown="DragWindow"
             Visibility="{Binding Path=UpdateAccountsGridVisible, Converter={StaticResource BoolToVis}}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="{DynamicResource mw_accounts_update}"
-                           Foreground="Black"
+                           Foreground="{DynamicResource mw_accounts_update_foreground}"
                            HorizontalAlignment="Center"
                            FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                            FontWeight="Bold"
                            FontSize="70"/>
                 <TextBlock Text="{Binding Path=UpdateAccountsProgress}"
-                           Foreground="Black"
+                           Foreground="{DynamicResource mw_accounts_update_foreground}"
                            HorizontalAlignment="Center"
                            FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                            FontWeight="Bold"

@@ -19,6 +19,8 @@
                 <ResourceDictionary Source="Themes/FocusVisualStyleKey.xaml"/>
 
                 <ResourceDictionary Source="Languages/lang.en-US.xaml" />
+
+                <ResourceDictionary Source="Themes/ColorSchemes/LightTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:AccountsViewModel}">

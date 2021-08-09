@@ -163,7 +163,10 @@ namespace Steam_Connection.MVVM.ViewModel
                 LanguageMode = false;
             else if (config.language == config.supportedLanguages[(int)Config.Languages.English] || config.language == null)
                 LanguageMode = true;
-            ThemeMode = config.themeMode;
+            if (config.theme == Config.Themes.Dark)
+                ThemeMode = true;
+            else if (config.theme == Config.Themes.Light)
+                ThemeMode = false;
             VacMode = config.vacMode;
             Dota2RanksMode = config.d2RanksMode;
             CSGORanksMode = config.cSRanksMode;
@@ -194,7 +197,7 @@ namespace Steam_Connection.MVVM.ViewModel
                 {
                     config.steamDir = SteamDirectory;
                     config.language = config.supportedLanguages[Convert.ToInt32(LanguageMode)];
-                    config.themeMode = ThemeMode;
+                    config.theme = config.supportedThemes[Convert.ToInt32(ThemeMode)];
                     config.vacMode = VacMode;
                     config.d2RanksMode = Dota2RanksMode;
                     config.cSRanksMode = CSGORanksMode;

@@ -9,8 +9,8 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="5"
                             BorderThickness="1"
-                            BorderBrush="#19000000"
-                            Background="White"
+                            BorderBrush="{DynamicResource text_n_pass_border}"
+                            Background="{DynamicResource text_n_pass}"
                             Width="{TemplateBinding Width}" 
                             Height="{TemplateBinding Height}">
                         <Grid>
@@ -20,7 +20,8 @@
                                      Background="Transparent"
                                      VerticalContentAlignment="Center"
                                      Padding="15 0 15 0"
-                                     Foreground="Black"
+                                     Foreground="{DynamicResource text_n_pass_foreground}"
+                                     CaretBrush="{DynamicResource text_n_pass_foreground}"
                                      FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                                      FontSize="14"
                                      x:Name="SearchBox"/>
@@ -32,7 +33,7 @@
                                        FontWeight="Bold"
                                        Margin="15 0 0 0"
                                        FontSize="14"
-                                       Foreground="#3F000000">
+                                       Foreground="{DynamicResource text_n_pass_placeholder}">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Style.Triggers>

@@ -23,7 +23,12 @@ namespace Steam_Connection.Core.Config
             supportedLanguages = new List<CultureInfo>();
             supportedLanguages.Add(new CultureInfo("ru-RU"));
             supportedLanguages.Add(new CultureInfo("en-US"));
-            d2RanksMode = cSRanksMode = nonConfirmationMode = themeMode = vacMode = closeMode = pinMode = false;
+            supportedThemes = new List<Themes>();
+            supportedThemes.Add(Themes.Light);
+            supportedThemes.Add(Themes.Dark);
+            d2RanksMode = cSRanksMode = nonConfirmationMode = vacMode = closeMode = pinMode = false;
+            theme = supportedThemes[0];
+            language = supportedLanguages[1];
             pinCode = "";
             steamDir = "";
         }
@@ -34,8 +39,8 @@ namespace Steam_Connection.Core.Config
                 if (File.Exists("config.dat"))
                 {
                     config = deserialize();
-                    if (config.language != null)
-                        config.language = config.language;
+                    config.language = config.language;
+                    config.theme = config.theme;
                 }
                 else
                     config = new Config();
@@ -91,13 +96,54 @@ namespace Steam_Connection.Core.Config
         }
         public List<Account> accounts { get; }
         public string steamDir { get; set; }
-        //public Theme theme { get; set; }
-        //public Language language { get; set; }
+        public enum Themes
+        {
+            Light = 0,
+            Dark = 1
+        }
+        public List<Themes> supportedThemes { get; set; }
+        private Themes _theme;
+        public Themes theme
+        {
+            get
+            {
+                return _theme;
+            }
+            set
+            {
+                _theme = value;
+                ResourceDictionary dict = new ResourceDictionary();
+                switch (value)
+                {
+                    case Themes.Light:
+                        dict.Source = new Uri("Themes/ColorSchemes/LightTheme.xaml", UriKind.Relative);
+                        break;
+                    case Themes.Dark:
+                        dict.Source = new Uri("Themes/ColorSchemes/DarkTheme.xaml", UriKind.Relative);
+                        break;
+                    default:
+                        dict.Source = new Uri("Themes/ColorSchemes/LightTheme.xaml", UriKind.Relative);
+                        break;
+                }
+                ResourceDictionary oldDict = (from d in Application.Current.Resources.MergedDictionaries
+                    where d.Source != null && d.Source.OriginalString.StartsWith("Themes/ColorSchemes/")
+                    select d).First();
+                if (oldDict != null)
+                {
+                    int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);
+                    Application.Current.Resources.MergedDictionaries.Remove(oldDict);
+                    Application.Current.Resources.MergedDictionaries.Insert(ind, dict);
+                }
+                else
+                {
+                    Application.Current.Resources.MergedDictionaries.Add(dict);
+                }
+            }
+        }
         public string pinCode { get; set; }
         public bool d2RanksMode { get; set; }
         public bool cSRanksMode { get; set; }
         public bool nonConfirmationMode { get; set; }
-        public bool themeMode { get; set; }
         public bool vacMode { get; set; }
         public bool closeMode { get; set; }
         public bool pinMode { get; set; }

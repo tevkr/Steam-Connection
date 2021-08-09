@@ -10,7 +10,7 @@
         Height="600" Width="950" 
         WindowStyle="None"
         ResizeMode="CanMinimize"
-        Background="#F5F5F5"
+        Background="{DynamicResource pin_view_background}"
         FocusManager.FocusedElement="{Binding ElementName=p1TextBox}"
         WindowStartupLocation="CenterScreen"
         xmlns:converters="clr-namespace:Steam_Connection.Converters"
@@ -35,11 +35,11 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Grid Margin="0,0,15,0">
                     <Rectangle x:Name="minimizeButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0" MouseLeftButtonUp="minimizeButton_MouseLeftButtonUp"/>
-                    <Rectangle Fill="#D4D4D4" Width="24" Height="3"/>
+                    <Rectangle Fill="{DynamicResource mw_exit_n_minimize}" Width="24" Height="3"/>
                 </Grid>
                 <Grid Margin="0,0,15,0">
                     <Rectangle x:Name="exitButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0" MouseLeftButtonUp="exitButton_MouseLeftButtonUp"/>
-                    <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle Fill="{DynamicResource mw_exit_n_minimize}" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
                         <Rectangle.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -49,7 +49,7 @@
                             </TransformGroup>
                         </Rectangle.RenderTransform>
                     </Rectangle>
-                    <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle Fill="{DynamicResource mw_exit_n_minimize}" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
                         <Rectangle.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -66,11 +66,12 @@
             <StackPanel Orientation="Horizontal" Width="430" Height="60" VerticalAlignment="Top" Margin="0 50 0 0">
                 <Viewbox Stretch="Uniform" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                     <Canvas Height="59" Width="59">
-                        <Path Data="M0.362076 10.1724C0.362076 4.55434 4.91642 0 10.5345 0H49.1897C54.8077 0 59.3621 4.55435 59.3621 10.1724V48.8276C59.3621 54.4457 54.8077 59 49.1897 59H34.4061C40.3096 58.1847 44.8561 53.1121 44.8561 46.9762C44.8561 40.2724 39.4292 34.838 32.7347 34.838C29.3902 34.838 26.3621 36.1944 24.1689 38.3878L28.9307 43.1562C29.9052 42.1831 31.2498 41.5814 32.7347 41.5814C35.71 41.5814 38.122 43.9968 38.122 46.9762C38.122 49.9557 35.71 52.371 32.7347 52.371C31.2443 52.371 29.8953 51.7649 28.92 50.7855L28.914 50.7915L16.5555 38.4159L16.5729 38.3985C14.3789 36.1988 11.3463 34.838 7.99639 34.838C5.10286 34.838 2.44614 35.8532 0.362076 37.5474V10.1724ZM16.5442 55.5825L20.0286 58.9999H10.4957L10.5345 59H31.0633C28.4283 58.6361 26.0637 57.424 24.253 55.6479L24.2465 55.6543L11.6762 43.0665L11.6919 43.0508C10.7273 42.1398 9.42694 41.5814 7.99639 41.5814C5.02107 41.5814 2.60909 43.9968 2.60909 46.9762C2.60909 49.9557 5.02107 52.371 7.99639 52.371C9.48132 52.371 10.8259 51.7694 11.8004 50.7963L16.5622 55.5646C16.5562 55.5706 16.5502 55.5766 16.5442 55.5825Z" Fill="#242731" />
+                        <Path Data="M0.362076 10.1724C0.362076 4.55434 4.91642 0 10.5345 0H49.1897C54.8077 0 59.3621 4.55435 59.3621 10.1724V48.8276C59.3621 54.4457 54.8077 59 49.1897 59H34.4061C40.3096 58.1847 44.8561 53.1121 44.8561 46.9762C44.8561 40.2724 39.4292 34.838 32.7347 34.838C29.3902 34.838 26.3621 36.1944 24.1689 38.3878L28.9307 43.1562C29.9052 42.1831 31.2498 41.5814 32.7347 41.5814C35.71 41.5814 38.122 43.9968 38.122 46.9762C38.122 49.9557 35.71 52.371 32.7347 52.371C31.2443 52.371 29.8953 51.7649 28.92 50.7855L28.914 50.7915L16.5555 38.4159L16.5729 38.3985C14.3789 36.1988 11.3463 34.838 7.99639 34.838C5.10286 34.838 2.44614 35.8532 0.362076 37.5474V10.1724ZM16.5442 55.5825L20.0286 58.9999H10.4957L10.5345 59H31.0633C28.4283 58.6361 26.0637 57.424 24.253 55.6479L24.2465 55.6543L11.6762 43.0665L11.6919 43.0508C10.7273 42.1398 9.42694 41.5814 7.99639 41.5814C5.02107 41.5814 2.60909 43.9968 2.60909 46.9762C2.60909 49.9557 5.02107 52.371 7.99639 52.371C9.48132 52.371 10.8259 51.7694 11.8004 50.7963L16.5622 55.5646C16.5562 55.5706 16.5502 55.5766 16.5442 55.5825Z" 
+                              Fill="{DynamicResource mw_logo_brush}" />
                     </Canvas>
                 </Viewbox>
                 <TextBlock Text="STEAM CONNECTION" 
-                       Foreground="#242731" 
+                       Foreground="{DynamicResource mw_logo_brush}" 
                        FontFamily="/Steam Connection;component/Fonts/#DIN OT" 
                        FontSize="37"
                        FontWeight="Bold"
@@ -175,12 +176,12 @@
                     </Grid.RowDefinitions>
                     <Grid x:Name="BannerTopPanelGrid">
                         <Grid HorizontalAlignment="Right" Margin="0,0,15,0">
-                            <Rectangle x:Name="closeBannerButton" Height="26" Width="26" Cursor="Hand" Fill="Black" Panel.ZIndex="1" Opacity="0">
+                            <Rectangle x:Name="closeBannerButton" Height="26" Width="26" Cursor="Hand" Fill="{DynamicResource pin_view_banner_exit_n_minimize}" Panel.ZIndex="1" Opacity="0">
                                 <Rectangle.InputBindings>
                                     <MouseBinding Command="{Binding HideBannerCommand}" MouseAction="LeftClick" />
                                 </Rectangle.InputBindings>
                             </Rectangle>
-                            <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle Fill="{DynamicResource pin_view_banner_exit_n_minimize}" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
                                 <Rectangle.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -190,7 +191,7 @@
                                     </TransformGroup>
                                 </Rectangle.RenderTransform>
                             </Rectangle>
-                            <Rectangle Fill="#D4D4D4" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle Fill="{DynamicResource pin_view_banner_exit_n_minimize}" Width="24" Height="3" RenderTransformOrigin="0.5,0.5">
                                 <Rectangle.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -203,7 +204,7 @@
                             </Grid>
                     </Grid>
                     <StackPanel Grid.Row="1">
-                        <TextBlock Foreground="#242731" 
+                        <TextBlock Foreground="{DynamicResource pin_view_banner_textblock}" 
                                    FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
                                    FontSize="19"
                                    FontWeight="Bold"
@@ -227,7 +228,7 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="6"
                                       ShadowDepth="2"
-                                      Color="Black"
+                                      Color="{DynamicResource pin_view_banner_shadow}"
                                       Opacity="0.2"/>
                 </Border.Effect>
             </Border>

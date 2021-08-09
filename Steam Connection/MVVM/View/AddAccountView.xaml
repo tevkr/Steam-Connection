@@ -22,12 +22,14 @@
                 FontSize="24"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
-                Margin="0 0 0 0"/>
+                Margin="0 0 0 0"
+                Foreground="{DynamicResource add_n_edit_textblock}"/>
             <TextBlock Text="{DynamicResource aav_steamlink}"
                 FontSize="14"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
-                Margin="0 10 0 0"/>
+                Margin="0 10 0 0"
+                Foreground="{DynamicResource add_n_edit_textblock}"/>
             <TextBox Text="{Binding SteamLink, UpdateSourceTrigger=PropertyChanged}"
                      Height="37"
                      Width="402"
@@ -39,7 +41,8 @@
                 FontSize="14"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
-                Margin="0 13 0 0"/>
+                Margin="0 13 0 0"
+                Foreground="{DynamicResource add_n_edit_textblock}"/>
             <TextBox Text="{Binding SteamLogin, UpdateSourceTrigger=PropertyChanged}"
                      Height="37"
                      Width="402"
@@ -50,7 +53,8 @@
                 FontSize="14"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
-                Margin="0 13 0 0"/>
+                Margin="0 13 0 0"
+                Foreground="{DynamicResource add_n_edit_textblock}"/>
             <themes:BindablePasswordBox x:Name="Passwordbox"
                                         Password="{Binding SteamPassword, UpdateSourceTrigger=PropertyChanged}"
                                         Height="37"
@@ -90,12 +94,12 @@
                 <Button Height="37"
                         Width="159"
                         Content="{DynamicResource aav_cancel}"
-                        Background="White"
-                        Foreground="#B0B0B0"
+                        Background="{DynamicResource add_n_edit_cancel_background}"
+                        Foreground="{DynamicResource add_n_edit_cancel_foreground}"
                         Style="{StaticResource ModernButtonTheme}"
                         Margin="15 0 0 0" Cursor="Hand"
                         BorderThickness="1"
-                        BorderBrush="#19000000"
+                        BorderBrush="{DynamicResource add_n_edit_cancel_border}"
                         Command="{Binding AccountsViewCommand}"
                         CommandParameter="{Binding ElementName=Passwordbox, Path=Password}"/>
             </StackPanel>
