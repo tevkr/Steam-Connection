@@ -26,7 +26,7 @@
                 <TextBox Height="37" 
                          Width="394"
                          VerticalContentAlignment="Center"
-                         themes:Extentions.Placeholder="Найти аккаунт"
+                         themes:Extentions.Placeholder="{DynamicResource av_search_box_placeholder}"
                          Style="{StaticResource ModernTextboxTheme}"
                          Text="{Binding SearchBoxText, UpdateSourceTrigger=PropertyChanged}"/>
                 <CheckBox x:Name="EditCheckBox"
@@ -39,12 +39,12 @@
                           CommandParameter="{Binding ElementName=EditCheckBox, Path=IsChecked}"/>
                 <Button x:Name="AddOrUpdateButton"
                         themes:Extentions.IsEditMode="{Binding ElementName=EditCheckBox, Path=IsChecked}"
-                        themes:Extentions.EditModeContent="Обновить данные"
+                        themes:Extentions.EditModeContent="{DynamicResource av_update_accounts}"
                         Height="37" 
                         Width="159" 
                         Margin="15 0 0 0"
                         Background="#4481EB"
-                        Content="Добавить аккаунт"
+                        Content="{DynamicResource av_add_account}"
                         Foreground="#FFFFFF"
                         Style="{StaticResource ModernButtonTheme}"
                         Command="{Binding AddAccountViewOrUpdateCommand}"
@@ -107,15 +107,17 @@
                 Visibility="{Binding NonConfirmationModeBanner, Converter={StaticResource BoolToVis}}">
             <Grid Margin="10 0 10 0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding AccountName, StringFormat='Вы уверены, что хотите авторизоваться в аккаунт {0}', UpdateSourceTrigger=PropertyChanged}"
-                               FontFamily="/Steam Connection;component/Fonts/dinot.otf"
+                    <TextBlock FontFamily="/Steam Connection;component/Fonts/dinot.otf"
                                FontWeight="Bold"
                                FontSize="14"
                                Foreground="White"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis"
-                               MaxWidth="510"/>
+                               MaxWidth="510">
+                        <Run Text="{DynamicResource av_login_in_banner_description}"/>
+                        <Run Text="{Binding AccountName}"/>
+                    </TextBlock>
                     <TextBlock Text="?"
                                FontFamily="/Steam Connection;component/Fonts/dinot.otf"
                                FontWeight="Bold"
@@ -131,7 +133,7 @@
                             Height="30" 
                             Width="50" 
                             Background="#25AB75"
-                            Content="Да"
+                            Content="{DynamicResource av_login_in_banner_yes}"
                             Foreground="#FFFFFF"
                             Style="{StaticResource ModernButtonTheme}"
                             Cursor="Hand"
@@ -141,7 +143,7 @@
                             Width="50" 
                             Background="#FF5985"
                             Margin="8 0 0 0"
-                            Content="Нет"
+                            Content="{DynamicResource av_login_in_banner_no}"
                             Foreground="#FFFFFF"
                             Style="{StaticResource ModernButtonTheme}"
                             Cursor="Hand"

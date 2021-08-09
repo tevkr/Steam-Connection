@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Steam_Connection.Core;
 using Steam_Connection.Core.Config;
 using Steam_Connection.MVVM.Model;
@@ -74,23 +75,23 @@ namespace Steam_Connection.MVVM.ViewModel
                 SteamLinkValidation slv = new SteamLinkValidation(_steamLink);
                 if (slv.getSteamLinkType() == SteamLinkValidation.steamLinkTypes.errorType)
                 {
-                    ErrorMessage = "Некорректная ссылка на аккаунт стим.";
+                    ErrorMessage = (string)Application.Current.FindResource("error_invalid_steamlink");
                 }
                 else if (SteamLogin == "" || SteamLogin.Contains(" "))
                 {
                     if (SteamLogin == "")
                     {
-                        ErrorMessage = "Поле с логином пустое.";
+                        ErrorMessage = (string)Application.Current.FindResource("error_empty_login");
                     }
                     else
                     {
-                        ErrorMessage = "Некорректное поле с логином.";
+                        ErrorMessage = (string)Application.Current.FindResource("error_invalid_login");
                     }
 
                 }
                 else if (SteamPassword == "")
                 {
-                    ErrorMessage = "Поле с паролем пустое.";
+                    ErrorMessage = (string)Application.Current.FindResource("error_empty_password");
                 }
                 else
                 {

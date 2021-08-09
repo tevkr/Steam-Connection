@@ -2,12 +2,14 @@
 using Steam_Connection.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Steam_Connection.Core.Config
 {
@@ -18,7 +20,10 @@ namespace Steam_Connection.Core.Config
         private Config()
         {
             this.accounts = new List<Account>();
-            d2RanksMode = cSRanksMode = nonConfirmationMode = langMode = themeMode = vacMode = closeMode = pinMode = false;
+            supportedLanguages = new List<CultureInfo>();
+            supportedLanguages.Add(new CultureInfo("ru-RU"));
+            supportedLanguages.Add(new CultureInfo("en-US"));
+            d2RanksMode = cSRanksMode = nonConfirmationMode = themeMode = vacMode = closeMode = pinMode = false;
             pinCode = "";
             steamDir = "";
         }
@@ -27,11 +32,62 @@ namespace Steam_Connection.Core.Config
             if (config == null)
             {
                 if (File.Exists("config.dat"))
+                {
                     config = deserialize();
+                    if (config.language != null)
+                        config.language = config.language;
+                }
                 else
                     config = new Config();
             }
             return config;
+        }
+        public enum Languages
+        {
+            Russian = 0,
+            English = 1
+        }
+        public List<CultureInfo> supportedLanguages { get; set; }
+        private CultureInfo _language;
+        public CultureInfo language
+        {
+            get
+            {
+                return _language;
+            }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+                if (value == System.Threading.Thread.CurrentThread.CurrentUICulture) return;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = value;
+                ResourceDictionary dict = new ResourceDictionary();
+                switch (value.Name)
+                {
+                    case "ru-RU":
+                        dict.Source = new Uri(String.Format("Languages/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "en-US":
+                        dict.Source = new Uri(String.Format("Languages/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    default:
+                        dict.Source = new Uri("Languages/lang.en-US.xaml", UriKind.Relative);
+                        break;
+                }
+                ResourceDictionary oldDict = (from d in Application.Current.Resources.MergedDictionaries
+                    where d.Source != null && d.Source.OriginalString.StartsWith("Languages/lang.")
+                    select d).First();
+                if (oldDict != null)
+                {
+                    int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);
+                    Application.Current.Resources.MergedDictionaries.Remove(oldDict);
+                    Application.Current.Resources.MergedDictionaries.Insert(ind, dict);
+                }
+                else
+                {
+                    Application.Current.Resources.MergedDictionaries.Add(dict);
+                }
+                _language = System.Threading.Thread.CurrentThread.CurrentUICulture;
+            }
         }
         public List<Account> accounts { get; }
         public string steamDir { get; set; }
@@ -41,7 +97,6 @@ namespace Steam_Connection.Core.Config
         public bool d2RanksMode { get; set; }
         public bool cSRanksMode { get; set; }
         public bool nonConfirmationMode { get; set; }
-        public bool langMode { get; set; }
         public bool themeMode { get; set; }
         public bool vacMode { get; set; }
         public bool closeMode { get; set; }

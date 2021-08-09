@@ -129,7 +129,7 @@ namespace Steam_Connection
                         textBox.Text = "";
                     }
                     p1TextBox.Focus();
-                    ((PinCodeViewModel) this.DataContext).ErrorMessage = "Неверный пин-код.";
+                    ((PinCodeViewModel) this.DataContext).ErrorMessage = (string)Application.Current.FindResource("error_invalid_pin");
                 }
             }
         }

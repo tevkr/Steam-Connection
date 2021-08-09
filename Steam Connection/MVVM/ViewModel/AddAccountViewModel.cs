@@ -73,23 +73,23 @@ namespace Steam_Connection.MVVM.ViewModel
                 SteamLinkValidation slv = new SteamLinkValidation(_steamLink);
                 if (slv.getSteamLinkType() == SteamLinkValidation.steamLinkTypes.errorType)
                 {
-                    ErrorMessage = "Некорректная ссылка на аккаунт стим.";
+                    ErrorMessage = (string)Application.Current.FindResource("error_invalid_steamlink"); //"Некорректная ссылка на аккаунт стим.";
                 }
                 else if (SteamLogin == "" || SteamLogin.Contains(" "))
                 {
                     if (SteamLogin == "")
                     {
-                        ErrorMessage = "Поле с логином пустое.";
+                        ErrorMessage = (string)Application.Current.FindResource("error_empty_login"); //"Поле с логином пустое.";
                     }
                     else
                     {
-                        ErrorMessage = "Некорректное поле с логином.";
+                        ErrorMessage = (string)Application.Current.FindResource("error_invalid_login"); //"Некорректное поле с логином.";
                     }
 
                 }
                 else if (SteamPassword == "")
                 {
-                    ErrorMessage = "Поле с паролем пустое.";
+                    ErrorMessage = (string)Application.Current.FindResource("error_empty_password"); //"Поле с паролем пустое.";
                 }
                 else
                 {

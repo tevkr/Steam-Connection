@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using Steam_Connection.Core;
 using Steam_Connection.Core.Config;
@@ -158,7 +159,10 @@ namespace Steam_Connection.MVVM.ViewModel
         {
             Config config = Config.getInstance();
             SteamDirectory = config.steamDir;
-            LanguageMode = config.langMode;
+            if (config.language == config.supportedLanguages[(int)Config.Languages.Russian])
+                LanguageMode = false;
+            else if (config.language == config.supportedLanguages[(int)Config.Languages.English] || config.language == null)
+                LanguageMode = true;
             ThemeMode = config.themeMode;
             VacMode = config.vacMode;
             Dota2RanksMode = config.d2RanksMode;
@@ -178,16 +182,18 @@ namespace Steam_Connection.MVVM.ViewModel
                 ErrorMessage = "";
                 if (!SteamDirValidation.isSteamDirCorrect(SteamDirectory))
                 {
-                    ErrorMessage = "Некорректная директория стим.";
+                    ErrorMessage = (string)Application.Current.FindResource("error_invalid_steam_directory");
                 }
-                else if (PinCodeMode && (PinDigit1 == "" || PinDigit2 == "" || PinDigit3 == "" || PinDigit4 == ""))
+                else if (PinCodeMode && 
+                         ((PinDigit1 == "" || PinDigit2 == "" || PinDigit3 == "" || PinDigit4 == "") || 
+                         (PinDigit1 == null || PinDigit2 == null || PinDigit3 == null || PinDigit4 == null)))
                 {
-                    ErrorMessage = "Заполните пин-код.";
+                    ErrorMessage = (string)Application.Current.FindResource("error_empty_pin");
                 }
                 else if (ErrorMessage == "")
                 {
                     config.steamDir = SteamDirectory;
-                    config.langMode = LanguageMode;
+                    config.language = config.supportedLanguages[Convert.ToInt32(LanguageMode)];
                     config.themeMode = ThemeMode;
                     config.vacMode = VacMode;
                     config.d2RanksMode = Dota2RanksMode;

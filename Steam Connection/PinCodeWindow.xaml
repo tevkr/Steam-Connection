@@ -82,7 +82,7 @@
                             FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
                             FontSize="24"
                             FontWeight="Bold"
-                            Text="Введите пин-код"
+                            Text="{DynamicResource pcw_enter_pin_code}"
                             HorizontalAlignment="Center"
                             Margin="0 170 0 0"/>
                 <StackPanel Orientation="Horizontal"
@@ -154,7 +154,7 @@
                              FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
                              FontSize="14"
                              FontWeight="Bold"
-                             Text="Забыли пин-код?"
+                             Text="{DynamicResource pcw_forgot_pin_code}"
                              HorizontalAlignment="Center"
                              Margin="0 10 0 0"
                              Cursor="Hand">
@@ -207,7 +207,7 @@
                                    FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
                                    FontSize="19"
                                    FontWeight="Bold"
-                                   Text="Вы можете сбросить пин-код, чтобы восстановить доступ к программе, но все внесенные ранее аккаунты будут удалены."
+                                   Text="{DynamicResource pcw_banner_description}"
                                    HorizontalAlignment="Center"
                                    TextWrapping="Wrap"
                                    Width="382"/>
@@ -215,7 +215,7 @@
                                 Height="36" 
                                 Width="202" 
                                 Background="#4481EB"
-                                Content="Сбросить код-пароль"
+                                Content="{DynamicResource pcw_reset_pin_code}"
                                 Foreground="#FFFFFF"
                                 Style="{StaticResource ModernButtonTheme}"
                                 Cursor="Hand"

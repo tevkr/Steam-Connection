@@ -15,12 +15,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Margin="40 0 0 0">
-            <TextBlock Text="Редактирование аккаунта"
+            <TextBlock Text="{DynamicResource eav_title}"
                 FontSize="24"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                 Margin="0 0 0 0"/>
-            <TextBlock Text="Ссылка на стим"
+            <TextBlock Text="{DynamicResource eav_steamlink}"
                 FontSize="14"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
@@ -32,7 +32,7 @@
                      Style="{StaticResource ModernTextboxTheme}"
                      themes:Extentions.Placeholder="https://steamcommunity.com/id..."
                      x:Name="SteamLinkTextbox"/>
-            <TextBlock Text="Логин"
+            <TextBlock Text="{DynamicResource eav_login}"
                 FontSize="14"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
@@ -43,7 +43,7 @@
                      HorizontalAlignment="Left"
                      Style="{StaticResource ModernTextboxTheme}"
                      themes:Extentions.Placeholder="steamlogin"/>
-            <TextBlock Text="Пароль"
+            <TextBlock Text="{DynamicResource eav_password}"
                 FontSize="14"
                 FontWeight="Bold"
                 FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
@@ -78,14 +78,14 @@
                         Margin="0 20 0 0">
                 <Button Height="37"
                         Width="159"
-                        Content="Сохранить"
+                        Content="{DynamicResource eav_save}"
                         Background="#4481EB"
                         Foreground="White"
                         Style="{StaticResource ModernButtonTheme}" Cursor="Hand"
                         Command="{Binding EditAccountCommand}"/>
                 <Button Height="37"
                         Width="159"
-                        Content="Отменить"
+                        Content="{DynamicResource eav_cancel}"
                         Background="White"
                         Foreground="#B0B0B0"
                         Style="{StaticResource ModernButtonTheme}"
@@ -104,14 +104,14 @@
                 VerticalAlignment="Top"
                 Margin="0 56 0 0">
             <Grid Margin="15">
-                <TextBlock Text="Все ваши данные от аккаунта хранятся на вашем компьютере."
+                <TextBlock Text="{DynamicResource eav_banner_description_1}"
                            FontSize="14"
                            FontWeight="Bold"
                            Width="160"
                            TextWrapping="Wrap"
                            FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                            Foreground="White"/>
-                <TextBlock Text="Открытый исходный код поможет убедиться в честности проекта."
+                <TextBlock Text="{DynamicResource eav_banner_description_2}"
                            VerticalAlignment="Bottom"
                            FontSize="14"
                            FontWeight="Bold"
