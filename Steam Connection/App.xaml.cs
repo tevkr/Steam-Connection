@@ -30,6 +30,7 @@ namespace Steam_Connection
             else
             {
                 MainWindow mainWindow = new MainWindow();
+                mainWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;;
                 mainWindow.Show();
             }
         }

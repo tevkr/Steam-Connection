@@ -24,33 +24,14 @@ namespace Steam_Connection
         {
             InitializeComponent();
         }
-
-        private void exitButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                Application.Current.Shutdown();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void minimizeButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                WindowState = WindowState.Minimized;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
         private void DragWindow(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.donationalerts.com/r/nom_xd");
         }
     }
 }

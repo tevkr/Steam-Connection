@@ -17,6 +17,7 @@ namespace Steam_Connection.MVVM.ViewModel
     {
         private static Config config;
         public AsyncRelayCommand AddAccountViewOrUpdateCommand { get; set; }
+        public RelayCommand ConnectToSteamCommand { get; set; }
         public RelayCommand EditModeCommand { get; set; }
         public RelayCommand NoButtonCommand { get; set; }
         public RelayCommand YesButtonCommand { get; set; }
@@ -167,6 +168,11 @@ namespace Steam_Connection.MVVM.ViewModel
                 AccountName = "";
                 setSelected(AccountId);
             });
+            ConnectToSteamCommand = new RelayCommand(o =>
+            { 
+                Config config = Config.getInstance();
+                MessageBox.Show("123");
+                });
             fillAccountBannerViews();
         }
         public static void fillAccountBannerViews(List<int> accountsIndexes = null, string SearchBoxText = null)

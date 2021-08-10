@@ -14,7 +14,8 @@
         FocusManager.FocusedElement="{Binding ElementName=p1TextBox}"
         WindowStartupLocation="CenterScreen"
         xmlns:converters="clr-namespace:Steam_Connection.Converters"
-        x:Name="Window">
+        x:Name="Window"
+        WindowState="{Binding CurWindowState}">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <converters:BooleanToVisibilityInvertedConverter x:Key="BoolToVis2"/>

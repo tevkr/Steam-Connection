@@ -18,6 +18,21 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
         <converters:BoolInverterConverter x:Key="BoolInverterConverter"/>
+        <Style x:Key="{x:Type Hyperlink}" TargetType="{x:Type Hyperlink}">
+            <Setter Property="Foreground" Value="#4481EB"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#4481EB"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <UserControl.DataContext>
         <viewModel:SettingsViewModel/>
@@ -253,11 +268,12 @@
                 HorizontalAlignment="Left"
                 Margin="40 0 0 45"
                 Command="{Binding SaveChangesCommand}"/>
-        <TextBlock Text="Powered by @tevkr, design by @rhtfl"
-                   VerticalAlignment="Bottom"
+        <TextBlock VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
                    Margin="40 0 0 20"
                    Opacity="0.2"
-                   Foreground="{DynamicResource sv_authors}"/>
+                   Foreground="{DynamicResource sv_authors}">
+            Powered by <Hyperlink NavigateUri="https://github.com/tevkr" RequestNavigate="Hyperlink_tevkr_OnRequestNavigate">@tevkr</Hyperlink>, design by <Hyperlink NavigateUri="https://github.com/rhtfl" RequestNavigate="Hyperlink_rhtfl_OnRequestNavigate">@rhtfl</Hyperlink>
+        </TextBlock>
     </Grid>
 </UserControl>

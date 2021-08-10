@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Steam_Connection.Core;
 using Steam_Connection.MVVM.View;
 
@@ -6,6 +7,8 @@ namespace Steam_Connection.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
+        public static RelayCommand ExitCommand { get; set; }
+        public static RelayCommand MinimizeCommand { get; set; }
         public static RelayCommand AccountsViewCommand { get; set; }
         public static RelayCommand SettingsViewCommand { get; set; }
         public static RelayCommand AddAccountViewCommand { get; set; }
@@ -49,6 +52,20 @@ namespace Steam_Connection.MVVM.ViewModel
             }
         }
 
+        private WindowState _curWindowState;
+        public WindowState CurWindowState
+        {
+            get
+            {
+                return _curWindowState;
+            }
+            set
+            {
+                _curWindowState = value;
+                base.OnPropertyChanged("CurWindowState");
+            }
+        }
+
         public MainViewModel()
         {
             AccountsVM = new AccountsViewModel();
@@ -76,6 +93,30 @@ namespace Steam_Connection.MVVM.ViewModel
             {
                 EditAccountV = new EditAccountView((int)o);
                 CurrentView = EditAccountV;
+            });
+
+            ExitCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    Application.Current.Shutdown();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            });
+
+            MinimizeCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    CurWindowState = WindowState.Minimized;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             });
         }
     }

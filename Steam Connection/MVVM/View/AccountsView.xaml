@@ -158,21 +158,22 @@
                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                         <ContentPresenter Margin="0 0 20 20"
                                                           Height="120"
-                                                          Width="300"/>
+                                                          Width="300">
+                                        </ContentPresenter>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="AllowDrop" Value="True"/>
                             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_PreviewMouseLeftButtonDown"/>
-                            <EventSetter Event="MouseDoubleClick" Handler="ListBox_MouseDoubleClick"/>
-                            <!--  #4481EB <EventSetter Event="DragOver" Handler="ListBoxItem_DragOver"/>
+                            <!--<EventSetter Event="Selected" Handler="ListBox_Selected"/>-->
+                            <!--<EventSetter Event="DragOver" Handler="ListBoxItem_DragOver"/>
                             <EventSetter Event="PreviewGiveFeedback" Handler="ListBoxItem_PreviewGiveFeedback"/>-->
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <Border>
-                                <ItemsPresenter />
+                                <ItemsPresenter/>
                             </Border>
                         </ControlTemplate>
                     </ListBox.Template>

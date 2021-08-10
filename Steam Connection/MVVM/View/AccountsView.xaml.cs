@@ -77,6 +77,25 @@ namespace Steam_Connection.MVVM.View
                 else
                 {
                     _draggedItemView = null;
+                    Config config = Config.getInstance();
+                    if (!AccountsViewModel.EditMode)
+                    {
+                        ListBoxItem lbi = (ListBoxItem)sender;
+                        AccountBannerView abv = (AccountBannerView)lbi.Content;
+                        AccountsBannerViewModel abvm = (AccountsBannerViewModel)abv.DataContext;
+                        if (config.nonConfirmationMode)
+                        {
+                            if (config.closeMode) Application.Current.MainWindow.Hide();
+                            Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
+                            if (config.closeMode) { Application.Current.Shutdown(); }
+                        }
+                        else
+                        {
+                            ((AccountsViewModel)this.DataContext).AccountId = abvm.Id - 1;
+                            ((AccountsViewModel)this.DataContext).AccountName = abvm.SteamNickName;
+                            ((AccountsViewModel)this.DataContext).NonConfirmationModeBanner = true;
+                        }
+                    }
                 }
             }
         }
@@ -152,28 +171,6 @@ namespace Steam_Connection.MVVM.View
                     }
                     config.saveChanges();
                     AccountsViewModel.fillAccountBannerViews();
-                }
-            }
-        }
-        void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Config config = Config.getInstance();
-            if (!AccountsViewModel.EditMode)
-            {
-                ListBoxItem lbi = (ListBoxItem)e.Source;
-                AccountBannerView abv = (AccountBannerView)lbi.Content;
-                AccountsBannerViewModel abvm = (AccountsBannerViewModel)abv.DataContext;
-                if (config.nonConfirmationMode)
-                {
-                    if (config.closeMode) Application.Current.MainWindow.Hide();
-                    Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
-                    if (config.closeMode) { Application.Current.Shutdown(); }
-                }
-                else
-                {
-                    ((AccountsViewModel)this.DataContext).AccountId = abvm.Id - 1;
-                    ((AccountsViewModel)this.DataContext).AccountName = abvm.SteamNickName;
-                    ((AccountsViewModel)this.DataContext).NonConfirmationModeBanner = true;
                 }
             }
         }
