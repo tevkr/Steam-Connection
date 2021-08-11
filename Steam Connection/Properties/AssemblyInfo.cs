@@ -8,12 +8,12 @@ using System.Windows;
 // набор атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("Steam Connection")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Steam Connection")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyDescription("Steam Connection")]
+[assembly: AssemblyConfiguration("release")]
+[assembly: AssemblyCompany("tevkr")]
+[assembly: AssemblyProduct("An application that allows you to switch between accounts.")]
+[assembly: AssemblyCopyright("Copyright © tevkr 2021")]
+[assembly: AssemblyTrademark("SC. Steam Connection")]
 [assembly: AssemblyCulture("")]
 
 // Установка значения False для параметра ComVisible делает типы в этой сборке невидимыми

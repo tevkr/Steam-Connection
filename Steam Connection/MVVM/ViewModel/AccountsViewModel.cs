@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Steam_Connection.MVVM.Model;
+using Steam_Connection.Themes.CustomMessageBox;
 
 namespace Steam_Connection.MVVM.ViewModel
 {
@@ -17,7 +19,6 @@ namespace Steam_Connection.MVVM.ViewModel
     {
         private static Config config;
         public AsyncRelayCommand AddAccountViewOrUpdateCommand { get; set; }
-        public RelayCommand ConnectToSteamCommand { get; set; }
         public RelayCommand EditModeCommand { get; set; }
         public RelayCommand NoButtonCommand { get; set; }
         public RelayCommand YesButtonCommand { get; set; }
@@ -107,29 +108,35 @@ namespace Steam_Connection.MVVM.ViewModel
 
         private async Task addOrUpdate(object o)
         {
-            
-            if ((bool) o)
+            if (CheckForInternetConnection())
             {
-                MainViewModel.UpdateAccountsGridVisible = true;
-                var task = Task.Factory.StartNew(() =>
+                if ((bool)o)
                 {
-                    for (int i = 0; i < config.accounts.Count; i++)
+                    MainViewModel.UpdateAccountsGridVisible = true;
+                    var task = Task.Factory.StartNew(() =>
                     {
-                        MainViewModel.UpdateAccountsProgress = (i + 1) + " / " + config.accounts.Count;
-                        config.accounts[i] = new Account(config.accounts[i].steamId64, config.accounts[i].login, config.accounts[i].password);
-                    }
-                    config.saveChanges();
-                });
-                await task;
-                if (SearchBoxText != null)
-                    fillAccountBannerViews(config.searchByNickname(SearchBoxText), SearchBoxText);
+                        for (int i = 0; i < config.accounts.Count; i++)
+                        {
+                            MainViewModel.UpdateAccountsProgress = (i + 1) + " / " + config.accounts.Count;
+                            config.accounts[i] = new Account(config.accounts[i].steamId64, config.accounts[i].login, config.accounts[i].password);
+                        }
+                        config.saveChanges();
+                    });
+                    await task;
+                    if (SearchBoxText != null)
+                        fillAccountBannerViews(config.searchByNickname(SearchBoxText), SearchBoxText);
+                    else
+                        fillAccountBannerViews();
+                    MainViewModel.UpdateAccountsGridVisible = false;
+                    MainViewModel.UpdateAccountsProgress = "";
+                }
                 else
-                    fillAccountBannerViews();
-                MainViewModel.UpdateAccountsGridVisible = false;
-                MainViewModel.UpdateAccountsProgress = "";
+                    MainViewModel.AddAccountViewCommand.Execute(null);
             }
             else
-                MainViewModel.AddAccountViewCommand.Execute(null);
+            {
+                CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
+            }
         }
 
         public AccountsViewModel()
@@ -148,8 +155,8 @@ namespace Steam_Connection.MVVM.ViewModel
                 AccountName = "";
                 setSelected(AccountId);
                 foreach (var AccountBannerView in AccountBannerViews)
-                    AccountBannerView.setEditMode((bool)o);
-                _editMode = (bool)o;
+                    AccountBannerView.setEditMode((bool) o);
+                _editMode = (bool) o;
             });
             NoButtonCommand = new RelayCommand(o =>
             {
@@ -168,11 +175,6 @@ namespace Steam_Connection.MVVM.ViewModel
                 AccountName = "";
                 setSelected(AccountId);
             });
-            ConnectToSteamCommand = new RelayCommand(o =>
-            { 
-                Config config = Config.getInstance();
-                MessageBox.Show("123");
-                });
             fillAccountBannerViews();
         }
         public static void fillAccountBannerViews(List<int> accountsIndexes = null, string SearchBoxText = null)
@@ -193,6 +195,20 @@ namespace Steam_Connection.MVVM.ViewModel
                 }
             }
         }
-
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("http://www.google.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

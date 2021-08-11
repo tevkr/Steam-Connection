@@ -50,4 +50,9 @@
     <Brush x:Key="pin_view_banner_exit_n_minimize">#D4D4D4</Brush>
     <Brush x:Key="pin_view_banner_textblock">#F5F5F5</Brush>
     <Color x:Key="pin_view_banner_shadow">#FFFFFF</Color>
+    <!--Custom message box-->
+    <Brush x:Key="cmb_background">#16162A</Brush>
+    <Brush x:Key="cmb_close">#D4D4D4</Brush>
+    <Brush x:Key="cmb_foreground">#F5F5F5</Brush>
+    <Color x:Key="cmb_shadow">#FFFFFF</Color>
 </ResourceDictionary>

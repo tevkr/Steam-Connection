@@ -117,6 +117,7 @@ namespace Steam_Connection
                 {
                     var location = Window.PointToScreen(new Point(0, 0));
                     MainWindow mainWindow = new MainWindow();
+                    mainWindow.Title = "Steam Connection";
                     mainWindow.Left = location.X;
                     mainWindow.Top = location.Y;
                     mainWindow.Show();
@@ -210,6 +211,14 @@ namespace Steam_Connection
                 _fisrtLoad = false;
             }
         }
+        private void ForgotPin_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_fisrtLoad)
+            {
+                p1TextBox.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#19000000"));
+                _fisrtLoad = false;
+            }
+        }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
@@ -222,5 +231,7 @@ namespace Steam_Connection
             mainWindow.Show();
             Window.Hide();
         }
+
+
     }
 }

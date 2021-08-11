@@ -1,19 +1,16 @@
 ﻿using Steam_Connection.Core;
 using Steam_Connection.Core.Config;
 using Steam_Connection.MVVM.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
+using Steam_Connection.Themes.CustomMessageBox;
 
 namespace Steam_Connection.MVVM.ViewModel
 {
     class AccountsBannerViewModel : ObservableObject
     {
         public RelayCommand DeleteAccoundCommand { get; set; }
-        public RelayCommand hz { get; set; }
         public RelayCommand EditAccountCommand { get; set; }
         private string _steamPicture;
         private string _steamNickname;
@@ -129,7 +126,7 @@ namespace Steam_Connection.MVVM.ViewModel
             SteamNickName = account.nickname;
             VacCount = account.vacCount;
             //d2Rank = account.d2Rank.getRank();
-            cSRank = "/Images/Ranks/CSGO/skillgroup_none.png";
+            cSRank = account.cSRank.getRank();
             d2Rank = account.d2Rank.getRank();
             EditMode = editMode;
             Selected = false;
@@ -140,14 +137,32 @@ namespace Steam_Connection.MVVM.ViewModel
                 config.saveChanges();
                 AccountsViewModel.fillAccountBannerViews();
             });
-            hz = new RelayCommand(o =>
-            {
-                // TODO
-            });
             EditAccountCommand = new RelayCommand(o =>
             {
-                MainViewModel.EditAccountViewCommand.Execute(id);
+                if (CheckForInternetConnection())
+                {
+                    MainViewModel.EditAccountViewCommand.Execute(id);
+                }
+                else
+                {
+                    CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
+                }
             });
+        }
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("http://www.google.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

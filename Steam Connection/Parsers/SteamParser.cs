@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Steam_Connection.Parsers
 {
@@ -31,20 +32,20 @@ namespace Steam_Connection.Parsers
         }
         public void parseAccInfo()
         {
-            string apiString = getPlayerSummariesString(steamId64);
-            var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
-            var list = JsonConvert.DeserializeObject<RootobjectAccInfo>(json);
-            nickname = list.response.players[0].personaname;
-            steamPicture = list.response.players[0].avatarfull;
-        }
-        public async void parseAccInfoAsync()
-        {
-            string apiString = getPlayerSummariesString(steamId64);
-            var webClient = new WebClient {Encoding = System.Text.Encoding.UTF8};
-            var json = await webClient.DownloadStringTaskAsync(apiString);
-            var list = JsonConvert.DeserializeObject<RootobjectAccInfo>(json);
-            nickname = list.response.players[0].personaname;
-            steamPicture = list.response.players[0].avatarfull;
+            try
+            {
+                string apiString = getPlayerSummariesString(steamId64);
+                var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
+                var list = JsonConvert.DeserializeObject<RootobjectAccInfo>(json);
+                nickname = list.response.players[0].personaname;
+                steamPicture = list.response.players[0].avatarfull;
+            }
+            catch (Exception e)
+            {
+                //CustomMessageBox.show(e.ToString());
+                MessageBox.Show(e.ToString());
+                throw;
+            }
         }
         public void parseVacs()
         {

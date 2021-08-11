@@ -27,6 +27,8 @@ namespace Steam_Connection
         private void DragWindow(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+            Application.Current.MainWindow.Top = this.Top;
+            Application.Current.MainWindow.Left = this.Left;
         }
 
         private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

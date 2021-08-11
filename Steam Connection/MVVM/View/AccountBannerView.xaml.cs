@@ -32,5 +32,11 @@ namespace Steam_Connection.MVVM.View
         {
             currentViewModel.EditMode = editMode;
         }
+
+        private void ProfilePicture_OnImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            var uriSource = new Uri("/Images/default_steam_picture.png", UriKind.Relative);
+            ProfilePicture.Source = new BitmapImage(uriSource);
+        }
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Steam_Connection.Themes.CustomMessageBox;
 
 namespace Steam_Connection.Validations
 {
@@ -31,8 +33,16 @@ namespace Steam_Connection.Validations
         public SteamLinkValidation(string steamLink)
         {
             this.steamLink = steamLink;
-            checkSteamLinkType();
-            convertSteamLinkToSteamId64();
+            try
+            {
+                checkSteamLinkType();
+                convertSteamLinkToSteamId64();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                throw;
+            }
         }
         private bool isSteamId64Correct(string steamId64)
         {

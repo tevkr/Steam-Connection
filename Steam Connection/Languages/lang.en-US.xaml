@@ -68,4 +68,8 @@
     <v:String x:Key="error_empty_login">The login field is empty.</v:String>
     <v:String x:Key="error_invalid_login">Invalid login field.</v:String>
     <v:String x:Key="error_empty_password">The password field is empty.</v:String>
+
+    <!-- Message box -->
+    <v:String x:Key="mb_empty_steam_directory">Please fill in the "Steam Directory" field in the application settings.</v:String>
+    <v:String x:Key="mb_no_internet_connection">There is no internet connection, some functions may not work.</v:String>
 </ResourceDictionary>

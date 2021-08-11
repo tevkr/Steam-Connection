@@ -51,9 +51,9 @@ namespace Steam_Connection.MVVM.Model
             Dota2RankParser d2RankParser = new Dota2RankParser(steamId64);
             d2RankParser.parseDota2Rank();
             this.d2Rank = d2RankParser.getD2Rank();
-            //TODO vacCount d2Rank
-            //this.vacCount = parser.vacCount;
-            //this.d2Rank = new D2Rank(parser.rank, parser.star, parser.leaderRank);
+            CSGORankParser cSRankParser = new CSGORankParser(steamId64);
+            cSRankParser.parseCSGORank();
+            this.cSRank = cSRankParser.getCSGORank();
         }
     }
 }

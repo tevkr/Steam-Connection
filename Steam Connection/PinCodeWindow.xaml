@@ -159,7 +159,8 @@
                              Text="{DynamicResource pcw_forgot_pin_code}"
                              HorizontalAlignment="Center"
                              Margin="0 10 0 0"
-                             Cursor="Hand">
+                             Cursor="Hand"
+                             PreviewMouseLeftButtonDown="ForgotPin_OnPreviewMouseLeftButtonDown">
                     <TextBlock.InputBindings>
                         <MouseBinding Command="{Binding ShowBannerCommand}" MouseAction="LeftClick" />
                     </TextBlock.InputBindings>

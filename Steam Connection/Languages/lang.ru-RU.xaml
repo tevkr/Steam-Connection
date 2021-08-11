@@ -68,4 +68,8 @@
     <v:String x:Key="error_empty_login">Поле с логином пустое.</v:String>
     <v:String x:Key="error_invalid_login">Некорректное поле с логином.</v:String>
     <v:String x:Key="error_empty_password">Поле с паролем пустое.</v:String>
+
+    <!-- Message box -->
+    <v:String x:Key="mb_empty_steam_directory">Пожалуйста, заполните поле "Директория стим" в настройках приложения.</v:String>
+    <v:String x:Key="mb_no_internet_connection">Нет подключения к интернету, некоторые функции могут не работать.</v:String>
 </ResourceDictionary>

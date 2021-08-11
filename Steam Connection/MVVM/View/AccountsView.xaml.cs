@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Steam_Connection.Themes.CustomMessageBox;
 
 namespace Steam_Connection.MVVM.View
 {
@@ -78,23 +79,30 @@ namespace Steam_Connection.MVVM.View
                 {
                     _draggedItemView = null;
                     Config config = Config.getInstance();
-                    if (!AccountsViewModel.EditMode)
+                    if (config.steamDir != null && config.steamDir != "")
                     {
-                        ListBoxItem lbi = (ListBoxItem)sender;
-                        AccountBannerView abv = (AccountBannerView)lbi.Content;
-                        AccountsBannerViewModel abvm = (AccountsBannerViewModel)abv.DataContext;
-                        if (config.nonConfirmationMode)
+                        if (!AccountsViewModel.EditMode)
                         {
-                            if (config.closeMode) Application.Current.MainWindow.Hide();
-                            Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
-                            if (config.closeMode) { Application.Current.Shutdown(); }
+                            ListBoxItem lbi = (ListBoxItem)sender;
+                            AccountBannerView abv = (AccountBannerView)lbi.Content;
+                            AccountsBannerViewModel abvm = (AccountsBannerViewModel)abv.DataContext;
+                            if (config.nonConfirmationMode)
+                            {
+                                if (config.closeMode) Application.Current.MainWindow.Hide();
+                                Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
+                                if (config.closeMode) { Application.Current.Shutdown(); }
+                            }
+                            else
+                            {
+                                ((AccountsViewModel)this.DataContext).AccountId = abvm.Id - 1;
+                                ((AccountsViewModel)this.DataContext).AccountName = abvm.SteamNickName;
+                                ((AccountsViewModel)this.DataContext).NonConfirmationModeBanner = true;
+                            }
                         }
-                        else
-                        {
-                            ((AccountsViewModel)this.DataContext).AccountId = abvm.Id - 1;
-                            ((AccountsViewModel)this.DataContext).AccountName = abvm.SteamNickName;
-                            ((AccountsViewModel)this.DataContext).NonConfirmationModeBanner = true;
-                        }
+                    }
+                    else
+                    {
+                        CustomMessageBox.show((string)Application.Current.FindResource("mb_empty_steam_directory"));
                     }
                 }
             }

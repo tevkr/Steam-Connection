@@ -38,7 +38,9 @@
                             <StackPanel.OpacityMask>
                                 <VisualBrush Visual="{Binding ElementName=mask}"/>
                             </StackPanel.OpacityMask>
-                            <Image Source="{Binding SteamPicture, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Image Source="{Binding SteamPicture, UpdateSourceTrigger=PropertyChanged}"
+                                   ImageFailed="ProfilePicture_OnImageFailed"
+                                   x:Name="ProfilePicture"/>
                         </StackPanel>
                     </Grid>
                 </Border>
