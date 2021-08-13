@@ -13,26 +13,47 @@ namespace Steam_Connection.Connector
     {
         public static async void connectToSteam(Account account)
         {
-            Config config = Config.getInstance();
-            /*await Task.Run(() => Process.Start("taskkill", "/F /IM GameOverlayUI.exe"));
-            await Task.Run(() => Process.Start("taskkill", "/F /IM Steam.exe"));*/
-            Process.Start("taskkill", "/F /IM GameOverlayUI.exe");
-            Process.Start("taskkill", "/F /IM Steam.exe");
-            System.Threading.Thread.Sleep(2000);
-            string DataL = "-login" + " " + account.login + " " + account.password;
-            Process Steam = new Process
+            var task = Task.Factory.StartNew(() =>
             {
-                StartInfo = new ProcessStartInfo
+                Config config = Config.getInstance();
+                Process Taskkill = new Process
                 {
-                    FileName = config.steamDir,
-                    Arguments = DataL + " -tcp",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                }
-            };
-            //await Task.Run(() => Steam.Start());
-            Steam.Start();
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "taskkill",
+                        Arguments = "/F /IM GameOverlayUI.exe",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                Taskkill.Start();
+                Taskkill = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "taskkill",
+                        Arguments = "/F /IM Steam.exe",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                Taskkill.Start();
+                System.Threading.Thread.Sleep(2000);
+                string DataL = "-login" + " " + account.login + " " + account.password;
+                Process Steam = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = config.steamDir,
+                        Arguments = DataL + " -tcp",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                };
+                Steam.Start();
+            });
+            await task;
         }
     }
 }
