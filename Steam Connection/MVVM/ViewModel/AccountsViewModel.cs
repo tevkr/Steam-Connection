@@ -21,7 +21,7 @@ namespace Steam_Connection.MVVM.ViewModel
         public AsyncRelayCommand AddAccountViewOrUpdateCommand { get; set; }
         public RelayCommand EditModeCommand { get; set; }
         public RelayCommand NoButtonCommand { get; set; }
-        public RelayCommand YesButtonCommand { get; set; }
+        public AsyncRelayCommand YesButtonCommand { get; set; }
         private static bool _editMode;
         private bool _nonConfirmationModeBanner;
         private string _accountName;
@@ -138,6 +138,27 @@ namespace Steam_Connection.MVVM.ViewModel
             else
                 MainViewModel.AddAccountViewCommand.Execute(null);
         }
+        private async Task yesCommand()
+        {
+            if (config.closeMode)
+            {
+                Application.Current.MainWindow.Hide();
+                Connector.Connector.connectToSteam(config.accounts[AccountId]);
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                var task = Task.Factory.StartNew(() =>
+                {
+                    Connector.Connector.connectToSteamAsync(config.accounts[AccountId]);
+                });
+                await task;
+            }
+            AccountId = -1;
+            NonConfirmationModeBanner = false;
+            AccountName = "";
+            setSelected(AccountId);
+        }
 
         public AccountsViewModel()
         {
@@ -165,16 +186,7 @@ namespace Steam_Connection.MVVM.ViewModel
                 NonConfirmationModeBanner = false;
                 AccountName = "";
             });
-            YesButtonCommand = new RelayCommand(o =>
-            {
-                if (config.closeMode) Application.Current.MainWindow.Hide();
-                Connector.Connector.connectToSteam(config.accounts[AccountId]);
-                if (config.closeMode) { Application.Current.Shutdown(); }
-                AccountId = -1;
-                NonConfirmationModeBanner = false;
-                AccountName = "";
-                setSelected(AccountId);
-            });
+            YesButtonCommand = new AsyncRelayCommand(async (o) => await yesCommand());
             fillAccountBannerViews();
         }
         public static void fillAccountBannerViews(List<int> accountsIndexes = null, string SearchBoxText = null)

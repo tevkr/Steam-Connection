@@ -63,53 +63,64 @@ namespace Steam_Connection.MVVM.ViewModel
         }
         private async Task addAccount(object o)
         {
-            if (CheckForInternetConnection())
+            var task = Task.Factory.StartNew(() =>
             {
-                var task = Task.Factory.StartNew(() =>
+                if (CheckForInternetConnection())
                 {
                     SteamLinkValidation slv = new SteamLinkValidation(_steamLink);
                     if (slv.getSteamLinkType() == SteamLinkValidation.steamLinkTypes.errorType)
                     {
-                        ErrorMessage = (string)Application.Current.FindResource("error_invalid_steamlink"); //"Некорректная ссылка на аккаунт стим.";
+                        ErrorMessage =
+                            (string) Application.Current.FindResource(
+                                "error_invalid_steamlink"); //"Некорректная ссылка на аккаунт стим.";
                     }
                     else if (SteamLogin == "" || SteamLogin.Contains(" "))
                     {
                         if (SteamLogin == "")
                         {
-                            ErrorMessage = (string)Application.Current.FindResource("error_empty_login"); //"Поле с логином пустое.";
+                            ErrorMessage =
+                                (string) Application.Current.FindResource(
+                                    "error_empty_login"); //"Поле с логином пустое.";
                         }
                         else
                         {
-                            ErrorMessage = (string)Application.Current.FindResource("error_invalid_login"); //"Некорректное поле с логином.";
+                            ErrorMessage =
+                                (string) Application.Current.FindResource(
+                                    "error_invalid_login"); //"Некорректное поле с логином.";
                         }
-
                     }
                     else if (SteamPassword == "")
                     {
-                        ErrorMessage = (string)Application.Current.FindResource("error_empty_password"); //"Поле с паролем пустое.";
+                        ErrorMessage =
+                            (string) Application.Current.FindResource(
+                                "error_empty_password"); //"Поле с паролем пустое.";
                     }
                     else
                     {
                         MainViewModel.AddOrEditAccountGridVisible = true;
-                        MainViewModel.AddOrEditAccountTitle = (string)Application.Current.FindResource("mw_account_adding");
+                        MainViewModel.AddOrEditAccountTitle =
+                            (string) Application.Current.FindResource("mw_account_adding");
                         Config config = Config.getInstance();
                         string steamNickname, steamPicture;
                         int vacCount;
                         D2Rank d2Rank;
                         CSRank cSRank;
                         SteamParser steamParser = new SteamParser(slv.getSteamId64());
-                        MainViewModel.AddOrEditAccountProgress = (string)Application.Current.FindResource("mw_account_steam_data");
+                        MainViewModel.AddOrEditAccountProgress =
+                            (string) Application.Current.FindResource("mw_account_steam_data");
                         steamParser.parseAccInfo();
                         steamParser.parseVacs();
                         steamNickname = steamParser.getNickname();
                         steamPicture = steamParser.getSteamPicture();
                         vacCount = steamParser.getVacCount();
                         Dota2RankParser d2RankParser = new Dota2RankParser(slv.getSteamId64());
-                        MainViewModel.AddOrEditAccountProgress = (string)Application.Current.FindResource("mw_account_dota2_data");
+                        MainViewModel.AddOrEditAccountProgress =
+                            (string) Application.Current.FindResource("mw_account_dota2_data");
                         d2RankParser.parseDota2Rank();
                         d2Rank = d2RankParser.getD2Rank();
                         CSGORankParser cSRankParser = new CSGORankParser(slv.getSteamId64());
-                        MainViewModel.AddOrEditAccountProgress = (string)Application.Current.FindResource("mw_account_csgo_data");
+                        MainViewModel.AddOrEditAccountProgress =
+                            (string) Application.Current.FindResource("mw_account_csgo_data");
                         cSRankParser.parseCSGORank();
                         cSRank = cSRankParser.getCSRank();
                         config.accounts.Add(new Model.Account(slv.getSteamId64(), SteamLogin, SteamPassword,
@@ -120,13 +131,13 @@ namespace Steam_Connection.MVVM.ViewModel
                         MainViewModel.AddOrEditAccountTitle = "";
                         MainViewModel.AddOrEditAccountProgress = "";
                     }
-                });
-                await task;
-            }
-            else
-            {
-                CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
-            }
+                }
+                else
+                {
+                    CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
+                }
+            });
+            await task;
         }
         public AddAccountViewModel()
         {

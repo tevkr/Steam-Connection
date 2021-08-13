@@ -58,7 +58,7 @@ namespace Steam_Connection.MVVM.View
         private DragAdorner _dragAdorner;
         private List<(Point, Point)> _accountBannersCords;
         private Point _delta;
-        void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        async void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is ListBoxItem && _draggedItemView == null)
             {
@@ -88,9 +88,20 @@ namespace Steam_Connection.MVVM.View
                             AccountsBannerViewModel abvm = (AccountsBannerViewModel)abv.DataContext;
                             if (config.nonConfirmationMode)
                             {
-                                if (config.closeMode) Application.Current.MainWindow.Hide();
-                                Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
-                                if (config.closeMode) { Application.Current.Shutdown(); }
+                                if (config.closeMode)
+                                {
+                                    Application.Current.MainWindow.Hide();
+                                    Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
+                                    Application.Current.Shutdown();
+                                }
+                                else
+                                {
+                                    var task = Task.Factory.StartNew(() =>
+                                    {
+                                        Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1]);
+                                    });
+                                    await task;
+                                }
                             }
                             else
                             {
