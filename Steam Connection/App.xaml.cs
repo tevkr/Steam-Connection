@@ -37,25 +37,6 @@ namespace Steam_Connection
                 mainWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;;
                 mainWindow.Show();
             }
-            if (!CheckForInternetConnection())
-            {
-                CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
-            }
-        }
-        public static bool CheckForInternetConnection()
-        {
-            try
-            {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("http://www.google.com"))
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

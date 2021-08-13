@@ -7,6 +7,11 @@
     <v:String x:Key="mw_donation_banner_title">Поддержать автора</v:String>
     <v:String x:Key="mw_donation_banner_description">На кофе в Макдоналдс или новый скин в кс...</v:String>
     <v:String x:Key="mw_accounts_update">Аккаунты обновляются</v:String>
+    <v:String x:Key="mw_account_adding">Добавление аккаунта</v:String>
+    <v:String x:Key="mw_account_editing">Редактирование аккаунта</v:String>
+    <v:String x:Key="mw_account_steam_data">Получение Steam данных</v:String>
+    <v:String x:Key="mw_account_dota2_data">Получение Dota 2 данных</v:String>
+    <v:String x:Key="mw_account_csgo_data">Получение CS:GO данных</v:String>
 
     <!-- Accounts view -->
     <v:String x:Key="av_search_box_placeholder">Найти аккаунт</v:String>

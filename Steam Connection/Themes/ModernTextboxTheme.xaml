@@ -24,7 +24,8 @@
                                      CaretBrush="{DynamicResource text_n_pass_foreground}"
                                      FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf"
                                      FontSize="14"
-                                     x:Name="SearchBox"/>
+                                     x:Name="SearchBox"
+                                     MaxLength="55"/>
                             <TextBlock IsHitTestVisible="False"
                                        Text="{TemplateBinding local:Extentions.Placeholder}"
                                        VerticalAlignment="Center"

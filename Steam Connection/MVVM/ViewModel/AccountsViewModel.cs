@@ -108,11 +108,11 @@ namespace Steam_Connection.MVVM.ViewModel
 
         private async Task addOrUpdate(object o)
         {
-            if (CheckForInternetConnection())
+            if ((bool)o)
             {
-                if ((bool)o)
+                MainViewModel.UpdateAccountsGridVisible = true;
+                if (CheckForInternetConnection())
                 {
-                    MainViewModel.UpdateAccountsGridVisible = true;
                     var task = Task.Factory.StartNew(() =>
                     {
                         for (int i = 0; i < config.accounts.Count; i++)
@@ -127,16 +127,16 @@ namespace Steam_Connection.MVVM.ViewModel
                         fillAccountBannerViews(config.searchByNickname(SearchBoxText), SearchBoxText);
                     else
                         fillAccountBannerViews();
-                    MainViewModel.UpdateAccountsGridVisible = false;
-                    MainViewModel.UpdateAccountsProgress = "";
                 }
                 else
-                    MainViewModel.AddAccountViewCommand.Execute(null);
+                {
+                    CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
+                }
+                MainViewModel.UpdateAccountsGridVisible = false;
+                MainViewModel.UpdateAccountsProgress = "";
             }
             else
-            {
-                CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
-            }
+                MainViewModel.AddAccountViewCommand.Execute(null);
         }
 
         public AccountsViewModel()

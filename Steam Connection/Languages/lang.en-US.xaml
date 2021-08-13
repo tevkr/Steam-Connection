@@ -7,6 +7,11 @@
     <v:String x:Key="mw_donation_banner_title">Support the author</v:String>
     <v:String x:Key="mw_donation_banner_description">For coffee at McDonald's or a new skin in cs...</v:String>
     <v:String x:Key="mw_accounts_update">Accounts updating</v:String>
+    <v:String x:Key="mw_account_adding">Account adding</v:String>
+    <v:String x:Key="mw_account_editing">Account editing</v:String>
+    <v:String x:Key="mw_account_steam_data">Getting Steam Data</v:String>
+    <v:String x:Key="mw_account_dota2_data">Getting Dota 2 Data</v:String>
+    <v:String x:Key="mw_account_csgo_data">Getting CS:GO Data</v:String>
 
     <!-- Accounts view -->
     <v:String x:Key="av_search_box_placeholder">Find account</v:String>

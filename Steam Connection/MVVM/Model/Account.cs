@@ -53,7 +53,19 @@ namespace Steam_Connection.MVVM.Model
             this.d2Rank = d2RankParser.getD2Rank();
             CSGORankParser cSRankParser = new CSGORankParser(steamId64);
             cSRankParser.parseCSGORank();
-            this.cSRank = cSRankParser.getCSGORank();
+            this.cSRank = cSRankParser.getCSRank();
+        }
+        public Account(string steamId64, string login, string password, string nickname, 
+            string steamPicture, int vacCount, D2Rank d2Rank, CSRank cSRank)
+        {
+            this.login = login;
+            this.password = password;
+            this.steamId64 = steamId64;
+            this.nickname = nickname;
+            this.steamPicture = steamPicture;
+            this.vacCount = vacCount;
+            this.d2Rank = d2Rank;
+            this.cSRank = cSRank;
         }
     }
 }

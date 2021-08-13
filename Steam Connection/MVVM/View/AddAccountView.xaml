@@ -90,7 +90,7 @@
                         Background="#4481EB"
                         Foreground="White"
                         Style="{StaticResource ModernButtonTheme}" Cursor="Hand"
-                        Command="{Binding AddAccountCommand}"/>
+                        Command="{Binding AddAccountAsyncCommand}"/>
                 <Button Height="37"
                         Width="159"
                         Content="{DynamicResource aav_cancel}"

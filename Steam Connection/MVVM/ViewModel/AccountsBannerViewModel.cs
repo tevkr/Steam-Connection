@@ -139,14 +139,7 @@ namespace Steam_Connection.MVVM.ViewModel
             });
             EditAccountCommand = new RelayCommand(o =>
             {
-                if (CheckForInternetConnection())
-                {
-                    MainViewModel.EditAccountViewCommand.Execute(id);
-                }
-                else
-                {
-                    CustomMessageBox.show((string)Application.Current.FindResource("mb_no_internet_connection"));
-                }
+                MainViewModel.EditAccountViewCommand.Execute(id);
             });
         }
         public static bool CheckForInternetConnection()

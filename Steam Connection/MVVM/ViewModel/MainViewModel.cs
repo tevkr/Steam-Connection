@@ -52,6 +52,40 @@ namespace Steam_Connection.MVVM.ViewModel
             }
         }
 
+        public static event EventHandler AddOrEditAccountGridVisibleChanged;
+        private static bool _addOrEditAccountGridVisible;
+        public static bool AddOrEditAccountGridVisible
+        {
+            get { return _addOrEditAccountGridVisible; }
+            set
+            {
+                _addOrEditAccountGridVisible = value;
+                AddOrEditAccountGridVisibleChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+        public static event EventHandler AddOrEditAccountProgressChanged;
+        private static string _addOrEditAccountProgress;
+        public static string AddOrEditAccountProgress
+        {
+            get { return _addOrEditAccountProgress; }
+            set
+            {
+                _addOrEditAccountProgress = value;
+                AddOrEditAccountProgressChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+        public static event EventHandler AddOrEditAccountTitleChanged;
+        private static string _addOrEditAccountTitle;
+        public static string AddOrEditAccountTitle
+        {
+            get { return _addOrEditAccountTitle; }
+            set
+            {
+                _addOrEditAccountTitle = value;
+                AddOrEditAccountTitleChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
         private WindowState _curWindowState;
         public WindowState CurWindowState
         {

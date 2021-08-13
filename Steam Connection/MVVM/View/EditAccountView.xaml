@@ -86,7 +86,7 @@
                         Background="#4481EB"
                         Foreground="White"
                         Style="{StaticResource ModernButtonTheme}" Cursor="Hand"
-                        Command="{Binding EditAccountCommand}"/>
+                        Command="{Binding EditAccountAsyncCommand}"/>
                 <Button Height="37"
                         Width="159"
                         Content="{DynamicResource eav_cancel}"
