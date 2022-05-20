@@ -3,8 +3,8 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/62-green.svg)](https://www.virustotal.com/gui/file/5f2f067611bd810ac5006d5457c77e0303da070d53f6d7cbfec832f487751b1b/detection)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.0.0)
+[![virustotal](https://img.shields.io/badge/virustotal-2/60-green.svg)](https://www.virustotal.com/gui/file/d508754863a4bfc1d2aede2a262f149d1156177cdaea242cf2a5f8bed08ba9cc?nocache=1)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.0.1)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
 ## Foreword
