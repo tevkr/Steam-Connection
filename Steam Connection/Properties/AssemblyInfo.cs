@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("release")]
 [assembly: AssemblyCompany("tevkr")]
 [assembly: AssemblyProduct("An application that allows you to switch between accounts.")]
-[assembly: AssemblyCopyright("Copyright © tevkr 2021")]
+[assembly: AssemblyCopyright("Copyright © tevkr 2022")]
 [assembly: AssemblyTrademark("SC. Steam Connection")]
 [assembly: AssemblyCulture("")]
 
@@ -51,6 +51,6 @@ using System.Windows;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
 [assembly: NeutralResourcesLanguage("en-US")]

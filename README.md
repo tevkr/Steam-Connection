@@ -69,9 +69,9 @@ Let's say the account ids: 1 2 3 4 5 6 7 8 9 10. You are moving the account with
 ## Interaction with the Internet
 Interaction with the Internet occurs only for data parsing.
 
-CS:GO ranks: [csgo-stats.net](https://csgo-stats.net/).
+CS:GO ranks: [csgostats.gg](https://csgostats.gg/);
 
-DOTA 2 ranks: [opendota](https://docs.opendota.com/).
+DOTA 2 ranks: [opendota](https://docs.opendota.com/);
 
 Steam: [valvesoftware](https://developer.valvesoftware.com/wiki/Steam_Web_API).
 ## How to compile
@@ -91,7 +91,7 @@ The steam directory is the folder where the steam.exe is located.
 
 2. Why there is no CS:GO rank?
 
-If your ranks are displayed incorrectly, you should add a [csgo-stats.net](https://csgo-stats.net/) bot to your friends. For more information, follow the [link](https://csgo-stats.net/tools/steam).
+If your ranks are displayed incorrectly, you should log in to the site [csgostats.gg](https://csgostats.gg/) via steam and follow the recommendations.
 
 3. Why there is no Dota 2 rank?
 

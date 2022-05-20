@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
-using HtmlAgilityPack;
 using Steam_Connection.MVVM.Model;
 
 namespace Steam_Connection.Parsers
@@ -16,29 +17,28 @@ namespace Steam_Connection.Parsers
         }
         public void parseCSGORank()
         {
-            var target = new Uri($"https://csgo-stats.net/player/{steamId64}/");
-            var handler = new HttpClientHandler();
-            handler.UseDefaultCredentials = true;
-            var client = new HttpClient(handler);
-            client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2");
             try
             {
-                var html = client.GetStringAsync(target).Result;
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(html);
-
-                var imageRank =
-                    htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[1]/a/div");
-                var imageRankStyle = imageRank.Attributes["style"].Value;
-                var rank = imageRankStyle.Split('/').Last().Trim(')').Split('.').First();
-                if (int.TryParse(rank, out _))
-                    cSRank = new CSRank($"skillgroup{rank}");
-                else
-                    cSRank = new CSRank();
+                using (Process csgoStatsParser = new Process())
+                {
+                    csgoStatsParser.StartInfo.UseShellExecute = false;
+                    csgoStatsParser.StartInfo.RedirectStandardOutput = true;
+                    csgoStatsParser.StartInfo.CreateNoWindow = true;
+                    csgoStatsParser.StartInfo.FileName = $"{Directory.GetCurrentDirectory()}\\external\\CsgoStatsParser\\CsgoStatsParser.exe";
+                    csgoStatsParser.StartInfo.Arguments = steamId64;
+                    csgoStatsParser.Start();
+                    string skillgroup = csgoStatsParser.StandardOutput.ReadToEnd();
+                    if (skillgroup.Contains("error"))
+                        cSRank = new CSRank();
+                    else
+                        cSRank = new CSRank(skillgroup);
+                    csgoStatsParser.WaitForExit();
+                }
             }
-            catch { }
-            handler.Dispose();
-            client.Dispose();
+            catch
+            {
+                cSRank = new CSRank();
+            }
         }
         public CSRank getCSRank()
         {
