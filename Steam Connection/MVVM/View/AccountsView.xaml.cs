@@ -90,34 +90,28 @@ namespace Steam_Connection.MVVM.View
                             {
                                 if (config.closeMode)
                                 {
+                                    Connector.Connector.onConnected += (bool connected) =>
+                                    {
+                                        if (connected)
+                                        {
+                                            Application.Current.Dispatcher.InvokeShutdown();
+                                        }
+                                    };
                                     Application.Current.MainWindow.Hide();
-                                    if (config.rememberPasswordMode)
+                                }
+                                if (config.rememberPasswordMode)
+                                {
+                                    await Task.Run(() =>
                                     {
-                                        Connector.Connector.rememberPasswordConnectToSteam(config.accounts[abvm.Id - 1]);
-                                    }
-                                    else
-                                    {
-                                        Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
-                                    }
-                                    
-                                    Application.Current.Shutdown();
+                                        Connector.Connector.rememberPasswordConnectToSteamAsync(config.accounts[abvm.Id - 1]);
+                                    });
                                 }
                                 else
                                 {
-                                    if (config.rememberPasswordMode)
+                                    await Task.Run(() =>
                                     {
-                                        await Task.Run(() =>
-                                        {
-                                            Connector.Connector.rememberPasswordConnectToSteam(config.accounts[abvm.Id - 1]);
-                                        });
-                                    }
-                                    else
-                                    {
-                                        await Task.Run(() =>
-                                        {
-                                            Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1]);
-                                        });
-                                    }
+                                        Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1]);
+                                    });
                                 }
                             }
                             else

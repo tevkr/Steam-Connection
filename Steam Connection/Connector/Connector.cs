@@ -14,6 +14,7 @@ namespace Steam_Connection.Connector
 {
     class Connector
     {
+        public static event Action<bool> onConnected;
         public static async void connectToSteamAsync(Account account)
         {
             var task = Task.Factory.StartNew(() =>
@@ -25,6 +26,7 @@ namespace Steam_Connection.Connector
         public static void connectToSteam(Account account)
         {
             Utils.restartSteam(args: "-login" + " " + account.login + " " + account.password + " -tcp");
+            onConnected?.Invoke(true);
         }
         public static async void rememberPasswordConnectToSteamAsync(Account account)
         {
@@ -94,6 +96,7 @@ namespace Steam_Connection.Connector
                         Utils.SendVirtualKey((IntPtr)element.Current.NativeWindowHandle, Utils.VK.RETURN);
                         Automation.RemoveAllEventHandlers();
                     }
+                    onConnected?.Invoke(true);
                 }
             });
         }

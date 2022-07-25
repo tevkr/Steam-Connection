@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Steam_Connection.MVVM.Model;
 using Steam_Connection.Themes.CustomMessageBox;
+using System.Windows.Threading;
 
 namespace Steam_Connection.MVVM.ViewModel
 {
@@ -147,33 +148,28 @@ namespace Steam_Connection.MVVM.ViewModel
             setSelected(AccountId);
             if (config.closeMode)
             {
+                Connector.Connector.onConnected += (bool connected) =>
+                {
+                    if (connected)
+                    {
+                        Application.Current.Dispatcher.InvokeShutdown();
+                    }
+                };
                 Application.Current.MainWindow.Hide();
-                if (config.rememberPasswordMode)
+            }
+            if (config.rememberPasswordMode)
+            {
+                await Task.Run(() =>
                 {
-                    Connector.Connector.rememberPasswordConnectToSteam(config.accounts[accountIdToConnect]);
-                }
-                else
-                {
-                    Connector.Connector.connectToSteam(config.accounts[accountIdToConnect]);
-                }
-                Application.Current.Shutdown();
+                    Connector.Connector.rememberPasswordConnectToSteamAsync(config.accounts[accountIdToConnect]);
+                });
             }
             else
             {
-                if (config.rememberPasswordMode)
+                await Task.Run(() =>
                 {
-                    await Task.Run(() =>
-                    {
-                        Connector.Connector.rememberPasswordConnectToSteam(config.accounts[accountIdToConnect]);
-                    });
-                }
-                else
-                {
-                    await Task.Run(() =>
-                    {
-                        Connector.Connector.connectToSteamAsync(config.accounts[accountIdToConnect]);
-                    });
-                }
+                    Connector.Connector.connectToSteamAsync(config.accounts[accountIdToConnect]);
+                });
             }
         }
 
