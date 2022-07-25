@@ -140,24 +140,41 @@ namespace Steam_Connection.MVVM.ViewModel
         }
         private async Task yesCommand()
         {
-            if (config.closeMode)
-            {
-                Application.Current.MainWindow.Hide();
-                Connector.Connector.connectToSteam(config.accounts[AccountId]);
-                Application.Current.Shutdown();
-            }
-            else
-            {
-                var task = Task.Factory.StartNew(() =>
-                {
-                    Connector.Connector.connectToSteamAsync(config.accounts[AccountId]);
-                });
-                await task;
-            }
+            int accountIdToConnect = AccountId;
             AccountId = -1;
             NonConfirmationModeBanner = false;
             AccountName = "";
             setSelected(AccountId);
+            if (config.closeMode)
+            {
+                Application.Current.MainWindow.Hide();
+                if (config.rememberPasswordMode)
+                {
+                    Connector.Connector.rememberPasswordConnectToSteam(config.accounts[accountIdToConnect]);
+                }
+                else
+                {
+                    Connector.Connector.connectToSteam(config.accounts[accountIdToConnect]);
+                }
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                if (config.rememberPasswordMode)
+                {
+                    await Task.Run(() =>
+                    {
+                        Connector.Connector.rememberPasswordConnectToSteam(config.accounts[accountIdToConnect]);
+                    });
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        Connector.Connector.connectToSteamAsync(config.accounts[accountIdToConnect]);
+                    });
+                }
+            }
         }
 
         public AccountsViewModel()

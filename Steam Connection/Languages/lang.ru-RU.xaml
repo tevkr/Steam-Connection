@@ -58,6 +58,7 @@
     <v:String x:Key="sv_on">Включено</v:String>
     <v:String x:Key="sv_off">Выключено</v:String>
     <v:String x:Key="sv_non_confirmation">Отключить подтверждение при входе в аккаунт</v:String>
+    <v:String x:Key="sv_remember_password">Запоминать пароль</v:String>
 
     <!-- Pin code window -->
     <v:String x:Key="pcw_enter_pin_code">Введите пин-код</v:String>

@@ -3,10 +3,32 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-2/60-green.svg)](https://www.virustotal.com/gui/file/d508754863a4bfc1d2aede2a262f149d1156177cdaea242cf2a5f8bed08ba9cc?nocache=1)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.0.1)
+[![virustotal](https://img.shields.io/badge/virustotal-1/62-green.svg)](https://www.virustotal.com/gui/file/61d1bb044b88276f2a1bca61e1dc57228c4f08a5b37ea5d6fc244578dc5a3d01?nocache=1)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.0)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
+## Contents
+- [Foreword](#foreword)
+- [Screenshots](#screenshots)
+    - [Dark theme](#dark-theme)
+- [How to use](#how-to-use)
+    - [Setting the steam directory](#setting-the-steam-directory)
+    - [Account adding](#account-adding)
+    - [Log in to account](#log-in-to-account)
+ - [Additional features](#additional-features)
+    - [Update account information](#update-account-information)
+    - [Displaying the VAC status](#displaying-the-vac-status)
+    - [Displaying Dota 2 ranks](#displaying-dota-2-ranks)
+    - [Displaying CS:GO ranks](#displaying-csgo-ranks)
+    - [PIN code for the program](#pin-code-for-the-program)
+    - [Moving the account position](#moving-the-account-position)
+ - [Interaction with the Internet](#interaction-with-the-internet)
+ - [How to compile](#how-to-compile)
+ - [Frequently Asked Questions](#frequently-asked-questions)
+ - [Afterword](#afterword)
+ - [Updates](#updates)
+     - [1.0.0.1 update](#1001-update)
+     - [1.0.1.0 update](#1010-update)
 ## Foreword
 This is my first experience in creating an application in C# WPF, I chose MVVM as the main pattern, but due to inexperience it didn't work out very well. If I have had the time and desire, I would have written a project from scratch, but already with a lot of knowledge.
 ## Screenshots
@@ -111,4 +133,8 @@ Tested by:
 4. [Novikov Dmitry](https://vk.com/id506852309).
 5. [Fedorov Ilya](https://vk.com/id108573137).
 
-For questions (bugs, something does not work), go [here](https://vk.com/id152392361).
+## Updates
+### 1.0.0.1 update
+Changing [csgo-stats.net](https://csgo-stats.net/) to [csgostats.gg](https://csgostats.gg/).
+### 1.0.1.0 update
+Remember the password when logging into the account feature added.

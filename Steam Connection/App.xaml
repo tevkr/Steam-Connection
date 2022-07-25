@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Themes/SettingsCheckboxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/PinCodeTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/FocusVisualStyleKey.xaml"/>
+                <ResourceDictionary Source="Themes/ModernComboBoxTheme.xaml"/>
 
                 <ResourceDictionary Source="Languages/lang.en-US.xaml" />
 

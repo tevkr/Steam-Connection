@@ -49,8 +49,15 @@ namespace Steam_Connection.Core.Config
         }
         public enum Languages
         {
-            Russian = 0,
-            English = 1
+            Russian,
+            English
+        }
+        public enum InputMethods
+        {
+            SendMessage,
+            PostMessage,
+            Send,
+            SendWait
         }
         public List<CultureInfo> supportedLanguages { get; set; }
         private CultureInfo _language;
@@ -146,6 +153,8 @@ namespace Steam_Connection.Core.Config
         public bool nonConfirmationMode { get; set; }
         public bool vacMode { get; set; }
         public bool closeMode { get; set; }
+        public bool rememberPasswordMode { get; set; }
+        public InputMethods inputMethod { get; set; }
         public bool pinMode { get; set; }
         /*public async void updateAccInfo()
         {

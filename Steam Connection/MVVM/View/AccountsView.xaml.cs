@@ -91,16 +91,33 @@ namespace Steam_Connection.MVVM.View
                                 if (config.closeMode)
                                 {
                                     Application.Current.MainWindow.Hide();
-                                    Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
+                                    if (config.rememberPasswordMode)
+                                    {
+                                        Connector.Connector.rememberPasswordConnectToSteam(config.accounts[abvm.Id - 1]);
+                                    }
+                                    else
+                                    {
+                                        Connector.Connector.connectToSteam(config.accounts[abvm.Id - 1]);
+                                    }
+                                    
                                     Application.Current.Shutdown();
                                 }
                                 else
                                 {
-                                    var task = Task.Factory.StartNew(() =>
+                                    if (config.rememberPasswordMode)
                                     {
-                                        Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1]);
-                                    });
-                                    await task;
+                                        await Task.Run(() =>
+                                        {
+                                            Connector.Connector.rememberPasswordConnectToSteam(config.accounts[abvm.Id - 1]);
+                                        });
+                                    }
+                                    else
+                                    {
+                                        await Task.Run(() =>
+                                        {
+                                            Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1]);
+                                        });
+                                    }
                                 }
                             }
                             else

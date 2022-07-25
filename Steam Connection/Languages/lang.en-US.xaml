@@ -58,6 +58,7 @@
     <v:String x:Key="sv_on">Enabled</v:String>
     <v:String x:Key="sv_off">Disabled</v:String>
     <v:String x:Key="sv_non_confirmation">Disable confirmation when logging in to your account</v:String>
+    <v:String x:Key="sv_remember_password">Remember password</v:String>
 
     <!-- Pin code window -->
     <v:String x:Key="pcw_enter_pin_code">Enter the PIN code</v:String>

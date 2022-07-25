@@ -22,6 +22,8 @@ namespace Steam_Connection.MVVM.ViewModel
         private bool _cSRanksMode;
         private bool _closeMode;
         private bool _nonConfirmationMode;
+        private bool _rememberPasswordMode;
+        private int _inputMethod;
         private bool _pinMode;
         private string _pinDigit1;
         private string _pinDigit2;
@@ -137,6 +139,24 @@ namespace Steam_Connection.MVVM.ViewModel
                 OnPropertyChanged(nameof(NonConfirmationMode));
             }
         }
+        public bool RememberPasswordMode
+        {
+            get { return _rememberPasswordMode; }
+            set
+            {
+                _rememberPasswordMode = value;
+                OnPropertyChanged(nameof(RememberPasswordMode));
+            }
+        }
+        public int InputMethod
+        {
+            get { return _inputMethod; }
+            set
+            {
+                _inputMethod = value;
+                OnPropertyChanged(nameof(InputMethod));
+            }
+        }
         public bool PinCodeMode
         {
             get { return _pinMode; }
@@ -172,7 +192,9 @@ namespace Steam_Connection.MVVM.ViewModel
             CSGORanksMode = config.cSRanksMode;
             CloseMode = config.closeMode;
             NonConfirmationMode = config.nonConfirmationMode;
+            RememberPasswordMode = config.rememberPasswordMode;
             PinCodeMode = config.pinMode;
+            InputMethod = (int)config.inputMethod;
             if (config.pinMode)
             {
                 PinDigit1 = config.pinCode[0].ToString();
@@ -203,6 +225,8 @@ namespace Steam_Connection.MVVM.ViewModel
                     config.cSRanksMode = CSGORanksMode;
                     config.closeMode = CloseMode;
                     config.nonConfirmationMode = NonConfirmationMode;
+                    config.rememberPasswordMode = RememberPasswordMode;
+                    config.inputMethod = (Config.InputMethods)InputMethod;
                     config.pinMode = PinCodeMode;
                     config.pinCode = PinDigit1 + PinDigit2 + PinDigit3 + PinDigit4;
                     config.saveChanges();

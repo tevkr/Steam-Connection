@@ -3,10 +3,32 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-2/60-green.svg)](https://www.virustotal.com/gui/file/d508754863a4bfc1d2aede2a262f149d1156177cdaea242cf2a5f8bed08ba9cc?nocache=1)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.0.1)
+[![virustotal](https://img.shields.io/badge/virustotal-1/62-green.svg)](https://www.virustotal.com/gui/file/61d1bb044b88276f2a1bca61e1dc57228c4f08a5b37ea5d6fc244578dc5a3d01?nocache=1)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.0)
 
 Steam Connection - приложение для быстрой смены аккаунтов Steam. Приложение написано на C# WPF. Приложение сохраняет данные от аккаунтов на вашем компьютере и никуда их не отсылает, убедиться в этом можно посмотрев исходный код.
+## Содержание
+- [Предисловие](#предисловие)
+- [Скриншоты](#скриншоты)
+    - [Темная тема](#темная-тема)
+- [Как пользоваться](#как-пользоваться)
+    - [Установка директории стим](#установка-директории-стим)
+    - [Добавление аккаунта](#добавление-аккаунта)
+    - [Вход в аккаунт](#вход-в-аккаунт)
+ - [Дополнительные функции](#дополнительные-функции)
+    - [Обновить данные об аккаунтах](#обновить-данные-об-аккаунтах)
+    - [Отображение VAC статуса](#отображение-vac-статуса)
+    - [Отображение Dota 2 рангов](#отображение-dota-2-рангов)
+    - [Отображение CS:GO рангов](#отображение-csgo-рангов)
+    - [Пин-код на программу](#пин-код-на-программу)
+    - [Перемещение положения аккаунта](#перемещение-положения-аккаунта)
+ - [Взаимодействие с интернетом](#взаимодействие-с-интернетом)
+ - [Как компилировать](#как-компилировать)
+ - [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
+ - [Послесловие](#послесловие)
+ - [Обновления](#обновления)
+     - [Обновление 1.0.0.1](#обновление-1001)
+     - [Обновление 1.0.1.0](#обновление-1010)
 ## Предисловие
 Это мой первый опыт в создании приложения на C# WPF, в качестве главного паттерна выбрал MVVM, но из-за неопытности вышло не очень, было бы время и желание, написал бы проект с нуля, но уже c багажом знаний.
 ## Скриншоты
@@ -110,4 +132,8 @@ STEAM_API_KEY=********************************
 4. [Новиков Дмитрий](https://vk.com/id506852309).
 5. [Федоров Илья](https://vk.com/id108573137).
 
-По вопросам (баги, что-то не работает) [сюда](https://vk.com/id152392361).
+## Обновления
+### Обновление 1.0.0.1
+Смена [csgo-stats.net](https://csgo-stats.net/) на [csgostats.gg](https://csgostats.gg/).
+### Обновление 1.0.1.0
+Добавлена возможность запоминать пароль при входе в аккаунт.
