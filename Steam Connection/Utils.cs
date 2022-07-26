@@ -3,11 +3,8 @@ using Steam_Connection.Core.Config;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Steam_Connection
 {
@@ -23,6 +20,28 @@ namespace Steam_Connection
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr lpdwProcessId);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("kernel32.dll")]
+        static extern uint GetCurrentThreadId();
+
+        [DllImport("user32.dll")]
+        static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool BringWindowToTop(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr SetFocus(IntPtr hWnd);
+
         private enum WM : uint
         {
             KEYDOWN = 0x0100,
@@ -34,6 +53,10 @@ namespace Steam_Connection
             RETURN = 0x0D,
             TAB = 0x09,
             SPACE = 0x20
+        }
+        public enum SW : int
+        {
+            SHOW = 5
         }
         private static readonly List<char> specialCharacters = new List<char> { '{', '}', '(', ')', '[', ']', '+', '^', '%', '~' };
         public static Process restartSteam(string args = "")
@@ -68,9 +91,7 @@ namespace Steam_Connection
                 {
                     FileName = config.steamDir,
                     Arguments = args,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
+                    UseShellExecute = true
                 }
             };
             steamProcess.Start();
@@ -185,6 +206,35 @@ namespace Steam_Connection
             if (vk == VK.TAB) return "{TAB}";
             else if (vk == VK.RETURN) return "{ENTER}";
             else return " ";
+        }
+        private static void AttachedThreadInputAction(Action action)
+        {
+            var foreThread = GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+            var appThread = GetCurrentThreadId();
+            bool threadsAttached = false;
+            try
+            {
+                threadsAttached =
+                    foreThread == appThread ||
+                    AttachThreadInput(foreThread, appThread, true);
+                if (threadsAttached) action();
+                else throw new ThreadStateException("AttachThreadInput failed.");
+            }
+            finally
+            {
+                if (threadsAttached)
+                    AttachThreadInput(foreThread, appThread, false);
+            }
+        }
+        public static void ForceWindowToForeground(IntPtr hwnd)
+        {
+            const int SW_SHOW = 5;
+            AttachedThreadInputAction(
+                () =>
+                {
+                    BringWindowToTop(hwnd);
+                    ShowWindow(hwnd, SW_SHOW);
+                });
         }
     }
 }

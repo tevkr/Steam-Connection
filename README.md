@@ -3,8 +3,8 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/63-green.svg)](https://www.virustotal.com/gui/file/5c9276701a5b08a9c41b968324baf5cffd8acdc338861a4f376035c64e8651a2?nocache=1)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.1)
+[![virustotal](https://img.shields.io/badge/virustotal-1/63-green.svg)](https://www.virustotal.com/gui/file/21bdafc3b35535d9adfe6e6d3cf3a1649c5b17b881c991efff548d5209439974?nocache=1)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.2)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
 ## Contents
@@ -30,6 +30,7 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
      - [1.0.0.1 update](#1001-update)
      - [1.0.1.0 update](#1010-update)
      - [1.0.1.1 update](#1011-update)
+     - [1.0.1.2 update](#1012-update)
 ## Foreword
 This is my first experience in creating an application in C# WPF, I chose MVVM as the main pattern, but due to inexperience it didn't work out very well. If I have had the time and desire, I would have written a project from scratch, but already with a lot of knowledge.
 ## Screenshots
@@ -141,3 +142,5 @@ Changing [csgo-stats.net](https://csgo-stats.net/) to [csgostats.gg](https://csg
 Remember the password when logging into the account feature added.
 ### 1.0.1.1 update
 Fixed a bug when using remember password and automatic shutdown of Steam Connection functions together.
+### 1.0.1.2 update
+Bugs fixed, the ForceWindowToForeground method added in the Utils class.

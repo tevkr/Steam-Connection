@@ -3,8 +3,8 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/63-green.svg)](https://www.virustotal.com/gui/file/5c9276701a5b08a9c41b968324baf5cffd8acdc338861a4f376035c64e8651a2?nocache=1)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.1)
+[![virustotal](https://img.shields.io/badge/virustotal-1/63-green.svg)](https://www.virustotal.com/gui/file/21bdafc3b35535d9adfe6e6d3cf3a1649c5b17b881c991efff548d5209439974?nocache=1)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.2)
 
 Steam Connection - приложение для быстрой смены аккаунтов Steam. Приложение написано на C# WPF. Приложение сохраняет данные от аккаунтов на вашем компьютере и никуда их не отсылает, убедиться в этом можно посмотрев исходный код.
 ## Содержание
@@ -30,6 +30,7 @@ Steam Connection - приложение для быстрой смены акк�
      - [Обновление 1.0.0.1](#обновление-1001)
      - [Обновление 1.0.1.0](#обновление-1010)
      - [Обновление 1.0.1.1](#обновление-1011)
+     - [Обновление 1.0.1.2](#обновление-1012)
 ## Предисловие
 Это мой первый опыт в создании приложения на C# WPF, в качестве главного паттерна выбрал MVVM, но из-за неопытности вышло не очень, было бы время и желание, написал бы проект с нуля, но уже c багажом знаний.
 ## Скриншоты
@@ -140,3 +141,5 @@ STEAM_API_KEY=********************************
 Добавлена возможность запоминать пароль при входе в аккаунт.
 ### Обновление 1.0.1.1
 Исправлен баг при совместном использовании функций запоминания пароля и автоматического выключения Steam Connection.
+### Обновление 1.0.1.2
+Исправлены баги, добавлен метод ForceWindowToForeground в классе Utils. 

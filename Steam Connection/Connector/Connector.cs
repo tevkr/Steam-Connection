@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Automation;
-using Steam_Connection.Core.Config;
 using Steam_Connection.MVVM.Model;
 
 namespace Steam_Connection.Connector
@@ -43,7 +38,7 @@ namespace Steam_Connection.Connector
             {
                 Utils.setSteamRegistryAutoLoginUser(string.Empty);
             }
-            Utils.restartSteam();
+            Process steamProcess = Utils.restartSteam();
             int steamCount = 0;
             Automation.AddAutomationEventHandler(
             WindowPattern.WindowOpenedEvent,
@@ -57,11 +52,13 @@ namespace Steam_Connection.Connector
                     if (++steamCount >= 2)
                     {
                         Automation.RemoveAllEventHandlers();
+                        onConnected?.Invoke(true);
                     }
                 }
                 if (element.Current.ClassName.Equals("vguiPopupWindow") && element.Current.Name.Contains("Steam") && element.Current.Name.Length > 5)
                 {
                     Thread.Sleep(500);
+                    Utils.ForceWindowToForeground((IntPtr)element.Current.NativeWindowHandle);
                     Utils.SetForegroundWindow((IntPtr)element.Current.NativeWindowHandle);
                     Thread.Sleep(100);
                     if (Utils.getSteamRegistryActiveUser() == 0)
