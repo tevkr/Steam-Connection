@@ -6,6 +6,7 @@
     <v:String x:Key="mw_menu_settings">Настройки</v:String>
     <v:String x:Key="mw_donation_banner_title">Поддержать автора</v:String>
     <v:String x:Key="mw_donation_banner_description">На кофе в Макдоналдс или новый скин в кс...</v:String>
+    <v:String x:Key="mw_update">Обновить</v:String>
     <v:String x:Key="mw_accounts_update">Аккаунты обновляются</v:String>
     <v:String x:Key="mw_account_adding">Добавление аккаунта</v:String>
     <v:String x:Key="mw_account_editing">Редактирование аккаунта</v:String>

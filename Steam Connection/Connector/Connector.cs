@@ -20,7 +20,7 @@ namespace Steam_Connection.Connector
         }
         public static void connectToSteam(Account account)
         {
-            Utils.restartSteam(args: "-login" + " " + account.login + " " + account.password + " -tcp");
+            Utils.restartSteam(args: "-noreactlogin -login" + " " + account.login + " " + account.password + " -tcp");
             onConnected?.Invoke(true);
         }
         public static async void rememberPasswordConnectToSteamAsync(Account account)
@@ -38,7 +38,7 @@ namespace Steam_Connection.Connector
             {
                 Utils.setSteamRegistryAutoLoginUser(string.Empty);
             }
-            Process steamProcess = Utils.restartSteam();
+            Process steamProcess = Utils.restartSteam(args: "-noreactlogin");
             int steamCount = 0;
             Automation.AddAutomationEventHandler(
             WindowPattern.WindowOpenedEvent,

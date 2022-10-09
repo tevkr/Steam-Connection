@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Steam_Connection.Core.Config;
+using Steam_Connection.MVVM.ViewModel;
 using Steam_Connection.Themes.CustomMessageBox;
 
 namespace Steam_Connection
@@ -38,6 +40,7 @@ namespace Steam_Connection
                 else
                 {
                     MainWindow mainWindow = new MainWindow();
+                    MainViewModel.UpdateVisible = CheckForUpdates();
                     mainWindow.Title = "Steam Connection";
                     mainWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
                     mainWindow.Show();
@@ -47,6 +50,34 @@ namespace Steam_Connection
             {
                 Application.Current.Shutdown();
             }
+        }
+        private static bool CheckForUpdates()
+        {
+            try
+            {
+                using (Process updater = new Process())
+                {
+                    updater.StartInfo.UseShellExecute = false;
+                    updater.StartInfo.RedirectStandardOutput = true;
+                    updater.StartInfo.CreateNoWindow = true;
+                    updater.StartInfo.FileName = $"{Directory.GetCurrentDirectory()}\\external\\Updater\\Updater.exe";
+                    updater.StartInfo.Arguments = $"check V{GetAssemblyFileVersion()}";
+                    updater.Start();
+                    string response = updater.StandardOutput.ReadToEnd();
+                    updater.WaitForExit();
+                    return bool.Parse(response);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private static string GetAssemblyFileVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fileVersion.FileVersion;
         }
     }
 }

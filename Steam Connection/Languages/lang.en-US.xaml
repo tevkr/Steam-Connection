@@ -6,6 +6,7 @@
     <v:String x:Key="mw_menu_settings">Settings</v:String>
     <v:String x:Key="mw_donation_banner_title">Support the author</v:String>
     <v:String x:Key="mw_donation_banner_description">For coffee at McDonald's or a new skin in cs...</v:String>
+    <v:String x:Key="mw_update">Update</v:String>
     <v:String x:Key="mw_accounts_update">Accounts updating</v:String>
     <v:String x:Key="mw_account_adding">Account adding</v:String>
     <v:String x:Key="mw_account_editing">Account editing</v:String>

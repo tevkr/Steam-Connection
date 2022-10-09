@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using Steam_Connection.Core;
 using Steam_Connection.MVVM.View;
@@ -13,6 +15,7 @@ namespace Steam_Connection.MVVM.ViewModel
         public static RelayCommand SettingsViewCommand { get; set; }
         public static RelayCommand AddAccountViewCommand { get; set; }
         public static RelayCommand EditAccountViewCommand { get; set; }
+        public static RelayCommand UpdateCommand { get; set; }
         public AccountsViewModel AccountsVM { get; set; }
         public SettingsViewModel SettingsVM { get; set; }
         public AddAccountViewModel AddAccountVM { get; set; }
@@ -49,6 +52,17 @@ namespace Steam_Connection.MVVM.ViewModel
             {
                 _updateAccountsProgress = value;
                 UpdateAccountsProgressChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+        public static event EventHandler UpdateVisibleChanged;
+        private static bool _updateVisible;
+        public static bool UpdateVisible
+        {
+            get { return _updateVisible; }
+            set
+            {
+                _updateVisible = value;
+                UpdateVisibleChanged?.Invoke(null, EventArgs.Empty);
             }
         }
 
@@ -150,6 +164,26 @@ namespace Steam_Connection.MVVM.ViewModel
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                }
+            });
+
+            UpdateCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    using (Process updater = new Process())
+                    {
+                        updater.StartInfo.UseShellExecute = false;
+                        updater.StartInfo.RedirectStandardOutput = true;
+                        updater.StartInfo.CreateNoWindow = true;
+                        updater.StartInfo.FileName = $"{Directory.GetCurrentDirectory()}\\external\\Updater\\Updater.exe";
+                        updater.StartInfo.Arguments = "update";
+                        updater.Start();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Process.Start("https://github.com/tevkr/Steam-Connection/releases");
                 }
             });
         }

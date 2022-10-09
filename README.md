@@ -3,8 +3,8 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/63-green.svg)](https://www.virustotal.com/gui/file/21bdafc3b35535d9adfe6e6d3cf3a1649c5b17b881c991efff548d5209439974?nocache=1)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.1.2)
+[![virustotal](https://img.shields.io/badge/virustotal-1/65-green.svg)](https://www.virustotal.com/gui/file/3ce2507c661a3adfb401a3b2ccc1bded575a714c44c03896f4affaf3c617fcec?nocache=1)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.2.0)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
 ## Contents
@@ -31,6 +31,7 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
      - [1.0.1.0 update](#1010-update)
      - [1.0.1.1 update](#1011-update)
      - [1.0.1.2 update](#1012-update)
+     - [1.0.2.0 update](#1020-update)
 ## Foreword
 This is my first experience in creating an application in C# WPF, I chose MVVM as the main pattern, but due to inexperience it didn't work out very well. If I have had the time and desire, I would have written a project from scratch, but already with a lot of knowledge.
 ## Screenshots
@@ -44,8 +45,11 @@ This is my first experience in creating an application in C# WPF, I chose MVVM a
 ## How to use
 ### Setting the steam directory
 To be able to log in to accounts, you need to specify exactly where steam.exe is located. To do this, go to the settings, click on the "Steam directory" field and find steam.exe on the computer.
+
 ![dir](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/steam_dir_1.png)
+
 ![dir](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/en_steam_dir_2.png)
+
 ### Account adding
 In the accounts section, click on the blue add account button on the top right.
 ![add](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/en_add_account.png)
@@ -144,3 +148,6 @@ Remember the password when logging into the account feature added.
 Fixed a bug when using remember password and automatic shutdown of Steam Connection functions together.
 ### 1.0.1.2 update
 Bugs fixed, the ForceWindowToForeground method added in the Utils class.
+### 1.0.2.0 update
+- Added the ability to update via the app;
+- Added the -noreactlogin flag to fix the last Steam UI update.

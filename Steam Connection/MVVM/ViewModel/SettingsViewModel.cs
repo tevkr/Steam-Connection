@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace Steam_Connection.MVVM.ViewModel
         private string _pinDigit2;
         private string _pinDigit3;
         private string _pinDigit4;
+        private string _version;
 
         private string _errorMessage;
         public string PinDigit1
@@ -175,6 +177,15 @@ namespace Steam_Connection.MVVM.ViewModel
                 OnPropertyChanged(nameof(ErrorMessage));
             }
         }
+        public string Version
+        {
+            get { return _version; }
+            set
+            {
+                _version = value;
+                OnPropertyChanged(nameof(Version));
+            }
+        }
         public SettingsViewModel()
         {
             Config config = Config.getInstance();
@@ -232,7 +243,13 @@ namespace Steam_Connection.MVVM.ViewModel
                     config.saveChanges();
                 }
             });
+            Version = $"V{GetAssemblyFileVersion()}";
         }
-        
+        private static string GetAssemblyFileVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fileVersion.FileVersion;
+        }
     }
 }

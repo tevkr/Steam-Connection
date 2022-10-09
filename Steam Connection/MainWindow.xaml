@@ -50,7 +50,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="240"/>
             </Grid.RowDefinitions>
-            <StackPanel> 
+            <StackPanel>
                 <RadioButton Content="{DynamicResource mw_menu_accounts}"
                              Height="40"
                              Style="{StaticResource MenuButtonTheme}"
@@ -64,46 +64,76 @@
                              Cursor="Hand"
                              Command="{Binding SettingsViewCommand}"/>
             </StackPanel>
-            <Border Width="210"
-                    Height="200"
-                    VerticalAlignment="Center"
-                    Grid.Row="01" HorizontalAlignment="Center" Cursor="Hand">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="#4481EB" Offset="0"/>
-                        <GradientStop Color="#4A77C6" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Border.Clip>
-                    <RectangleGeometry RadiusX="15"
-                                       RadiusY="15"
-                                       Rect="0,0,210,200"/>
-                </Border.Clip>
-                <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown">
-                    <Image Width="224" 
-                           Source="/Images/Ruble.png" 
-                           HorizontalAlignment="Left" Margin="22,0,-36,0"/>
-                    <TextBlock Text="{DynamicResource mw_donation_banner_title}" 
-                               Foreground="#FFFFFF" 
-                               FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
-                               FontSize="24"
-                               FontWeight="Bold" 
-                               Width="177"
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Left"
-                               Margin="20,20,0,0" VerticalAlignment="Top"/>
-                    <TextBlock Text="{DynamicResource mw_donation_banner_description}" 
+            <Grid Grid.Row="1"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border Width="210"
+                        Height="Auto"
+                        MaxHeight="200"
+                        MinHeight="160"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Cursor="Hand"
+                        CornerRadius="15">
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#4481EB" Offset="0"/>
+                            <GradientStop Color="#4A77C6" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown">
+                        <Image Source="/Images/Ruble.png" 
+                               HorizontalAlignment="Right"/>
+                        <TextBlock Text="{DynamicResource mw_donation_banner_title}" 
+                                   Foreground="#FFFFFF" 
+                                   FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
+                                   FontSize="24"
+                                   FontWeight="Bold" 
+                                   Width="177"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Left"
+                                   Margin="20,20,0,0" VerticalAlignment="Top"/>
+                        <TextBlock Text="{DynamicResource mw_donation_banner_description}" 
+                                   Foreground="#CCFFFFFF" 
+                                   FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
+                                   FontSize="14"
+                                   FontWeight="Bold" 
+                                   Width="162"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Left"
+                                   Margin="18,0,0,20" 
+                                   VerticalAlignment="Bottom"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1"
+                        Visibility="{Binding Path=UpdateVisible, Converter={StaticResource BoolToVis}}"
+                        Width="210"
+                        Height="40" 
+                        CornerRadius="15"
+                        Margin="10"
+                        Cursor="Hand"
+                        PreviewMouseLeftButtonDown="Update">
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#4481EB" Offset="0"/>
+                            <GradientStop Color="#FFC64A4A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="{DynamicResource mw_update}" 
                                Foreground="#CCFFFFFF" 
                                FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
-                               FontSize="14"
+                               FontSize="20"
                                FontWeight="Bold" 
-                               Width="162"
                                TextWrapping="Wrap"
-                               HorizontalAlignment="Left"
-                               Margin="18,0,0,20" 
-                               VerticalAlignment="Bottom"/>
-                </Grid>
-            </Border>
+                               Margin="10"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
         </Grid>
         <Grid x:Name="TopPanelGrid" Grid.Column="1">
             <Border MouseLeftButtonDown="DragWindow" Background="Transparent"></Border>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Steam_Connection.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,10 @@ namespace Steam_Connection
         private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.donationalerts.com/r/nom_xd");
+        }
+        private void Update(object sender, MouseButtonEventArgs e)
+        {
+            MainViewModel.UpdateCommand.Execute(null);
         }
     }
 }

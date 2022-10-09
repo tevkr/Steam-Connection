@@ -382,12 +382,23 @@
                 HorizontalAlignment="Left"
                 Margin="40 0 0 45"
                 Command="{Binding SaveChangesCommand}"/>
-        <TextBlock VerticalAlignment="Bottom"
+        <DockPanel>
+            <TextBlock VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
+                       DockPanel.Dock="Left"
                    Margin="40 0 0 20"
                    Opacity="0.2"
                    Foreground="{DynamicResource sv_authors}">
             Powered by <Hyperlink NavigateUri="https://github.com/tevkr" RequestNavigate="Hyperlink_tevkr_OnRequestNavigate">@tevkr</Hyperlink>, design by <Hyperlink NavigateUri="https://github.com/rhtfl" RequestNavigate="Hyperlink_rhtfl_OnRequestNavigate">@rhtfl</Hyperlink>
-        </TextBlock>
+            </TextBlock>
+            <TextBlock VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                       DockPanel.Dock="Right"
+                   Margin="40 0 40 20"
+                   Opacity="0.2"
+                   Foreground="{DynamicResource sv_authors}"
+                   Text="{Binding Version}">
+            </TextBlock>
+        </DockPanel>
     </Grid>
 </UserControl>
