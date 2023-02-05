@@ -148,29 +148,20 @@ namespace Steam_Connection.MVVM.ViewModel
             setSelected(AccountId);
             if (config.closeMode)
             {
-                Connector.Connector.onConnected += (bool connected) =>
+                void closeApplication(bool connected)
                 {
-                    if (connected)
+                    if (config.closeMode)
                     {
                         Application.Current.Dispatcher.InvokeShutdown();
                     }
-                };
+                }
+                Connector.Connector.onConnected += closeApplication;
                 Application.Current.MainWindow.Hide();
             }
-            if (config.rememberPasswordMode)
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
-                {
-                    Connector.Connector.rememberPasswordConnectToSteamAsync(config.accounts[accountIdToConnect]);
-                });
-            }
-            else
-            {
-                await Task.Run(() =>
-                {
-                    Connector.Connector.connectToSteamAsync(config.accounts[accountIdToConnect]);
-                });
-            }
+                Connector.Connector.connectToSteamAsync(config.accounts[accountIdToConnect], config.rememberPasswordMode);
+            });
         }
 
         public AccountsViewModel()
