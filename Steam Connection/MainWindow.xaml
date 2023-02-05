@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Steam_Connection"
         xmlns:viewModel="clr-namespace:Steam_Connection.MVVM.ViewModel"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:converters="clr-namespace:Steam_Connection.Converters"
         mc:Ignorable="d"
         Height="600" Width="950" 
         WindowStyle="None"
@@ -15,6 +17,7 @@
     </Window.DataContext>
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <converters:BoolInverterConverter x:Key="_bool" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -109,8 +112,10 @@
                                    VerticalAlignment="Bottom"/>
                     </Grid>
                 </Border>
+                <!--Visibility="{Binding Path=UpdateVisible, Converter={StaticResource BoolToVis}}"-->
                 <Border Grid.Row="1"
-                        Visibility="{Binding Path=UpdateVisible, Converter={StaticResource BoolToVis}}"
+                        Visibility="{Binding Path=UpdateButtonVisibility, Converter={StaticResource BoolToVis}}"
+                        IsEnabled="{Binding Path=UpdateButtonEnabled}"
                         Width="210"
                         Height="40" 
                         CornerRadius="15"
@@ -123,7 +128,15 @@
                             <GradientStop Color="#FFC64A4A" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
-                    <TextBlock Text="{DynamicResource mw_update}" 
+                    <Grid>
+                        <fa:ImageAwesome Icon="CircleOutlineNotch" 
+                                         Spin="True" SpinDuration="1" 
+                                         Height="23" Width="23" 
+                                         HorizontalAlignment="Left" 
+                                         Margin="15 0 0 0" 
+                                         Foreground="AliceBlue"
+                                         Visibility="{Binding Path=SpinnerVisibility, Converter={StaticResource BoolToVis}}"/>
+                        <TextBlock Text="{DynamicResource mw_update}" 
                                Foreground="#CCFFFFFF" 
                                FontFamily="/Steam Connection;component/Fonts/Inter-Bold.ttf" 
                                FontSize="20"
@@ -132,6 +145,7 @@
                                Margin="10"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"/>
+                    </Grid>
                 </Border>
             </Grid>
         </Grid>

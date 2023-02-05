@@ -47,6 +47,9 @@
     <Reference Include="FlaUI.UIA3, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FlaUI.UIA3.4.0.0\lib\net48\FlaUI.UIA3.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="FuzzySharp, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FuzzySharp.2.0.2\lib\net461\FuzzySharp.dll</HintPath>
     </Reference>
@@ -123,6 +126,7 @@
       <DependentUpon>W_CustomMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Extentions.cs" />
+    <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Validations\SteamDirValidation.cs" />
     <Compile Include="Validations\SteamLinkValidation.cs" />
@@ -366,7 +370,6 @@
   <ItemGroup>
     <Resource Include="Images\default_steam_picture.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)CsgoStatsParser\bin\$(Configuration)\net6.0\" "$(TargetDir)\external\CsgoStatsParser\"

@@ -29,6 +29,10 @@ namespace Steam_Connection
                 var workingDirectory = Environment.CurrentDirectory;
                 var projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
                 var dotenv = Path.Combine(projectDirectory, ".env");
+                Task.Factory.StartNew(() =>
+                {
+                    MainViewModel.SetUpdateState(Updater.CheckForUpdates());
+                });
                 DotEnv.Load(dotenv);
                 Config config = Config.getInstance();
                 if (config.pinMode)
@@ -40,7 +44,6 @@ namespace Steam_Connection
                 else
                 {
                     MainWindow mainWindow = new MainWindow();
-                    MainViewModel.UpdateVisible = CheckForUpdates();
                     mainWindow.Title = "Steam Connection";
                     mainWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
                     mainWindow.Show();
@@ -50,34 +53,6 @@ namespace Steam_Connection
             {
                 Application.Current.Shutdown();
             }
-        }
-        private static bool CheckForUpdates()
-        {
-            try
-            {
-                using (Process updater = new Process())
-                {
-                    updater.StartInfo.UseShellExecute = false;
-                    updater.StartInfo.RedirectStandardOutput = true;
-                    updater.StartInfo.CreateNoWindow = true;
-                    updater.StartInfo.FileName = $"{Directory.GetCurrentDirectory()}\\external\\Updater\\Updater.exe";
-                    updater.StartInfo.Arguments = $"check V{GetAssemblyFileVersion()}";
-                    updater.Start();
-                    string response = updater.StandardOutput.ReadToEnd();
-                    updater.WaitForExit();
-                    return bool.Parse(response);
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        private static string GetAssemblyFileVersion()
-        {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
-            return fileVersion.FileVersion;
         }
     }
 }

@@ -54,16 +54,49 @@ namespace Steam_Connection.MVVM.ViewModel
                 UpdateAccountsProgressChanged?.Invoke(null, EventArgs.Empty);
             }
         }
-        public static event EventHandler UpdateVisibleChanged;
-        private static bool _updateVisible;
-        public static bool UpdateVisible
+
+        public static event EventHandler SpinnerVisibilityChanged;
+        private static bool _spinnerVisibility;
+        public static bool SpinnerVisibility
         {
-            get { return _updateVisible; }
+            get { return _spinnerVisibility; }
             set
             {
-                _updateVisible = value;
-                UpdateVisibleChanged?.Invoke(null, EventArgs.Empty);
+                _spinnerVisibility = value;
+                SpinnerVisibilityChanged?.Invoke(null, EventArgs.Empty);
             }
+        }
+
+
+        public static event EventHandler UpdateButtonEnabledChanged;
+        private static bool _updateButtonEnabled;
+        public static bool UpdateButtonEnabled
+        {
+            get { return _updateButtonEnabled; }
+            set
+            {
+                _updateButtonEnabled = value;
+                UpdateButtonEnabledChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
+        public static event EventHandler UpdateButtonVisibilityChanged;
+        private static bool _updateButtonVisibility;
+        public static bool UpdateButtonVisibility
+        {
+            get { return _updateButtonVisibility; }
+            set
+            {
+                _updateButtonVisibility = value;
+                UpdateButtonVisibilityChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
+        public static void SetUpdateState(bool state)
+        {
+            SpinnerVisibility = false;
+            UpdateButtonEnabled = state;
+            UpdateButtonVisibility = state;
         }
 
         public static event EventHandler AddOrEditAccountGridVisibleChanged;
@@ -116,6 +149,10 @@ namespace Steam_Connection.MVVM.ViewModel
 
         public MainViewModel()
         {
+            SpinnerVisibility = true;
+            UpdateButtonEnabled = false;
+            UpdateButtonVisibility = true;
+
             AccountsVM = new AccountsViewModel();
             SettingsVM = new SettingsViewModel();
             AddAccountVM = new AddAccountViewModel();
