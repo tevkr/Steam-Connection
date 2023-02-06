@@ -87,6 +87,13 @@ namespace Steam_Connection.Connector
                         checkBox.WaitUntilEnabled();
                         checkBox.Invoke();
                     }
+                    else if (!rememberPassword && rememberPasswordState)
+                    {
+                        window.SetForeground();
+                        checkBox.Focus();
+                        checkBox.WaitUntilEnabled();
+                        checkBox.Invoke();
+                    }
 
                     window.SetForeground();
                     loginButton.Focus();
