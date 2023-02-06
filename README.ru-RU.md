@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/d382657a09ffa49c91da9d3e1c29ac3437b81c3428444fcaa2b2b1a0a21c80e4/detection)
+[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/67ef8760083228a2f0a09f463718cb6fdc1d89d08ba73b2c87252f212fe91262/detection)
 [![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
 
 Steam Connection - приложение для быстрой смены аккаунтов Steam. Приложение написано на C# WPF. Приложение сохраняет данные от аккаунтов на вашем компьютере и никуда их не отсылает, убедиться в этом можно посмотрев исходный код.
@@ -31,6 +31,7 @@ Steam Connection - приложение для быстрой смены акк�
      - [Обновление 1.0.1.2](#обновление-1012)
      - [Обновление 1.0.2.0](#обновление-1020)
      - [Обновление 1.0.3.0](#обновление-1030)
+     - [Обновление 1.0.3.1](#обновление-1031)
 ## Предисловие
 Это мой первый опыт в создании приложения на C# WPF, в качестве главного паттерна выбрал MVVM, но из-за неопытности вышло не очень, было бы время и желание, написал бы проект с нуля, но уже c багажом знаний.
 ## Скриншоты
@@ -137,3 +138,5 @@ Steam: [steamidfinder](https://steamid.xyz/).
 - Изменен метод парсинга Steam данных;
 - Добавлено автозаполнение директории Steam;
 - Исправлены ошибки.
+### Обновление 1.0.3.1
+- Исправлена ошибка с автообновлением.
