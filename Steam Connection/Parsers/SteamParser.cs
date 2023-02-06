@@ -33,7 +33,7 @@ namespace Steam_Connection.Parsers
             if (SteamIdXyz == null) return default;
             try
             {
-                return SteamIdXyz.DocumentNode.SelectSingleNode("//div[@class='h3 center'][1]") == null;
+                return SteamIdXyz.DocumentNode.SelectSingleNode("//div[@class='h3 center'][1]") == null && !String.IsNullOrEmpty(GetProfilePermalink());
             }
             catch (Exception)
             {

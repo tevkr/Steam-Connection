@@ -48,54 +48,66 @@ namespace Steam_Connection.Connector
                 using (var automation = new UIA3Automation())
                 {
                     AutomationElement window = automation.FromHandle(steamLoginWindowHandle);
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     while (!window.IsAvailable && !window.IsOffscreen)
                     {
                         Thread.Sleep(200);
                     }
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     AutomationElement document = window.FindFirstDescendant(e => e.ByControlType(ControlType.Document));
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     List<TextBox> textBoxes = document.FindAllChildren(e => e.ByControlType(ControlType.Edit)).Select(edit => edit.AsTextBox()).ToList();
                     while (textBoxes.Count != 2)
                     {
-                        window.SetForeground();
+                        //window.SetForeground();
+                        Utils.ForceWindowToForeground(steamLoginWindowHandle);
                         textBoxes = document.FindAllChildren(e => e.ByControlType(ControlType.Edit)).Select(edit => edit.AsTextBox()).ToList();
                         Thread.Sleep(200);
                     }
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     Button checkBox = document.FindFirstChild(e => e.ByControlType(ControlType.Group)).AsButton();
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     bool rememberPasswordState = document.FindFirstChild(e => e.ByControlType(ControlType.Image)) != null;
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     Button loginButton = document.FindFirstChild(e => e.ByControlType(ControlType.Button)).AsButton();
 
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     textBoxes[0].Focus();
                     textBoxes[0].WaitUntilEnabled();
                     textBoxes[0].Text = account.login;
 
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     textBoxes[1].Focus();
                     textBoxes[1].WaitUntilEnabled();
                     textBoxes[1].Text = account.password;
 
                     if (rememberPassword && !rememberPasswordState)
                     {
-                        window.SetForeground();
+                        //window.SetForeground();
+                        Utils.ForceWindowToForeground(steamLoginWindowHandle);
                         checkBox.Focus();
                         checkBox.WaitUntilEnabled();
                         checkBox.Invoke();
                     }
                     else if (!rememberPassword && rememberPasswordState)
                     {
-                        window.SetForeground();
+                        //window.SetForeground();
+                        Utils.ForceWindowToForeground(steamLoginWindowHandle);
                         checkBox.Focus();
                         checkBox.WaitUntilEnabled();
                         checkBox.Invoke();
                     }
 
-                    window.SetForeground();
+                    //window.SetForeground();
+                    Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     loginButton.Focus();
                     loginButton.WaitUntilEnabled();
                     loginButton.Invoke();
