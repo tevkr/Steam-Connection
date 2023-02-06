@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using System.IO.Compression;
+using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 
 const string LAST_VERSION_URL = "https://raw.githubusercontent.com/tevkr/Steam-Connection/main/last_update.txt";
@@ -32,26 +32,17 @@ bool Update()
         using (WebClient webClient = new())
         {
             webClient.DownloadFile(zipUrl, "update.zip");
-            using (ZipArchive archive = ZipFile.OpenRead("update.zip"))
+            Process steamConnection = Process.GetProcessesByName("Steam Connection").FirstOrDefault();
+            steamConnection.Kill();
+            steamConnection.WaitForExit();
+            steamConnection.Dispose();
+            FastZip fastZip = new FastZip();
+            fastZip.ExtractZip($"update.zip", "../", "-Updater");
+            using (Process newSteamConnection = new())
             {
-                Process steamConnection = Process.GetProcessesByName("Steam Connection").FirstOrDefault();
-                steamConnection.Kill();
-                steamConnection.WaitForExit();
-                steamConnection.Dispose();
-                foreach (ZipArchiveEntry entry in archive.Entries.Skip(1))
-                {
-                    string path = Path.Combine(@"../../", entry.FullName.Replace("Steam Connection/", String.Empty));
-                    if (path.Contains("Updater")) continue;
-                    if (String.IsNullOrEmpty(entry.Name))
-                        Directory.CreateDirectory(path);
-                    else
-                        entry.ExtractToFile(path, true);
-                }
-                using (Process newSteamConnection = new())
-                {
-                    newSteamConnection.StartInfo.FileName = @"../../Steam Connection.exe";
-                    newSteamConnection.Start();
-                }
+                newSteamConnection.StartInfo.FileName = "Steam Connection.exe";
+                newSteamConnection.Start();
+                Console.WriteLine("Steam Connection started.");
             }
             File.Delete("update.zip");
         }
@@ -59,6 +50,7 @@ bool Update()
     }
     catch (Exception e)
     {
+        Console.WriteLine(e);
         return false;
     }
 }

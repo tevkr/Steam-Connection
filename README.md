@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/d382657a09ffa49c91da9d3e1c29ac3437b81c3428444fcaa2b2b1a0a21c80e4/detection)
+[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/67ef8760083228a2f0a09f463718cb6fdc1d89d08ba73b2c87252f212fe91262/detection)
 [![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
@@ -31,6 +31,7 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
      - [1.0.1.2 update](#1012-update)
      - [1.0.2.0 update](#1020-update)
      - [1.0.3.0 update](#1030-update)
+     - [1.0.3.1 update](#1031-update)
 ## Foreword
 This is my first experience in creating an application in C# WPF, I chose MVVM as the main pattern, but due to inexperience it didn't work out very well. If I have had the time and desire, I would have written a project from scratch, but already with a lot of knowledge.
 ## Screenshots
@@ -138,3 +139,5 @@ Bugs fixed, the ForceWindowToForeground method added in the Utils class.
 - Changed the method of parsing Steam data;
 - Added auto-completion of the Steam directory;
 - Fixed bugs.
+### 1.0.3.1 update
+- Fixed a bug with auto-update.
