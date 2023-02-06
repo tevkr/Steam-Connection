@@ -53,6 +53,9 @@
     <Reference Include="FuzzySharp, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FuzzySharp.2.0.2\lib\net461\FuzzySharp.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.46.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.46\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.UIAutomationClient, Version=10.0.19041.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Interop.UIAutomationClient.10.19041.0\lib\net45\Interop.UIAutomationClient.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -129,7 +132,6 @@
     <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Validations\SteamDirValidation.cs" />
-    <Compile Include="Validations\SteamLinkValidation.cs" />
     <Page Include="Languages\lang.en-US.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

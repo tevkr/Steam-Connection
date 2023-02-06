@@ -3,112 +3,129 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using HtmlAgilityPack;
+using System.Text.RegularExpressions;
 
 namespace Steam_Connection.Parsers
 {
     class SteamParser
     {
-        private static string APIKey = System.Environment.GetEnvironmentVariable("STEAM_API_KEY");
-        private string steamId64;
-        private string nickname;
-        private string steamPicture;
-        public int vacCount;
-        public SteamParser(string steamId64)
-        {
-            this.steamId64 = steamId64;
-        }
-        private string getPlayerSummariesString(string steamId)
-        {
-            return "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" 
-                + APIKey + "&steamids=" + steamId;
-        }
-        private string getPlayerBansString(string steamId)
-        {
-            return "http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=" 
-                + APIKey + "&steamids=" + steamId;
-        }
-        public void parseAccInfo()
+        private HtmlDocument SteamIdXyz;
+        public SteamParser(string profileUrl)
         {
             try
             {
-                string apiString = getPlayerSummariesString(steamId64);
-                var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
-                var list = JsonConvert.DeserializeObject<RootobjectAccInfo>(json);
-                nickname = list.response.players[0].personaname;
-                steamPicture = list.response.players[0].avatarfull;
+                var htmlPage = GetSteamIdXyzHtmlPage(profileUrl).Result;
+                SteamIdXyz = new HtmlDocument();
+                SteamIdXyz.LoadHtml(htmlPage);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //CustomMessageBox.show(e.ToString());
-                MessageBox.Show(e.ToString());
-                throw;
+                SteamIdXyz = null;
             }
         }
-        public void parseVacs()
+        public bool IsSteamProfileUrlValid()
+        {
+            if (SteamIdXyz == null) return default;
+            try
+            {
+                return SteamIdXyz.DocumentNode.SelectSingleNode("//div[@class='h3 center'][1]") == null;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public string GetProfilePermalink()
+        {
+            if (SteamIdXyz == null) return default;
+            try
+            {
+                return SteamIdXyz.DocumentNode.SelectSingleNode("//input[7]").Attributes["value"].Value;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
+        }
+        public string GetSteamId64()
+        {
+            if (SteamIdXyz == null) return default;
+            try
+            {
+                return SteamIdXyz.DocumentNode.SelectSingleNode("//input[4]").Attributes["value"].Value;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
+        }
+        public string GetAvatarLink()
+        {
+            if (SteamIdXyz == null) return default;
+            try
+            {
+                return SteamIdXyz.DocumentNode.SelectSingleNode("//img[@class='avatar'][1]").Attributes["src"].Value;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
+        }
+        public string GetNick()
+        {
+            if (SteamIdXyz == null) return default;
+            try
+            {
+                return SteamIdXyz.DocumentNode.SelectSingleNode("//input[5]").Attributes["value"].Value;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
+        }
+        public int GetVacsCount()
+        {
+            if (SteamIdXyz == null) return default;
+            try
+            {
+                string vacsCountStr = SteamIdXyz.DocumentNode.SelectSingleNode("//em[1]").Attributes["title"].Value;
+                Regex regex = new Regex(@"Total VAC bans: (\d+)");
+                MatchCollection matches = regex.Matches(vacsCountStr);
+                foreach (Match match in matches)
+                {
+                    GroupCollection groups = match.Groups;
+                    vacsCountStr = groups[1].Value;
+                }
+                return int.Parse(vacsCountStr);
+            }
+            catch (Exception)
+            {
+                return default;
+            }
+        }
+        private static async Task<string> GetSteamIdXyzHtmlPage(string id)
         {
 
-            string apiString = getPlayerBansString(steamId64);
-            var json = new WebClient { Encoding = System.Text.Encoding.UTF8 }.DownloadString(apiString);
-            var list = JsonConvert.DeserializeObject<RootObjectVacInfo>(json);
-            vacCount = Int32.Parse(list.players[0].NumberOfVACBans);
+            using (HttpClient httpClient = new HttpClient())
+            using (MultipartFormDataContent formDataContent = new MultipartFormDataContent())
+            {
+                httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36");
+                formDataContent.Add(new StringContent(id), "id");
+                HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("https://steamid.xyz/q", formDataContent);
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    return await httpResponseMessage.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    return default;
+                }
+            }
         }
-        public async void parseVacsAsync()
-        {
-
-            string apiString = getPlayerBansString(steamId64);
-            var webClient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
-            var json = await webClient.DownloadStringTaskAsync(apiString);
-            var list = JsonConvert.DeserializeObject<RootObjectVacInfo>(json);
-            vacCount = Int32.Parse(list.players[0].NumberOfVACBans);
-        }
-        public string getNickname()
-        {
-            return this.nickname;
-        }
-        public string getSteamPicture()
-        {
-            return this.steamPicture;
-        }
-        public int getVacCount()
-        {
-            return this.vacCount;
-        }
-        // SteamId64 from custom URL
-        private class ResponseSteamId64
-        {
-            public string steamid { get; set; }
-        }
-        private class RootObjectSteamId64
-        {
-            public ResponseSteamId64 response { get; set; }
-        }
-        // Account info from SteamId64
-        private class RootobjectAccInfo
-        {
-            public ResponseAccInfo response { get; set; }
-        }
-        private class ResponseAccInfo
-        {
-            public Player[] players { get; set; }
-        }
-        private class Player
-        {
-            public string personaname { get; set; }
-            public string avatarfull { get; set; }
-        }
-
-        // VAC from SteamId64
-        private class RootObjectVacInfo
-        {
-            public PlayerVacInfo[] players { get; set; }
-        }
-        private class PlayerVacInfo
-        {
-            public string NumberOfVACBans { get; set; }
-        }
-        
     }
 }

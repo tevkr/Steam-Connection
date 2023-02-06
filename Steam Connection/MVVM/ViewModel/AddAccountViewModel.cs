@@ -67,8 +67,8 @@ namespace Steam_Connection.MVVM.ViewModel
             {
                 if (CheckForInternetConnection())
                 {
-                    SteamLinkValidation slv = new SteamLinkValidation(_steamLink);
-                    if (slv.getSteamLinkType() == SteamLinkValidation.steamLinkTypes.errorType)
+                    SteamParser steamParser = new SteamParser(_steamLink);
+                    if (!steamParser.IsSteamProfileUrlValid())
                     {
                         ErrorMessage =
                             (string) Application.Current.FindResource(
@@ -105,25 +105,22 @@ namespace Steam_Connection.MVVM.ViewModel
                         int vacCount;
                         D2Rank d2Rank;
                         CSRank cSRank;
-                        SteamParser steamParser = new SteamParser(slv.getSteamId64());
                         MainViewModel.AddOrEditAccountProgress =
                             (string) Application.Current.FindResource("mw_account_steam_data");
-                        steamParser.parseAccInfo();
-                        steamParser.parseVacs();
-                        steamNickname = steamParser.getNickname();
-                        steamPicture = steamParser.getSteamPicture();
-                        vacCount = steamParser.getVacCount();
-                        Dota2RankParser d2RankParser = new Dota2RankParser(slv.getSteamId64());
+                        steamNickname = steamParser.GetNick();
+                        steamPicture = steamParser.GetAvatarLink();
+                        vacCount = steamParser.GetVacsCount();
+                        Dota2RankParser d2RankParser = new Dota2RankParser(steamParser.GetSteamId64());
                         MainViewModel.AddOrEditAccountProgress =
                             (string) Application.Current.FindResource("mw_account_dota2_data");
                         d2RankParser.parseDota2Rank();
                         d2Rank = d2RankParser.getD2Rank();
-                        CSGORankParser cSRankParser = new CSGORankParser(slv.getSteamId64());
+                        CSGORankParser cSRankParser = new CSGORankParser(steamParser.GetSteamId64());
                         MainViewModel.AddOrEditAccountProgress =
                             (string) Application.Current.FindResource("mw_account_csgo_data");
                         cSRankParser.parseCSGORank();
                         cSRank = cSRankParser.getCSRank();
-                        config.accounts.Add(new Model.Account(slv.getSteamId64(), SteamLogin, SteamPassword,
+                        config.accounts.Add(new Model.Account(steamParser.GetSteamId64(), SteamLogin, SteamPassword,
                             steamNickname, steamPicture, vacCount, d2Rank, cSRank));
                         config.saveChanges();
                         MainViewModel.AccountsViewCommand.Execute(null);
