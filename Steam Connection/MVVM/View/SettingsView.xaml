@@ -135,6 +135,7 @@
                                    Foreground="{DynamicResource sv_textblock}"/>
                         <TextBox x:Name="DirectoryBox"
                                  Height="37"
+                                 IsEnabled="False"
                                  Width="402"
                                  themes:Extentions.Placeholder="F:\Steam\steam.exe"
                                  Style="{StaticResource ModernTextboxTheme}"

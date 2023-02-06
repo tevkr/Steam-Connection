@@ -35,6 +35,7 @@ namespace Steam_Connection
                 });
                 DotEnv.Load(dotenv);
                 Config config = Config.getInstance();
+                config.steamDir = Utils.GetSteamRegistrySteamExe();
                 if (config.pinMode)
                 {
                     PinCodeWindow pinCodeWindow = new PinCodeWindow();

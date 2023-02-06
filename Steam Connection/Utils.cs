@@ -162,6 +162,20 @@ namespace Steam_Connection
             catch { throw; }
             return activeUser;
         }
+        public static string GetSteamRegistrySteamExe()
+        {
+            string steamExe = string.Empty;
+            RegistryKey registryKey = Environment.Is64BitOperatingSystem ?
+                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64) :
+                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
+            try
+            {
+                registryKey = registryKey.OpenSubKey(@"Software\\Valve\\Steam", false);
+                steamExe = registryKey.GetValue("SteamExe").ToString();
+            }
+            catch { throw; }
+            return steamExe;
+        }
         public static void SendCharacter(IntPtr hwnd, char c)
         {
             Config config = Config.getInstance();
