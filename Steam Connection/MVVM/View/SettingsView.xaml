@@ -135,6 +135,7 @@
                                    Foreground="{DynamicResource sv_textblock}"/>
                         <TextBox x:Name="DirectoryBox"
                                  Height="37"
+                                 IsEnabled="False"
                                  Width="402"
                                  themes:Extentions.Placeholder="F:\Steam\steam.exe"
                                  Style="{StaticResource ModernTextboxTheme}"
@@ -251,9 +252,10 @@
                                   IsChecked="{Binding RememberPasswordMode}"
                                   Cursor="Hand"
                                   Margin="0 0 15 0"/>
+                        <!--Visibility="{Binding RememberPasswordMode, Converter={StaticResource BooleanToVisibilityConverterNotCollapsed}}"-->
                         <ComboBox Width="120"
                                   Height="30"
-                                  Visibility="{Binding RememberPasswordMode, Converter={StaticResource BooleanToVisibilityConverterNotCollapsed}}"
+                                  Visibility="Collapsed"
                                   SelectedIndex="{Binding InputMethod}"
                                   Cursor="Hand">
                             <ComboBoxItem Content="SendMessage"/>

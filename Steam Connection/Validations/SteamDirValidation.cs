@@ -10,7 +10,7 @@ namespace Steam_Connection.Validations
     {
         public static bool isSteamDirCorrect(string steamDir)
         {
-            return steamDir.ToLower().Split('\\').Last().Equals("steam.exe");
+            return steamDir.ToLower().Split('\\').Last().Equals("steam.exe") || steamDir.ToLower().Split('/').Last().Equals("steam.exe");
         }
     }
 }

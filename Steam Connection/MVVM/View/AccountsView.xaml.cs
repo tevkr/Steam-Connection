@@ -90,29 +90,19 @@ namespace Steam_Connection.MVVM.View
                             {
                                 if (config.closeMode)
                                 {
-                                    Connector.Connector.onConnected += (bool connected) =>
-                                    {
-                                        if (connected)
+                                    void closeApplication(bool connected) {
+                                        if (config.closeMode)
                                         {
                                             Application.Current.Dispatcher.InvokeShutdown();
                                         }
-                                    };
+                                    }
+                                    Connector.Connector.onConnected += closeApplication;
                                     Application.Current.MainWindow.Hide();
                                 }
-                                if (config.rememberPasswordMode)
+                                await Task.Run(() =>
                                 {
-                                    await Task.Run(() =>
-                                    {
-                                        Connector.Connector.rememberPasswordConnectToSteamAsync(config.accounts[abvm.Id - 1]);
-                                    });
-                                }
-                                else
-                                {
-                                    await Task.Run(() =>
-                                    {
-                                        Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1]);
-                                    });
-                                }
+                                    Connector.Connector.connectToSteamAsync(config.accounts[abvm.Id - 1], config.rememberPasswordMode);
+                                });
                             }
                             else
                             {

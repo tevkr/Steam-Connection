@@ -35,19 +35,17 @@ namespace Steam_Connection.MVVM.Model
             this.steamPicture = steamPicture;
             this.vacCount = vacCount;
             this.d2Rank = new D2Rank(d2rank, d2star, d2leaderRank);
-            this.cSRank = new CSRank(); //TODO
+            this.cSRank = new CSRank();
         }
         public Account(string steamId64, string login, string password)
         {
             this.login = login;
             this.password = password;
             this.steamId64 = steamId64;
-            SteamParser steamParser = new SteamParser(steamId64);
-            steamParser.parseAccInfo();
-            steamParser.parseVacs();
-            this.nickname = steamParser.getNickname();
-            this.steamPicture = steamParser.getSteamPicture();
-            this.vacCount = steamParser.getVacCount();
+            SteamParser steamParser = new SteamParser($"https://steamcommunity.com/profiles/{steamId64}");
+            this.nickname = steamParser.GetNick();
+            this.steamPicture = steamParser.GetAvatarLink();
+            this.vacCount = steamParser.GetVacsCount();
             Dota2RankParser d2RankParser = new Dota2RankParser(steamId64);
             d2RankParser.parseDota2Rank();
             this.d2Rank = d2RankParser.getD2Rank();
