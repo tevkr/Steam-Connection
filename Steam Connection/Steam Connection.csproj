@@ -375,7 +375,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)CsgoStatsParser\bin\$(Configuration)\net6.0\" "$(TargetDir)\external\CsgoStatsParser\"
-xcopy /Y "$(SolutionDir)Updater\bin\$(Configuration)\net6.0\" "$(TargetDir)\external\Updater\"</PostBuildEvent>
+xcopy /Y "$(SolutionDir)Updater\bin\$(Configuration)\net6.0\" "$(TargetDir)\external\Updater\"
+if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)*' -DestinationPath '$(TargetDir)\..\Steam_Connection_V@(VersionNumber).zip' -Force)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
@@ -389,4 +390,18 @@ xcopy /Y "$(SolutionDir)Updater\bin\$(Configuration)\net6.0\" "$(TargetDir)\exte
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets'))" />
   </Target>
+  <Target Name="PostBuildMacros">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="@(Targets->'%(Version)')" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      PostBuildMacros;
+    </PostBuildEventDependsOn>
+  </PropertyGroup>
 </Project>
