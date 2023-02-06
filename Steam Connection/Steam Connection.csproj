@@ -31,7 +31,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Release\Steam Connection\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -376,7 +376,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)CsgoStatsParser\bin\$(Configuration)\net6.0\" "$(TargetDir)\external\CsgoStatsParser\"
 xcopy /Y "$(SolutionDir)Updater\bin\$(Configuration)\net6.0\" "$(TargetDir)\external\Updater\"
-if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)*' -DestinationPath '$(TargetDir)\..\Steam_Connection_V@(VersionNumber).zip' -Force)</PostBuildEvent>
+if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)' -DestinationPath '$(TargetDir)\..\..\Steam_Connection_V@(VersionNumber).zip' -Force)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

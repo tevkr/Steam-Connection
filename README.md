@@ -3,8 +3,8 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
 [![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/65-green.svg)](https://www.virustotal.com/gui/file/3ce2507c661a3adfb401a3b2ccc1bded575a714c44c03896f4affaf3c617fcec?nocache=1)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/tag/V1.0.2.0)
+[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/d382657a09ffa49c91da9d3e1c29ac3437b81c3428444fcaa2b2b1a0a21c80e4/detection)
+[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
 ## Contents
@@ -12,7 +12,6 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
 - [Screenshots](#screenshots)
     - [Dark theme](#dark-theme)
 - [How to use](#how-to-use)
-    - [Setting the steam directory](#setting-the-steam-directory)
     - [Account adding](#account-adding)
     - [Log in to account](#log-in-to-account)
  - [Additional features](#additional-features)
@@ -23,7 +22,6 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
     - [PIN code for the program](#pin-code-for-the-program)
     - [Moving the account position](#moving-the-account-position)
  - [Interaction with the Internet](#interaction-with-the-internet)
- - [How to compile](#how-to-compile)
  - [Frequently Asked Questions](#frequently-asked-questions)
  - [Afterword](#afterword)
  - [Updates](#updates)
@@ -32,6 +30,7 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
      - [1.0.1.1 update](#1011-update)
      - [1.0.1.2 update](#1012-update)
      - [1.0.2.0 update](#1020-update)
+     - [1.0.3.0 update](#1030-update)
 ## Foreword
 This is my first experience in creating an application in C# WPF, I chose MVVM as the main pattern, but due to inexperience it didn't work out very well. If I have had the time and desire, I would have written a project from scratch, but already with a lot of knowledge.
 ## Screenshots
@@ -43,13 +42,6 @@ This is my first experience in creating an application in C# WPF, I chose MVVM a
 ![screen](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/en_screen_dark_5.png)
 ![screen](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/en_screen_dark_6.png)
 ## How to use
-### Setting the steam directory
-To be able to log in to accounts, you need to specify exactly where steam.exe is located. To do this, go to the settings, click on the "Steam directory" field and find steam.exe on the computer.
-
-![dir](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/steam_dir_1.png)
-
-![dir](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/en_steam_dir_2.png)
-
 ### Account adding
 In the accounts section, click on the blue add account button on the top right.
 ![add](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/en_add_account.png)
@@ -101,17 +93,7 @@ CS:GO ranks: [csgostats.gg](https://csgostats.gg/);
 
 DOTA 2 ranks: [opendota](https://docs.opendota.com/);
 
-Steam: [valvesoftware](https://developer.valvesoftware.com/wiki/Steam_Web_API).
-## How to compile
-In order to compile the project, and when adding or changing the account, an error did not come out, you need to add the .env file to the project:
-
-![dot_env](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/dot_env.png)
-
-.env file content:
-```
-STEAM_API_KEY=********************************
-```
-Where * should be replaced with the characters of your Steam Api Key. You can register a Steam Web API key by following the [link](https://steamcommunity.com/dev/apikey).
+Steam: [steamidfinder](https://steamid.xyz/).
 ## Frequently Asked Questions
 1. What is the steam directory?
 
@@ -151,3 +133,8 @@ Bugs fixed, the ForceWindowToForeground method added in the Utils class.
 ### 1.0.2.0 update
 - Added the ability to update via the app;
 - Added the -noreactlogin flag to fix the last Steam UI update.
+### 1.0.3.0 update
+- Added React UI support;
+- Changed the method of parsing Steam data;
+- Added auto-completion of the Steam directory;
+- Fixed bugs.
