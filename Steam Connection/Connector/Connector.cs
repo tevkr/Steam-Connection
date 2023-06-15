@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,70 +42,76 @@ namespace Steam_Connection.Connector
         {
             try
             {
+                // Waiting for steam login window
                 IntPtr steamLoginWindowHandle = Utils.waitForWindow(timeout, Utils.TryGetSteamLoginWindow, token);
                 if (steamLoginWindowHandle == IntPtr.Zero) return false;
                 using (var automation = new UIA3Automation())
                 {
                     AutomationElement window = automation.FromHandle(steamLoginWindowHandle);
-                    //window.SetForeground();
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     while (!window.IsAvailable && !window.IsOffscreen)
                     {
                         Thread.Sleep(200);
                     }
-                    //window.SetForeground();
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
+                    // Getting window document
                     AutomationElement document = window.FindFirstDescendant(e => e.ByControlType(ControlType.Document));
-                    //window.SetForeground();
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
+                    // Getting textboxes from document
                     List<TextBox> textBoxes = document.FindAllChildren(e => e.ByControlType(ControlType.Edit)).Select(edit => edit.AsTextBox()).ToList();
+                    // If steam window is still not login window
                     while (textBoxes.Count != 2)
                     {
-                        //window.SetForeground();
                         Utils.ForceWindowToForeground(steamLoginWindowHandle);
+                        var imageControlTypeCount = document.FindAllChildren(e => e.ByControlType(ControlType.Image)).Count();
+                        var textControlTypeCount = document.FindAllChildren(e => e.ByControlType(ControlType.Text)).Count();
+                        var groupContolTypeCount = document.FindAllChildren(e => e.ByControlType(ControlType.Group)).Count();
+                        // If new shitty update
+                        if (imageControlTypeCount == 2 && textControlTypeCount == 1 && groupContolTypeCount > 1)
+                        {
+                            Button addAccountButton = document.FindAllChildren().Last().AsButton();
+                            Utils.ForceWindowToForeground(steamLoginWindowHandle);
+                            addAccountButton.Focus();
+                            addAccountButton.WaitUntilEnabled();
+                            addAccountButton.Invoke();
+                            Thread.Sleep(30);
+                        }
+                        // Refresh textboxes
                         textBoxes = document.FindAllChildren(e => e.ByControlType(ControlType.Edit)).Select(edit => edit.AsTextBox()).ToList();
-                        Thread.Sleep(200);
+                        Thread.Sleep(50);
                     }
-                    //window.SetForeground();
+                    // Getting remember password checkbox and its state
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     Button checkBox = document.FindFirstChild(e => e.ByControlType(ControlType.Group)).AsButton();
-                    //window.SetForeground();
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
-                    bool rememberPasswordState = document.FindFirstChild(e => e.ByControlType(ControlType.Image)) != null;
-                    //window.SetForeground();
+                    bool rememberPasswordState = checkBox.FindFirstChild(e => e.ByControlType(ControlType.Image)) != null;
+
+                    // Getting login in button
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     Button loginButton = document.FindFirstChild(e => e.ByControlType(ControlType.Button)).AsButton();
 
-                    //window.SetForeground();
+                    // Writing login
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     textBoxes[0].Focus();
                     textBoxes[0].WaitUntilEnabled();
                     textBoxes[0].Text = account.login;
 
-                    //window.SetForeground();
+                    // Writing password
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     textBoxes[1].Focus();
                     textBoxes[1].WaitUntilEnabled();
                     textBoxes[1].Text = account.password;
 
-                    if (rememberPassword && !rememberPasswordState)
+                    // Clicking on remember password checkbox
+                    if ((rememberPassword && !rememberPasswordState) || (!rememberPassword && rememberPasswordState))
                     {
-                        //window.SetForeground();
-                        Utils.ForceWindowToForeground(steamLoginWindowHandle);
-                        checkBox.Focus();
-                        checkBox.WaitUntilEnabled();
-                        checkBox.Invoke();
-                    }
-                    else if (!rememberPassword && rememberPasswordState)
-                    {
-                        //window.SetForeground();
                         Utils.ForceWindowToForeground(steamLoginWindowHandle);
                         checkBox.Focus();
                         checkBox.WaitUntilEnabled();
                         checkBox.Invoke();
                     }
 
-                    //window.SetForeground();
+                    // Clicking on login in button
                     Utils.ForceWindowToForeground(steamLoginWindowHandle);
                     loginButton.Focus();
                     loginButton.WaitUntilEnabled();

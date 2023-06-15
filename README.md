@@ -1,12 +1,16 @@
 ![logo](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/logo.svg)
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
-[![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
-[![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/67ef8760083228a2f0a09f463718cb6fdc1d89d08ba73b2c87252f212fe91262/detection)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
+[![en](https://img.shields.io/badge/Lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
+[![ru](https://img.shields.io/badge/Lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
+[![donationalerts](https://img.shields.io/badge/DonationAlerts-red.svg?logo=bitcoin)](https://www.donationalerts.com/r/nom_xd)
+[![virustotal](https://img.shields.io/badge/VirusTotal-1/63-green.svg?logo=virustotal)](https://www.virustotal.com/gui/file/21435f3898ebc8268fc8825cd7cb8ea154cb8b0f72b958fd3e035bf3dd7ecc1e)
+[![download](https://img.shields.io/badge/Download-Latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
 
 Steam Connection is an application for quickly changing Steam accounts. The application is written in C# WPF. The application saves data from accounts on your computer and does not send them anywhere, you can verify this by looking at the source code.
+## Warning
+For the correct operation of the CS:GO ranks parser, as well as auto-update functions, you must install `.NET Desktop Runtime` from `Microsoft`.
+
+Download links: [Arm64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.14-windows-arm64-installer) | [x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.14-windows-x64-installer) | [x86](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.14-windows-x86-installer).
 ## Contents
 - [Foreword](#foreword)
 - [Screenshots](#screenshots)
@@ -32,6 +36,7 @@ Steam Connection is an application for quickly changing Steam accounts. The appl
      - [1.0.2.0 update](#1020-update)
      - [1.0.3.0 update](#1030-update)
      - [1.0.3.1 update](#1031-update)
+     - [1.0.3.2 update](#1032-update)
 ## Foreword
 This is my first experience in creating an application in C# WPF, I chose MVVM as the main pattern, but due to inexperience it didn't work out very well. If I have had the time and desire, I would have written a project from scratch, but already with a lot of knowledge.
 ## Screenshots
@@ -141,3 +146,6 @@ Bugs fixed, the ForceWindowToForeground method added in the Utils class.
 - Fixed bugs.
 ### 1.0.3.1 update
 - Fixed a bug with auto-update.
+### 1.0.3.2 update
+- New Steam update fixes;
+- CS:GO stats parser fixes.

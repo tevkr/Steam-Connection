@@ -35,7 +35,7 @@ string Parse(string steamId64)
         var htmlDoc = new HtmlDocument();
         htmlDoc.LoadHtml(html);
 
-        var imageRankSrc = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='player-ranks']/img").Attributes["src"].Value;
+        var imageRankSrc = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='player-ranks']/div[1]/div[1]/img").Attributes["src"].Value;
         var rank = imageRankSrc.Split('/').Last().Trim(')').Split('.').First();
         if (int.TryParse(rank, out _))
             parseResult = $"skillgroup{rank}";
