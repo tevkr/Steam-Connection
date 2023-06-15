@@ -278,7 +278,7 @@ namespace Steam_Connection
                 if (IsWindowVisible(hWnd) &&
                     !string.IsNullOrEmpty(title) &&
                     !string.IsNullOrEmpty(classname) &&
-                    classname.Equals("vguiPopupWindow") &&
+                    classname.Equals("SDL_app") &&
                     title.Contains("Steam") &&
                     title.Length > 5)
                 {
@@ -304,7 +304,7 @@ namespace Steam_Connection
 
                 if (!string.IsNullOrEmpty(title) &&
                     !string.IsNullOrEmpty(classname) &&
-                    classname.Equals("vguiPopupWindow") &&
+                    classname.Equals("SDL_app") &&
                     title.Equals("Steam"))
                 {
                     steamMainWindow = hWnd;
