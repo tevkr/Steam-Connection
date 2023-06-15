@@ -1,12 +1,16 @@
 ![logo](https://github.com/tevkr/Steam-Connection/blob/main/README%20images/logo.svg)
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
-[![ru](https://img.shields.io/badge/lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
-[![donationalerts](https://img.shields.io/badge/donationalerts-red.svg)](https://www.donationalerts.com/r/nom_xd)
-[![virustotal](https://img.shields.io/badge/virustotal-1/66-green.svg)](https://www.virustotal.com/gui/file/67ef8760083228a2f0a09f463718cb6fdc1d89d08ba73b2c87252f212fe91262/detection)
-[![download](https://img.shields.io/badge/download-latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
+[![en](https://img.shields.io/badge/Lang-en-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.md)
+[![ru](https://img.shields.io/badge/Lang-ru-blue.svg)](https://github.com/tevkr/Steam-Connection/blob/main/README.ru-RU.md)
+[![donationalerts](https://img.shields.io/badge/DonationAlerts-red.svg?logo=bitcoin)](https://www.donationalerts.com/r/nom_xd)
+[![virustotal](https://img.shields.io/badge/VirusTotal-1/63-green.svg?logo=virustotal)](https://www.virustotal.com/gui/file/21435f3898ebc8268fc8825cd7cb8ea154cb8b0f72b958fd3e035bf3dd7ecc1e)
+[![download](https://img.shields.io/badge/Download-Latest-green.svg)](https://github.com/tevkr/Steam-Connection/releases/latest)
 
 Steam Connection - приложение для быстрой смены аккаунтов Steam. Приложение написано на C# WPF. Приложение сохраняет данные от аккаунтов на вашем компьютере и никуда их не отсылает, убедиться в этом можно посмотрев исходный код.
+## Предупреждение
+Для корректной работы парсера CS:GO званий, а также функции автообновления необходимо установить `.NET Desktop Runtime` от компании `Microsoft`.
+
+Ссылки для скачивания: [Arm64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.14-windows-arm64-installer) | [x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.14-windows-x64-installer) | [x86](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.14-windows-x86-installer).
 ## Содержание
 - [Предисловие](#предисловие)
 - [Скриншоты](#скриншоты)
@@ -32,6 +36,7 @@ Steam Connection - приложение для быстрой смены акк�
      - [Обновление 1.0.2.0](#обновление-1020)
      - [Обновление 1.0.3.0](#обновление-1030)
      - [Обновление 1.0.3.1](#обновление-1031)
+     - [Обновление 1.0.3.2](#обновление-1032)
 ## Предисловие
 Это мой первый опыт в создании приложения на C# WPF, в качестве главного паттерна выбрал MVVM, но из-за неопытности вышло не очень, было бы время и желание, написал бы проект с нуля, но уже c багажом знаний.
 ## Скриншоты
@@ -140,3 +145,6 @@ Steam: [steamidfinder](https://steamid.xyz/).
 - Исправлены ошибки.
 ### Обновление 1.0.3.1
 - Исправлена ошибка с автообновлением.
+### Обновление 1.0.3.2
+- Исправлены ошибки связанные с новым обновлением Steam;
+- Исправлен парсер CS:GO статистики.

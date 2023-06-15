@@ -11,7 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steam Connection", "Steam C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsgoStatsParser", "CsgoStatsParser\CsgoStatsParser.csproj", "{743DE129-C099-4451-8999-6CD1FFAA9D8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{3B4189F8-1FBE-4B82-9351-564BDE231315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updater", "Updater\Updater.csproj", "{3B4189F8-1FBE-4B82-9351-564BDE231315}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{B5A3F68A-1549-4004-AABF-9D863A926452}"
+	ProjectSection(SolutionItems) = preProject
+		last_update.txt = last_update.txt
+		README.md = README.md
+		README.ru-RU.md = README.ru-RU.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
